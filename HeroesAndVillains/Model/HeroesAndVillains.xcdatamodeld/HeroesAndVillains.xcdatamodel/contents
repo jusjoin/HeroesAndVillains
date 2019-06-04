@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CoreMarvelCharacter" representedClassName="CoreMarvelCharacter" syncable="YES" codeGenerationType="class">
+        <attribute name="alignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comics" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="descript" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="events" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="series" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="stories" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="urls" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CoreMarvelCharacter" positionX="-63" positionY="-18" width="128" height="210"/>
+    </elements>
+</model>
