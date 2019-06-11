@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias CharacterHandler = ([Result]) -> Void
+typealias CharacterHandler = ([marvelCharacter]) -> Void
 let mvlService = MarvelService.shared
 
 final class MarvelService{
@@ -27,7 +27,7 @@ final class MarvelService{
     //MARK: Character
     func getCharacters(completion: @escaping CharacterHandler){
         
-        let urlString = MarvelAPI.getCharacters()
+        let urlString = MarvelAPI.getCharactersURL()
         
         guard let finalURL = URL(string: urlString) else {
             completion([])
@@ -41,7 +41,7 @@ final class MarvelService{
                 do {
                     let response = try JSONDecoder().decode(CharacterResults.self, from: data)
                     
-                    let marvelCharacters = response.data.results.character
+                    let marvelCharacters = response.data.results
                     
                     completion(marvelCharacters)
                     
@@ -55,4 +55,33 @@ final class MarvelService{
             }.resume()
     }
     
+    func getCharacterByFullName(fullName: String, completion: @escaping CharacterHandler){
+        
+        let urlString = MarvelAPI.getCharacterByFullNameURL(fullName)
+        
+        guard let finalURL = URL(string: urlString) else {
+            completion([])
+            return
+        }
+        
+        session.dataTask(with: finalURL) { (dat, _, _) in
+            
+            if let data = dat {
+                
+                do {
+                    let response = try JSONDecoder().decode(CharacterResults.self, from: data)
+                    
+                    let marvelCharacter = response.data.results
+                    
+                    completion(marvelCharacter)
+                    
+                } catch let err {
+                    completion([])
+                    print("Decoding Error: \(err.localizedDescription)")
+                }
+                
+            }
+            
+            }.resume()
+    }
 }

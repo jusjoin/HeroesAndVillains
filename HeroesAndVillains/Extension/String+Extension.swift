@@ -16,7 +16,7 @@ extension String{
     var md5: String{
         
         let md5Data = MD5(string: self)
-        return md5Data.base64EncodedString()
+        return md5Data.map { String(format: "%02hhx", $0) }.joined()
     }
     
     private func MD5(string: String) -> Data {

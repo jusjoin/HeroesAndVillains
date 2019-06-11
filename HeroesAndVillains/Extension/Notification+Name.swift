@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+extension Notification.Name{
+    
+    static let CharacterNotification = Notification.Name("CharacterNotification")
+    static let TopCharacterNotification = Notification.Name("TopCharacterNotification")
+}

@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+class aCharacter{
+    
+    var id = Int()
+    var name = String()
+    var description = String()
+    var image = String()
+    
+    init(with aChar: marvelCharacter){
+        
+        id = aChar.id
+        name = aChar.name
+        description = aChar.description
+        image = aChar.thumbnail.path + "." + aChar.thumbnail.extens
+    }
+}
