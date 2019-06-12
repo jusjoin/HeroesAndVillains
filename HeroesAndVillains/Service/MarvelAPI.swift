@@ -14,7 +14,7 @@ struct MarvelAPI {
     static let charactersMethod = "characters?"
     static let characterFullNameMethod = "characters?name="
     static let characterNameStartsWithMethod = "characters?nameStartsWith="
-    static let comicsMethod = ""
+    static let comicsMethod = "comics"
     static let seriesMethod = ""
     static let eventsMethod = ""
     static let limit = 20
@@ -24,10 +24,12 @@ struct MarvelAPI {
     static let privateKey = "7eab78cecd6feda9c1948cf74af6a474cc021c50"
     static let hash = "&hash=" + (ts+privateKey+publicKey).md5
     
+    
+    //MARK: Characters
     static func getCharactersURL() -> String{
         
         let url = (base + charactersMethod + "&ts=" + ts + "&apikey=" + publicKey + hash )
-        print("Search Character URL: " + url)
+        print("Get Characters URL: " + url)
         return url
     }
     
@@ -47,5 +49,13 @@ struct MarvelAPI {
         
     }
     
+    //MARK: Comics
+    
+    static func getComicsURL() -> String{
+        
+        let url = (base + comicsMethod + "?ts=" + ts + "&apikey=" + publicKey + hash )
+        print("Get Comics URL: " + url)
+        return url
+    }
     
 }

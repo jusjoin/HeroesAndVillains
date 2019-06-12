@@ -55,6 +55,7 @@ struct Items: Decodable{
 
     let resourceURI: String
     let name: String
+    let role: String?
 }
 
 struct Series: Decodable{

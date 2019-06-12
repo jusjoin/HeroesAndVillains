@@ -9,6 +9,7 @@
 import Foundation
 
 typealias CharacterHandler = ([marvelCharacter]) -> Void
+typealias ComicHandler = ([marvelComic]) -> Void
 let mvlService = MarvelService.shared
 
 final class MarvelService{
@@ -83,5 +84,37 @@ final class MarvelService{
             }
             
             }.resume()
+    }
+    
+    //MARK: Comics
+    
+    func getComics(completion: @escaping ComicHandler){
+        
+        let urlString = MarvelAPI.getComicsURL()
+        
+        guard let finalURL = URL(string: urlString) else {
+            completion([])
+            return
+        }
+    
+    session.dataTask(with: finalURL) { (dat, _, _) in
+    
+        if let data = dat {
+            
+            do {
+                let response = try JSONDecoder().decode(ComicResults.self, from: data)
+                
+                let marvelComics = response.data.results
+                
+                completion(marvelComics)
+                
+            } catch let err {
+                completion([])
+                print("Decoding Error: \(err.localizedDescription)")
+            }
+            
+        }
+        
+        }.resume()
     }
 }

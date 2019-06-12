@@ -99,6 +99,7 @@
                     <navigationItem key="navigationItem" id="akZ-AY-aWk"/>
                     <connections>
                         <outlet property="characterCollectionView" destination="8sh-hf-nUF" id="dR4-gw-0JM"/>
+                        <outlet property="mainTableView" destination="Q0S-ko-WVF" id="uGv-dE-baH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Jc-zS-7qm" userLabel="First Responder" sceneMemberID="firstResponder"/>

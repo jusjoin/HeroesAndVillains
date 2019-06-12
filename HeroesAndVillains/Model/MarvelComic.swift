@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct SearchResults: Decodable {
-    let data : ComicResults
+struct ComicResults: Decodable {
+    let data : SearchResults
 }
 
-struct ComicResults: Decodable {
+struct SearchResults: Decodable {
     let results: [marvelComic]
     
     
@@ -23,24 +23,32 @@ class marvelComic: Decodable{
     let id : Int
     let title : String
     let issueNumber : Int
-    let description : String
+    let description : String?
     let upc : String
     let urls : [Urls]
     let prices : [Prices]
-    let image : [Images]
-    let creators : [Creators]
+    let images : [Images]?
+    //let creators : [Creators]?
     
 }
 
 struct Prices: Decodable{
-    
+    let type: String
+    let price: Double
 }
 
 struct Images: Decodable{
+    let path: String
+    let extens: String
     
-    
+    private enum CodingKeys: String, CodingKey{
+        case path
+        case extens = "extension"
+    }
+
 }
 
 struct Creators: Decodable{
-    
+    let collectionURI: String?
+    let items: Items
 }

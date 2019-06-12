@@ -18,5 +18,21 @@ class Comic{
     var price = Double()
     var image = String()
     var creators = [String]()
-
+    
+    init(with aComic: marvelComic){
+        
+        id = aComic.id
+        title = aComic.title
+        description = aComic.description ?? ""
+        image = Constants.Keys.defaultComicImage.rawValue
+        if aComic.images!.isEmpty{print("No image present for comic \(title)")}
+        if !aComic.images!.isEmpty{
+            guard let path = aComic.images?[0].path else{return}
+            guard let ext = aComic.images?[0].extens else{return}
+            image = path + "." + ext
+        }
+        
+        
+    }
+    
 }

@@ -22,7 +22,13 @@ class ViewModel{
         }
     }
     
-    var characterComics = Comic()
+    var comics = [marvelComic](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.ComicsNotification, object: nil)
+        }
+    }
+    
+    var characterComics = [marvelComic]()
     
     //MARK: Characters
     
@@ -52,6 +58,15 @@ class ViewModel{
     
     
     //MARK: Comics
+    
+    func getComics(){
+        
+        mvlService.getComics(){ [unowned self] comics in
+            
+            self.comics = comics
+            print("Comics Count: \(comics.count)")
+        }
+    }
     
     func getComicsForCharacter(){
         //TODO
