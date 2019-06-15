@@ -13,6 +13,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var mainTableView: UITableView!
     
     let viewModel = ViewModel()
+    let identifier = Constants.Keys.homeVCIdentifier.rawValue
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +54,16 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: 175, height: 194)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+        detailsVC.viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
+        
+        self.navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 
@@ -110,7 +121,7 @@ extension HomeViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-        
+        cell.vcIdentifier = identifier
 //        let thisCharacter = viewModel.characters[indexPath.row]
 //        cell.configure(with: aCharacter(with: thisCharacter))
         

@@ -12,6 +12,15 @@ class ComicCollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var ComicCollectionView: UICollectionView!
     
     let viewModel = ViewModel()
+    var vcIdentifier: String?{
+        didSet{
+            setupComicCollection()
+        }
+    }
+    
+    var comicPeriodDateDescriptor = "thisMonth"
+    var comicPeriodDate1 = String()
+    var comicPeriodDate2 = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,10 +29,20 @@ class ComicCollectionTableViewCell: UITableViewCell {
         self.ComicCollectionView.delegate = self
         self.ComicCollectionView.register(UINib.init(nibName: "ComicCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ComicCollectionViewCell")
         NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsNotification, object: nil)
+        setupDates()
         
-        setupComicCollection()
     }
     
+    func setupDates(){
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let today = Date()
+        comicPeriodDate1 = dateFormatter.string(from: today)
+        let thePast = Calendar.current.date(byAdding: .weekOfYear, value: -24, to: Date())!
+        comicPeriodDate2 = dateFormatter.string(from: thePast)
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -32,8 +51,12 @@ class ComicCollectionTableViewCell: UITableViewCell {
     }
     
     func setupComicCollection(){
-        
-        viewModel.getComics()
+
+        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
+            viewModel.getComicsLatest(dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
+        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
+            viewModel.getComicsForCharacter(for: viewModel.character.id, dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
+        }
     }
     
     @objc func updateComicCollection(){

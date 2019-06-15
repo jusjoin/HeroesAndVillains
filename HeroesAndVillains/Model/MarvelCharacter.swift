@@ -30,7 +30,6 @@ class marvelCharacter: Decodable{
     let events : Events
     let urls: [Urls]
     
-    
 }
 
 struct Thumbnail: Decodable{

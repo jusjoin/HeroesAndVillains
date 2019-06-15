@@ -11,62 +11,81 @@ import UIKit
 class CharacterDetailsViewController: UIViewController {
     @IBOutlet weak var characterImageView: UIImageView!
     @IBOutlet weak var characterNameLabel: UILabel!
-    @IBOutlet weak var characterDescriptionTextField: UITextView!
+    @IBOutlet weak var characterDescriptionLabel: UILabel!
     @IBOutlet weak var detailsTableView: UITableView!
     
-    var viewModel : ViewModel!
+    var viewModel = ViewModel()
+    let identifier = Constants.Keys.characterDetailsVCIdentifier.rawValue
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupCharacter()
+        setupComicCollection()
     }
     
+    func setupCharacter(){
+         dlManager.download(viewModel.character.image){[unowned self] dat in
+            
+            if let data = dat {
+                
+                let image = UIImage(data: data)
+                self.characterImageView.image = image
+            }
+        }
+        characterNameLabel.text = viewModel.character.name
+        print(viewModel.character.description)
+        characterDescriptionLabel.text = viewModel.character.description
+    }
 
     func setupComicCollection(){
-        detailsTableView.register(UINib(nibName: "ComicColectionViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicColectionViewCell")
+
         detailsTableView.tableFooterView = UIView(frame: .zero)
-        viewModel.getComicsForCharacter()
+        detailsTableView.delegate = self
+        detailsTableView.dataSource = self
+        detailsTableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
+        //viewModel.getComicsForCharacter()
     }
 
 }
 
 //MARK: Table view
 
-//extension CharacterDetailsViewController: UITableViewDelegate{
-//    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return viewModel.tracks.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: ContentTableCell.identifier, for: indexPath) as! ContentTableCell
-//        
-//        cell.backgroundColor = .clear
-//        
-//        let track = viewModel.tracks[indexPath.row]
-//        let content = Content.track(track)
-//        cell.configure(with: content)
-//        
-//        return cell
-//    }
-//}
-//
-//extension CharacterDetailsViewController: UITableViewDataSource{
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//    
-//    
-//    
-//}
+extension CharacterDetailsViewController: UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 180
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {return "\(viewModel.character.name) Comics"}
+        
+        return "Section"
+    }
+}
 
-//MARK: Collection view
+extension CharacterDetailsViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        //setupComicCollection() 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
+        cell.viewModel.character = self.viewModel.character
+        cell.vcIdentifier = identifier
 
-extension CharacterDetailsViewController: UICollectionViewDelegateFlowLayout{
+        //        let thisCharacter = viewModel.characters[indexPath.row]
+        //        cell.configure(with: aCharacter(with: thisCharacter))
+        
+        return cell
+    }
+    
     
 }

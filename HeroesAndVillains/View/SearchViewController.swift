@@ -63,6 +63,12 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+        detailsVC.viewModel.character = aCharacter(with: viewModel.characters[indexPath.row])
+        
+        self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -91,17 +97,18 @@ extension SearchViewController: UITableViewDataSource{
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-        guard let search = searchBar.text?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+//        var allowedChars = CharacterSet(charactersIn: "-._~/? ")
+//        allowedChars.formUnion(CharacterSet.alphanumerics)
+        guard let search = searchBar.text?.addingPercentEncoding(withAllowedCharacters: CharacterSet.customAllowedURLCharacters()) else {
             return
         }
         
-        if search == ""{
+        if search.trimmingCharacters(in: .whitespaces).isEmpty{
             
             viewModel.getCharacters()
         }else{
             
-            viewModel.getCharacters()
+            viewModel.getCharactersByName(name: search)
         }
     }
 

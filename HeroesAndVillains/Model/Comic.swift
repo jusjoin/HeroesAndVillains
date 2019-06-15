@@ -19,6 +19,10 @@ class Comic{
     var image = String()
     var creators = [String]()
     
+    init(){
+        
+    }
+    
     init(with aComic: marvelComic){
         
         id = aComic.id

@@ -10,6 +10,8 @@ import Foundation
 
 class ViewModel{
     
+    var character = aCharacter()
+    
     var characters = [marvelCharacter](){
         didSet{
             NotificationCenter.default.post(name: Notification.Name.CharacterNotification, object: nil)
@@ -22,13 +24,19 @@ class ViewModel{
         }
     }
     
+    var comic = Comic()
+    
     var comics = [marvelComic](){
         didSet{
             NotificationCenter.default.post(name: Notification.Name.ComicsNotification, object: nil)
         }
     }
     
-    var characterComics = [marvelComic]()
+    var characterComics = [marvelComic](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.ComicsForNotification, object: nil)
+        }
+    }
     
     //MARK: Characters
     
@@ -36,6 +44,20 @@ class ViewModel{
         mvlService.getCharacters(){ [unowned self] characters in
             
             self.characters = characters
+            print("Character Count: \(characters.count)")
+        }
+    }
+    
+    func getCharactersByName(name: String){
+        mvlService.getCharacterByFullName(fullName: name){ [unowned self] characters in
+            
+            self.characters = characters
+            print("Character Count: \(characters.count)")
+        }
+        
+        mvlService.getCharacterByNameStartsWith(fullName: name){ [unowned self] characters in
+            
+            self.characters += characters
             print("Character Count: \(characters.count)")
         }
     }
@@ -68,8 +90,21 @@ class ViewModel{
         }
     }
     
-    func getComicsForCharacter(){
-        //TODO
-        print("{{{ ViewModel.getComicsForCharacter: NOT IMPLEMENTED }}}")
+    func getComicsForCharacter(for charID: Int, dateDescriptor period: String, forDate1 date1: String?, forDate2 date2: String?){
+
+        mvlService.getComicsForCharacter(for: charID, dateDescriptor: period, forDate1: date1, forDate2: date2){ [unowned self] comics in
+            
+            self.comics = comics
+            print("Comics Count: \(comics.count)")
+        }
+    }
+    
+    func getComicsLatest(dateDescriptor period: String, forDate1 date1: String?, forDate2 date2: String?){
+        
+        mvlService.getComicsLatest(dateDescriptor: period, forDate1: date1, forDate2: date2){ [unowned self] comics in
+            
+            self.comics = comics
+            print("Comics Count: \(comics.count)")
+        }
     }
 }

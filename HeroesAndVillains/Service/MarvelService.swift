@@ -86,6 +86,42 @@ final class MarvelService{
             }.resume()
     }
     
+    func getCharacterByNameStartsWith(fullName: String, completion: @escaping CharacterHandler){
+        
+        var name = String()
+        if fullName.count > 3{
+            name = String(fullName.prefix(3))
+        }else{
+            name = String(fullName.prefix(fullName.count))
+        }
+        let urlString = MarvelAPI.getCharacterByNameStartsWithURL(name)
+        
+        guard let finalURL = URL(string: urlString) else {
+            completion([])
+            return
+        }
+        
+        session.dataTask(with: finalURL) { (dat, _, _) in
+            
+            if let data = dat {
+                
+                do {
+                    let response = try JSONDecoder().decode(CharacterResults.self, from: data)
+                    
+                    let marvelCharacter = response.data.results
+                    
+                    completion(marvelCharacter)
+                    
+                } catch let err {
+                    completion([])
+                    print("Decoding Error: \(err.localizedDescription)")
+                }
+                
+            }
+            
+            }.resume()
+    }
+    
     //MARK: Comics
     
     func getComics(completion: @escaping ComicHandler){
@@ -116,5 +152,65 @@ final class MarvelService{
         }
         
         }.resume()
+    }
+    
+    func getComicsForCharacter(for charID: Int, dateDescriptor period: String?, forDate1 date1: String?, forDate2 date2: String?, completion: @escaping ComicHandler){
+        
+        let urlString = MarvelAPI.getComicsForCharacterURL(for: charID, dateDescriptor: period, fordate1: date1, fordate2: date2)
+        
+        guard let finalURL = URL(string: urlString) else {
+            completion([])
+            return
+        }
+        
+        session.dataTask(with: finalURL) { (dat, _, _) in
+            
+            if let data = dat {
+                
+                do {
+                    let response = try JSONDecoder().decode(ComicResults.self, from: data)
+                    
+                    let marvelComics = response.data.results
+                    
+                    completion(marvelComics)
+                    
+                } catch let err {
+                    completion([])
+                    print("Decoding Error: \(err.localizedDescription)")
+                }
+                
+            }
+            
+            }.resume()
+    }
+    
+    func getComicsLatest(dateDescriptor period: String, forDate1 date1: String?, forDate2 date2: String?, completion: @escaping ComicHandler){
+        
+        let urlString = MarvelAPI.getComicsLatestURL(dateDescriptor: period, fordate1: date1, fordate2: date2)
+        
+        guard let finalURL = URL(string: urlString) else {
+            completion([])
+            return
+        }
+        
+        session.dataTask(with: finalURL) { (dat, _, _) in
+            
+            if let data = dat {
+                
+                do {
+                    let response = try JSONDecoder().decode(ComicResults.self, from: data)
+                    
+                    let marvelComics = response.data.results
+                    
+                    completion(marvelComics)
+                    
+                } catch let err {
+                    completion([])
+                    print("Decoding Error: \(err.localizedDescription)")
+                }
+                
+            }
+            
+            }.resume()
     }
 }

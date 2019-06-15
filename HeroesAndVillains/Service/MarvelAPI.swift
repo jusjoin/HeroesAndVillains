@@ -14,7 +14,10 @@ struct MarvelAPI {
     static let charactersMethod = "characters?"
     static let characterFullNameMethod = "characters?name="
     static let characterNameStartsWithMethod = "characters?nameStartsWith="
-    static let comicsMethod = "comics"
+    static let comicsMethod = "comics?"
+    static let comicsForCharacterMethod = "characters="
+    static let comicsBetweenDatesMethod = "dateRange="
+    static let comicsLatestMethod = "dateDescriptor="
     static let seriesMethod = ""
     static let eventsMethod = ""
     static let limit = 20
@@ -53,9 +56,78 @@ struct MarvelAPI {
     
     static func getComicsURL() -> String{
         
-        let url = (base + comicsMethod + "?ts=" + ts + "&apikey=" + publicKey + hash )
+        let url = (base + comicsMethod + "ts=" + ts + "&apikey=" + publicKey + hash )
         print("Get Comics URL: " + url)
         return url
     }
     
+    static func getComicsForCharacterURL(for charID: Int, dateDescriptor period: String?, fordate1 date1: String?, fordate2 date2: String?) -> String{
+        
+        //descriptors = thisMonth, thisWeek, nextWeek, lastWeek
+        let charIDString = String(charID)
+        var url = String()
+        var periodSpecifiers = ""
+        
+        if let thisPeriod = period{
+            periodSpecifiers += comicsLatestMethod + thisPeriod
+        }
+        
+        if let thisDate1 = date1{
+            if let thisDate2 = date2{
+                if periodSpecifiers != ""{
+                    periodSpecifiers += "&" + comicsBetweenDatesMethod + thisDate1 + "," + thisDate2
+                }else{
+                    periodSpecifiers += comicsBetweenDatesMethod + thisDate1 + "," + thisDate2
+                }
+            }
+        }
+        
+        if periodSpecifiers != ""{
+            url = (base + comicsMethod + periodSpecifiers +  "&" + comicsForCharacterMethod + charIDString + "&ts=" + ts + "&apikey=" + publicKey + hash )
+        }else{
+            url = (base + comicsMethod + comicsForCharacterMethod + charIDString + "&ts=" + ts + "&apikey=" + publicKey + hash )
+        }
+        print("Get Comics URL: " + url)
+        return url
+    }
+    
+    static func getComicsBetwenDatesURL(fordate1 date1: String, fordate2 date2: String) -> String{
+        
+        let url = (base + comicsMethod + comicsBetweenDatesMethod + date1 + "," + date2 + "&ts=" + ts + "&apikey=" + publicKey + hash )
+        print("Get Comics URL: " + url)
+        return url
+    }
+    
+    static func getComicsLatestURL(dateDescriptor period: String?, fordate1 date1: String?, fordate2 date2: String?) -> String{
+        
+        //descriptors = thisMonth, thisWeek, nextWeek, lastWeek
+        
+        var url = String()
+        var periodSpecifiers = ""
+        
+        if let thisPeriod = period{
+            periodSpecifiers += comicsLatestMethod + thisPeriod
+        }
+        
+        if let thisDate1 = date1{
+            if let thisDate2 = date2{
+                if periodSpecifiers != ""{
+                    periodSpecifiers += "&" + comicsBetweenDatesMethod + thisDate1 + "," + thisDate2
+                }else{
+                    periodSpecifiers += comicsBetweenDatesMethod + thisDate1 + "," + thisDate2
+                }
+            }
+        }
+        
+        if periodSpecifiers != ""{
+            url = (base + comicsMethod + periodSpecifiers + "&ts=" + ts + "&apikey=" + publicKey + hash )
+        }else{
+            url = (base + comicsMethod + "ts=" + ts + "&apikey=" + publicKey + hash )
+        }
+        
+        //let url = (base + comicsMethod + comicsLatestMethod + period + "&" + comicsBetweenDatesMethod + date1 + "," + date2 + "ts=" + ts + "&apikey=" + publicKey + hash )
+        print("Get Comics URL: " + url)
+        
+        return url
+    }
 }
