@@ -11,13 +11,34 @@ import UIKit
 class CharacterCollectionCell: UICollectionViewCell {
     @IBOutlet weak var characterImageView: UIImageView!
     @IBOutlet weak var characterNameLabel: UILabel!
+    @IBOutlet weak var faveButton: UIButton!
     
     let viewModel = ViewModel()
     static let identifier = "CharacterCollectionCell"
     
+    var faved = false{ // move to viewModel
+        didSet{
+            if faved == true{
+                let origImage = UIImage(named: "fave-filled.png")
+                let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+                faveButton.setImage(tintedImage, for: .normal)
+                faveButton.tintColor = .yellow
+                //faveButton.setImage(UIImage.init(named: "fave-filled.png"), for: .normal)
+            }else{
+                let origImage = UIImage(named: "fave.png")
+                let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+                faveButton.setImage(tintedImage, for: .normal)
+                faveButton.tintColor = .yellow
+                //faveButton.setImage(UIImage.init(named: "fave.png"), for: .normal)
+            }
+        }
+    }
+    
     func configure(with char: aCharacter){
         
+        viewModel.character = char
         characterNameLabel.text = char.name
+        faved = viewModel.CheckFavedCharacters(with: char)
         
         dlManager.download(char.image) { [unowned self] dat in
             
@@ -28,6 +49,19 @@ class CharacterCollectionCell: UICollectionViewCell {
             }
         }
         
+    }
+    
+    
+    @IBAction func faveButtonTapped(_ sender: Any) {
+        
+        if(!faved){
+            faved = viewModel.saveCharacterToFaves(with: viewModel.character)
+        }
+        else{
+            faved = !viewModel.deleteCharacterFromFaves(with: viewModel.character)
+            //fvcDelegate?.UpdateFavorites()
+            //TODO:// (Use notification to) trigger delete cell event
+        }
     }
 }
 

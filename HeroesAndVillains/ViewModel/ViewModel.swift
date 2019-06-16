@@ -24,6 +24,12 @@ class ViewModel{
         }
     }
     
+    var faveCharacters = [CoreCharacter](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
+        }
+    }
+    
     var comic = Comic()
     
     var comics = [marvelComic](){
@@ -35,6 +41,12 @@ class ViewModel{
     var characterComics = [marvelComic](){
         didSet{
             NotificationCenter.default.post(name: Notification.Name.ComicsForNotification, object: nil)
+        }
+    }
+    
+    var comicCharacters = [marvelCharacter](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.CharactersForNotification, object: nil)
         }
     }
     
@@ -78,6 +90,50 @@ class ViewModel{
         }
     }
     
+    func saveCharacterToFaves(with char: aCharacter) -> Bool{
+        
+        return coreManager.saveCharacter(with: char)!
+    }
+    
+    func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
+        
+        return coreManager.deleteCharacter(withChar: char)
+    }
+    
+    
+    func getCharactersForComic(for comicID: Int){
+        
+        mvlService.getCharactersForComic(for: comicID){[unowned self] characters in
+            
+            self.comicCharacters = characters
+            print("Character in comic Count: \(characters.count)")
+        }
+    }
+    
+    func GetFavoriteCharacters(){
+        
+        self.faveCharacters = coreManager.getCoreCharacters()
+    }
+    
+    func CheckFavedCharacters(with char: aCharacter) -> Bool{
+        
+        self.faveCharacters = coreManager.getCoreCharacters()
+        print("Favorites:")
+        for aChar in faveCharacters{
+            let c = aCharacter(with:aChar)
+            print("Character: \(c.name)")
+        }
+        for aChar in faveCharacters{
+            let c = aCharacter(with:aChar)
+            print("Character from faves: \(c.name)")
+            if( c == char)
+            {
+                return true
+            }
+        }
+        
+        return false
+    }
     
     //MARK: Comics
     
@@ -94,7 +150,7 @@ class ViewModel{
 
         mvlService.getComicsForCharacter(for: charID, dateDescriptor: period, forDate1: date1, forDate2: date2){ [unowned self] comics in
             
-            self.comics = comics
+            self.characterComics = comics
             print("Comics Count: \(comics.count)")
         }
     }

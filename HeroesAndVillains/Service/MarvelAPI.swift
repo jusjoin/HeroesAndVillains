@@ -52,6 +52,14 @@ struct MarvelAPI {
         
     }
     
+    static func getCharactersForComicURL(for comicID: Int) -> String{
+        
+        let stringID = String(comicID)
+        let url = (base + "comics/" + stringID + "/" + charactersMethod + "ts=" + ts + "&apikey=" + publicKey + hash )
+        print("Get Comics URL: " + url)
+        return url
+    }
+    
     //MARK: Comics
     
     static func getComicsURL() -> String{

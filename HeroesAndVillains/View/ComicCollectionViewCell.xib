@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GenericCollectionViewCell" id="RDI-k8-Ckw">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ComicCollectionViewCell" id="RDI-k8-Ckw" customClass="ComicCollectionViewCell" customModule="HeroesAndVillains" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="312" height="176"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -35,8 +35,8 @@
             <viewLayoutGuide key="safeArea" id="Yzt-vi-Lna"/>
             <size key="customSize" width="312" height="176"/>
             <connections>
-                <outlet property="comicImageView" destination="3JG-w4-4Gw" id="UYh-wt-270"/>
-                <outlet property="comicTitleLabel" destination="l88-Ml-A6i" id="VfJ-wP-vxl"/>
+                <outlet property="comicImageView" destination="3JG-w4-4Gw" id="oOa-HG-LH0"/>
+                <outlet property="comicTitleLabel" destination="l88-Ml-A6i" id="bwi-x0-z0a"/>
             </connections>
             <point key="canvasLocation" x="321.73913043478262" y="-68.303571428571431"/>
         </collectionViewCell>

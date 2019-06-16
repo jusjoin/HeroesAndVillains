@@ -28,7 +28,8 @@ class marvelComic: Decodable{
     let urls : [Urls]
     let prices : [Prices]
     let images : [Images]?
-    //let creators : [Creators]?
+    let creators : Creators?
+    let characters : ComicCharacters
     
 }
 
@@ -50,5 +51,21 @@ struct Images: Decodable{
 
 struct Creators: Decodable{
     let collectionURI: String?
-    let items: Items
+    let items: [CreatorItems]?
+}
+
+
+struct CreatorItems: Decodable{
+    let resourceURI: String
+    let name: String
+    let role: String
+}
+
+struct ComicCharacters: Decodable{
+    let items: [BasicItems]
+}
+
+struct BasicItems: Decodable{
+    let resourceURI: String
+    let name: String
 }

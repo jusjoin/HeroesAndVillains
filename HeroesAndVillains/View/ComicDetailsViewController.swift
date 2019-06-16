@@ -9,24 +9,83 @@
 import UIKit
 
 class ComicDetailsViewController: UIViewController {
-
-    let viewModel = ViewModel()
+    @IBOutlet weak var comicImageView: UIImageView!
+    @IBOutlet weak var comicNameLabel: UILabel!
+    @IBOutlet weak var comicDescriptionLabel: UILabel!
+    @IBOutlet weak var detailsTableView: UITableView!
+    
+    var viewModel : ViewModel!
+    let identifier = "ComicDetailsViewController"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupComic()
+        setupCharacterCollection()
+    }
+    
+    func setupComic(){
+        dlManager.download(viewModel.comic.image){[unowned self] dat in
+            
+            if let data = dat {
+                
+                let image = UIImage(data: data)
+                self.comicImageView.image = image
+            }
+        }
+        comicNameLabel.text = viewModel.comic.title
+        comicDescriptionLabel.text = viewModel.comic.description
+    }
+    
+    func setupCharacterCollection(){
+        
+        detailsTableView.tableFooterView = UIView(frame: .zero)
+        detailsTableView.delegate = self
+        detailsTableView.dataSource = self
+        detailsTableView.register(UINib.init(nibName: "CharacterCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CharacterCollectionTableViewCell")
+        
     }
 
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+//MARK: Table view
+
+extension ComicDetailsViewController: UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 180
     }
-    */
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {return "\(viewModel.comic.title) Characters"}
+        
+        return "Section"
+    }
+}
 
+extension ComicDetailsViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        //setupComicCollection()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCollectionTableViewCell", for: indexPath) as! CharacterCollectionTableViewCell
+        cell.viewModel = self.viewModel
+        cell.vcIdentifier = identifier
+        
+        //        let thisCharacter = viewModel.characters[indexPath.row]
+        //        cell.configure(with: aCharacter(with: thisCharacter))
+        
+        return cell
+    }
+    
+    
 }

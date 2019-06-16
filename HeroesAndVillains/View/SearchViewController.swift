@@ -66,6 +66,7 @@ extension SearchViewController: UITableViewDelegate{
         
         
         let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+        detailsVC.viewModel = viewModel
         detailsVC.viewModel.character = aCharacter(with: viewModel.characters[indexPath.row])
         
         self.navigationController?.pushViewController(detailsVC, animated: true)

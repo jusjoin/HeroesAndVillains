@@ -14,7 +14,7 @@ class CharacterDetailsViewController: UIViewController {
     @IBOutlet weak var characterDescriptionLabel: UILabel!
     @IBOutlet weak var detailsTableView: UITableView!
     
-    var viewModel = ViewModel()
+    var viewModel : ViewModel!
     let identifier = Constants.Keys.characterDetailsVCIdentifier.rawValue
     
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class CharacterDetailsViewController: UIViewController {
         detailsTableView.delegate = self
         detailsTableView.dataSource = self
         detailsTableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
-        //viewModel.getComicsForCharacter()
+        
     }
 
 }
@@ -78,7 +78,7 @@ extension CharacterDetailsViewController: UITableViewDataSource{
         
         //setupComicCollection() 
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-        cell.viewModel.character = self.viewModel.character
+        cell.viewModel = self.viewModel
         cell.vcIdentifier = identifier
 
         //        let thisCharacter = viewModel.characters[indexPath.row]

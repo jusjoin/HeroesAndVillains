@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol ComicCollectionTableViewCellDelegate{
+    func pushToNavigationController(for comic: Comic)
+}
+
 class ComicCollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var ComicCollectionView: UICollectionView!
     
-    let viewModel = ViewModel()
+    var viewModel : ViewModel!
+    var delegate: ComicCollectionTableViewCellDelegate?
     var vcIdentifier: String?{
         didSet{
             setupComicCollection()
@@ -29,6 +34,7 @@ class ComicCollectionTableViewCell: UITableViewCell {
         self.ComicCollectionView.delegate = self
         self.ComicCollectionView.register(UINib.init(nibName: "ComicCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ComicCollectionViewCell")
         NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsForNotification, object: nil)
         setupDates()
         
     }
@@ -39,9 +45,9 @@ class ComicCollectionTableViewCell: UITableViewCell {
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let today = Date()
-        comicPeriodDate1 = dateFormatter.string(from: today)
+        comicPeriodDate2 = dateFormatter.string(from: today)
         let thePast = Calendar.current.date(byAdding: .weekOfYear, value: -24, to: Date())!
-        comicPeriodDate2 = dateFormatter.string(from: thePast)
+        comicPeriodDate1 = dateFormatter.string(from: thePast)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -76,24 +82,37 @@ extension ComicCollectionTableViewCell: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-//        let index = IndexPath(row: indexPath.row, section: 1)
-//        searchTableView.scrollToRow(at: index, at: .top, animated: true)
+        delegate?.pushToNavigationController(for: Comic(with: viewModel.comics[indexPath.row]))
     }
 }
 
 extension ComicCollectionTableViewCell: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.comics.count
+        
+        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
+            return viewModel.comics.count
+        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
+            return viewModel.characterComics.count
+        }
+        
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = ComicCollectionView.dequeueReusableCell(withReuseIdentifier: "ComicCollectionViewCell", for: indexPath as IndexPath) as! ComicCollectionViewCell
         
-        let thisComic = viewModel.comics[indexPath.row]
-        cell.configure(with: Comic(with: thisComic))
-        return cell
+        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
+            let thisComic = viewModel.comics[indexPath.row]
+            cell.configure(with: Comic(with: thisComic))
+            return cell
+        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
+            let thisComic = viewModel.characterComics[indexPath.row]
+            cell.configure(with: Comic(with: thisComic))
+            return cell
+        }
         
+        return cell
     }
     
     

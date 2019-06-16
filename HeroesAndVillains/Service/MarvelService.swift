@@ -122,6 +122,36 @@ final class MarvelService{
             }.resume()
     }
     
+    func getCharactersForComic(for comicID: Int, completion: @escaping CharacterHandler){
+        
+        let urlString = MarvelAPI.getCharactersForComicURL(for: comicID)
+        
+        guard let finalURL = URL(string: urlString) else {
+            completion([])
+            return
+        }
+        
+        session.dataTask(with: finalURL) { (dat, _, _) in
+            
+            if let data = dat {
+                
+                do {
+                    let response = try JSONDecoder().decode(CharacterResults.self, from: data)
+                    
+                    let marvelCharacter = response.data.results
+                    
+                    completion(marvelCharacter)
+                    
+                } catch let err {
+                    completion([])
+                    print("Decoding Error: \(err.localizedDescription)")
+                }
+                
+            }
+            
+            }.resume()
+    }
+    
     //MARK: Comics
     
     func getComics(completion: @escaping ComicHandler){

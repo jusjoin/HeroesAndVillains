@@ -14,6 +14,7 @@ class aCharacter{
     var name = String()
     var description = String()
     var image = String()
+    var alignment = String()
     
     init(){
 
@@ -25,5 +26,26 @@ class aCharacter{
         name = aChar.name
         description = aChar.description
         image = aChar.thumbnail.path + "." + aChar.thumbnail.extens
+        //alignment = aChar.alignment
+    }
+    
+    init(with core: CoreCharacter){
+        
+        self.id = Int(core.id)
+        self.name = core.name!
+        self.description = core.descript!
+        self.image = core.image!
+        
+    }
+}
+
+extension aCharacter:Equatable{
+    static func == (lhs: aCharacter, rhs: aCharacter) -> Bool {
+        if(lhs.id == rhs.id){
+            return true
+        }
+        else{
+            return false
+        }
     }
 }

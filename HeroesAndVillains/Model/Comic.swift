@@ -27,7 +27,7 @@ class Comic{
         
         id = aComic.id
         title = aComic.title
-        description = aComic.description ?? ""
+        description = aComic.description ?? "Description unavailable."
         image = Constants.Keys.defaultComicImage.rawValue
         if aComic.images!.isEmpty{print("No image present for comic \(title)")}
         if !aComic.images!.isEmpty{
