@@ -16,4 +16,6 @@ extension Notification.Name{
     static let ComicsForNotification = Notification.Name("ComicsForNotification")
     static let CharactersForNotification = Notification.Name("CharactersForNotification")
     static let FaveCharactersNotification = Notification.Name("FaveCharactersNotification")
+    static let VideosNotification = Notification.Name("VideosNotification")
+    static let VideosForNotification = Notification.Name("VideosForNotification")
 }

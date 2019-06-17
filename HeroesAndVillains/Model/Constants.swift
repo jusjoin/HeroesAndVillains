@@ -15,6 +15,7 @@ struct Constants{
         case HeroesAndVillains = "HeroesAndVillains"
         case homeTitle = "Home"
         case searchTitle = "Search"
+        case favoritesTitle = "Favorites"
         case defaultComicImage = "mask.png"
         case homeVCIdentifier = "HomeViewController"
         case characterDetailsVCIdentifier = "CharacterDetailsViewController"

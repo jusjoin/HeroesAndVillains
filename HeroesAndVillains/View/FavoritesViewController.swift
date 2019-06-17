@@ -18,19 +18,33 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigation()
+        setupFavorites()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        update()
+    }
+    
+    func setupFavorites(){
+        
+        viewModel.GetFavoriteCharacters()
         favoritesTableView.register(UINib(nibName: "CharacterTableCell", bundle: Bundle.main), forCellReuseIdentifier: "CharacterTableCell")
         //viewModel.delegate = self
         favoritesTableView.dataSource = self
         favoritesTableView.delegate = self
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    func setupNavigation(){
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.title = Constants.Keys.favoritesTitle.rawValue
+    }
+    
+    func update(){
         viewModel.GetFavoriteCharacters()
-        
+        favoritesTableView.reloadData()
     }
-    
 
 }
 
@@ -51,6 +65,7 @@ extension FavoritesViewController: UITableViewDataSource{
         
         return cell
     }
+    
 }
 
 //extension FavoritesViewController: ViewModelDelegate{
@@ -68,16 +83,37 @@ extension FavoritesViewController: UITableViewDelegate{
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        //let book = viewModel.books[indexPath.row]
+        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+        detailsVC.viewModel = viewModel
+        detailsVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
         
-        //let detailVC = storyboard?.instantiateViewController(withIdentifier: "BookDetailsViewController") as! BookDetailsViewController
-        
-        //detailVC.viewModel.book = viewModel.MakeBook(with: viewModel.faves[indexPath.row])
-        
-        //self.navigationController?.pushViewController(detailVC, animated: true)
+        self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        
+        let deletAction = UITableViewRowAction(style: .default, title: "Delete" , handler: { (action:UITableViewRowAction, indexPath: IndexPath) -> Void in
+            
+            let swipeMenu = UIAlertController(title: nil, message: "Confirm delete", preferredStyle: .actionSheet)
+            
+            let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: {(alert: UIAlertAction!) in self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
+                 self.update()
+                
+            })
+            let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+            
+            swipeMenu.addAction(confirmAction)
+            swipeMenu.addAction(cancelAction)
+            
+            self.present(swipeMenu, animated: true, completion: nil)
+        })
+        
+        return [deletAction]
+    }
+    
 }

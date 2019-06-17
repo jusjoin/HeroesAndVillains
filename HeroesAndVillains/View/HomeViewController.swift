@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class HomeViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var characterCollectionView: UICollectionView!
@@ -30,10 +31,15 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
+        mainTableView.register(UINib.init(nibName: "VideoCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "VideoCollectionTableViewCell")
         mainTableView.tableFooterView = .init(frame: .zero)
         //setupComicCollectionTableViewCellDelegate()
 
            
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        updateCharacterCollection()
     }
     
     func setupCharacterCollection(){
@@ -99,7 +105,18 @@ extension HomeViewController: UICollectionViewDataSource{
 extension HomeViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
+        if indexPath.section == 0{
+            if tableView.bounds.height * 0.4 > 180{
+                return tableView.bounds.height * 0.4
+            }else {return 180}
+        }
+        else if indexPath.section == 1{
+            if tableView.bounds.height * 0.6 > 200{
+                return tableView.bounds.height * 0.6
+            }else {return 200}
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -109,26 +126,42 @@ extension HomeViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {return "Latest Comics"}
+        if section == 1 {return "Latest Videos"}
         
         return "Section"
     }
 }
 
 extension HomeViewController: UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        if indexPath.section == 0{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
         cell.viewModel = viewModel
         cell.vcIdentifier = identifier
         cell.delegate = self
-//        let thisCharacter = viewModel.characters[indexPath.row]
-//        cell.configure(with: aCharacter(with: thisCharacter))
         
         return cell
+        }
+        
+        if indexPath.section == 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCollectionTableViewCell", for: indexPath) as! VideoCollectionTableViewCell
+            cell.viewModel = viewModel
+            cell.vcIdentifier = identifier
+            cell.delegate = self
+            
+            return cell
+        }
+        
+        return UITableViewCell(frame: CGRect(origin: .zero, size: .zero))
     }
     
     
@@ -146,4 +179,16 @@ extension HomeViewController: ComicCollectionTableViewCellDelegate{
     
 }
 
+extension HomeViewController: VideoCollectionTableViewCellDelegate{
+    func presentPlayer(for player: AVPlayer) {
+        
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        
+        present(playerViewController, animated: true) {
+            player.play()
+        }
+        
+    }
+}
 

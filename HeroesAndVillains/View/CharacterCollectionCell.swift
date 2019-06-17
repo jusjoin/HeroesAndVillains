@@ -28,8 +28,8 @@ class CharacterCollectionCell: UICollectionViewCell {
                 let origImage = UIImage(named: "fave.png")
                 let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
                 faveButton.setImage(tintedImage, for: .normal)
-                faveButton.tintColor = .yellow
-                //faveButton.setImage(UIImage.init(named: "fave.png"), for: .normal)
+                faveButton.tintColor = .blue
+//                faveButton.setImage(UIImage.init(named: "fave.png"), for: .normal)
             }
         }
     }
