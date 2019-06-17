@@ -13,6 +13,8 @@ class ComicDetailsViewController: UIViewController {
     @IBOutlet weak var comicNameLabel: UILabel!
     @IBOutlet weak var comicDescriptionLabel: UILabel!
     @IBOutlet weak var detailsTableView: UITableView!
+    @IBOutlet weak var comicPrice: UILabel!
+    @IBOutlet weak var comicCreators: UILabel!
     
     var viewModel : ViewModel!
     let identifier = "ComicDetailsViewController"
@@ -35,6 +37,8 @@ class ComicDetailsViewController: UIViewController {
         }
         comicNameLabel.text = viewModel.comic.title
         comicDescriptionLabel.text = viewModel.comic.description
+        comicPrice.text = viewModel.comic.price
+        comicCreators.text = viewModel.comic.creators
     }
     
     func setupCharacterCollection(){
@@ -46,7 +50,25 @@ class ComicDetailsViewController: UIViewController {
         
     }
 
-
+    @IBAction func detailsButtonTapped(_ sender: Any) {
+        for items in viewModel.comic.urls{
+            if items.type.lowercased() == "detail"{
+                guard let url = URL(string: items.url) else { return }
+                print("Opening url \(items.url)")
+                UIApplication.shared.open(url)
+            }
+        }
+    }
+    
+    @IBAction func purchaseButtonTapped(_ sender: Any) {
+        for items in viewModel.comic.urls{
+            if items.type.lowercased() == "purchase"{
+                guard let url = URL(string: items.url) else { return }
+                print("Opening url \(items.url)")
+                UIApplication.shared.open(url)
+            }
+        }
+    }
 }
 
 //MARK: Table view
@@ -54,7 +76,9 @@ class ComicDetailsViewController: UIViewController {
 extension ComicDetailsViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
+        if tableView.bounds.height * 0.6 > 340{
+            return tableView.bounds.height * 0.6
+        }else {return 340}
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

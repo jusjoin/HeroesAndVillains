@@ -15,6 +15,7 @@ class aCharacter{
     var description = String()
     var image = String()
     var alignment = String()
+    var urls = [Urls]()
     
     init(){
 
@@ -26,6 +27,7 @@ class aCharacter{
         name = aChar.name
         description = aChar.description
         image = aChar.thumbnail.path + "." + aChar.thumbnail.extens
+        urls = aChar.urls
         //alignment = aChar.alignment
     }
     

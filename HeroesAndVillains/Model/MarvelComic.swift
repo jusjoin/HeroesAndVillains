@@ -30,6 +30,7 @@ class marvelComic: Decodable{
     let images : [Images]?
     let creators : Creators?
     let characters : ComicCharacters
+    let url : [Urls]?
     
 }
 

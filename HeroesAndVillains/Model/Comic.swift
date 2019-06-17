@@ -15,9 +15,10 @@ class Comic{
     var issueNumber = Int()
     var description = String()
     var upc = String()
-    var price = Double()
+    var price = String()
     var image = String()
-    var creators = [String]()
+    var creators = String()
+    var urls = [Urls]()
     
     init(){
         
@@ -35,8 +36,18 @@ class Comic{
             guard let ext = aComic.images?[0].extens else{return}
             image = path + "." + ext
         }
-        
-        
+        if !aComic.prices.isEmpty{
+            price = /*aComic.prices[0].type*/ "Price" + ": " + String(aComic.prices[0].price)
+        }
+        urls = aComic.urls
+        guard let c = aComic.creators else {return}
+        guard let ci = c.items else {return}
+        if !ci.isEmpty{
+//            for items in c.items!{
+//                creators += items.name + "; "
+//            }
+            creators = ci[0].name
+        }
     }
     
 }

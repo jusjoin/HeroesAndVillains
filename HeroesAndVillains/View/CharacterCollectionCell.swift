@@ -29,7 +29,6 @@ class CharacterCollectionCell: UICollectionViewCell {
                 let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
                 faveButton.setImage(tintedImage, for: .normal)
                 faveButton.tintColor = .blue
-//                faveButton.setImage(UIImage.init(named: "fave.png"), for: .normal)
             }
         }
     }
@@ -59,8 +58,6 @@ class CharacterCollectionCell: UICollectionViewCell {
         }
         else{
             faved = !viewModel.deleteCharacterFromFaves(with: viewModel.character)
-            //fvcDelegate?.UpdateFavorites()
-            //TODO:// (Use notification to) trigger delete cell event
         }
     }
 }

@@ -62,6 +62,9 @@ class ComicCollectionTableViewCell: UITableViewCell {
             viewModel.getComicsLatest(dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
         }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
             viewModel.getComicsForCharacter(for: viewModel.character.id, dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
+            if let layout = ComicCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .vertical
+            }
         }
     }
     

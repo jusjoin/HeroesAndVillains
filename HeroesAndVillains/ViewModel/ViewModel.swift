@@ -74,7 +74,7 @@ class ViewModel{
     
     func getCharactersByName(name: String){
         mvlService.getCharacterByFullName(fullName: name){ [unowned self] characters in
-            
+
             self.characters = characters
             print("Character Count: \(characters.count)")
         }

@@ -53,7 +53,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
             self.characterCollectionView.reloadData()
         }
     }
-
+    
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
