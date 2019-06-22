@@ -29,7 +29,7 @@ class ComicCollectionTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         self.ComicCollectionView.dataSource = self
         self.ComicCollectionView.delegate = self
         self.ComicCollectionView.register(UINib.init(nibName: "ComicCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ComicCollectionViewCell")
@@ -57,7 +57,11 @@ class ComicCollectionTableViewCell: UITableViewCell {
     }
     
     func setupComicCollection(){
-
+        if(viewModel != nil){
+            if !viewModel.characterComics.isEmpty{
+                viewModel.characterComics.removeAll()
+            }
+        }
         if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
             viewModel.getComicsLatest(dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
         }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{

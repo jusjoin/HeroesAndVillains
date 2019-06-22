@@ -83,7 +83,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LhY-8c-pgy">
+                                                <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LhY-8c-pgy">
                                                     <rect key="frame" x="20" y="7" width="25" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="LhY-8c-pgy" secondAttribute="height" multiplier="5:6" id="Apy-aH-7UJ"/>
@@ -171,7 +171,7 @@
                                 <rect key="frame" x="169" y="89" width="53" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Details">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="detailsButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="NK4-YK-1cN"/>
@@ -181,7 +181,7 @@
                                 <rect key="frame" x="169" y="122" width="33" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Wiki">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="wikiButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="FI1-mB-Euy"/>
@@ -191,13 +191,13 @@
                                 <rect key="frame" x="169" y="154.5" width="58" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Comics">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="comicsButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="efa-NO-e06"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwF-kx-fa1">
+                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwF-kx-fa1">
                                 <rect key="frame" x="16" y="35" width="25" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="MwF-kx-fa1" secondAttribute="height" multiplier="5:6" id="Hsm-Yv-Nx4"/>

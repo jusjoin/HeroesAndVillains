@@ -20,12 +20,13 @@ struct MarvelAPI {
     static let comicsLatestMethod = "dateDescriptor="
     static let seriesMethod = ""
     static let eventsMethod = ""
-    static let limit = 20
+    static let limit = "50"
     static let offset = 0
     static let ts = String(Int(Date().timeIntervalSince1970))
     static let publicKey = "ec1082c0a7d0c82057b98aab4e1a4a18"
     static let privateKey = "7eab78cecd6feda9c1948cf74af6a474cc021c50"
-    static let hash = "&hash=" + (ts+privateKey+publicKey).md5
+    static let hash = "&hash=" + (ts+privateKey+publicKey).md5 + "&limit=" + limit
+    static let hashNoLimit = "&hash=" + (ts+privateKey+publicKey).md5
     
     
     //MARK: Characters
@@ -46,9 +47,12 @@ struct MarvelAPI {
     
     static func getCharacterByNameStartsWithURL(_ name: String) -> String{
         
-        print("Search Character URL: " + base + characterNameStartsWithMethod + name + "&ts=" + ts + "&apikey=" + publicKey + hash )
+        //print("Search Character URL: " + base + characterNameStartsWithMethod + name + "&ts=" + ts + "&apikey=" + publicKey + hash )
+        //print("Static string    URL: https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=Spi&ts=1560753917&apikey=ec1082c0a7d0c82057b98aab4e1a4a18&hash=209bdd30118add179ba0d9fcea9ddfd5&limit=50")
+        print("Search character URL: https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=" + name + "&ts=" + ts + "&apikey=" + publicKey + hash)
         
-        return base + characterFullNameMethod + name + "&ts=" + ts + "&apikey=" + publicKey + hash
+        
+        return "https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=" + name + "&ts=" + ts + "&apikey=" + publicKey + hash //"&ts=1560753917&apikey=ec1082c0a7d0c82057b98aab4e1a4a18&hash=209bdd30118add179ba0d9fcea9ddfd5&limit=50"//base + characterFullNameMethod + name + "&ts=" + ts + "&apikey=" + publicKey + hash
         
     }
     
@@ -89,11 +93,18 @@ struct MarvelAPI {
                 }
             }
         }
-        
+        //Mark: Bugfix spider-man comic search fails with limit
+        var hashToUse = String()
+        if charIDString == "1009610"{
+            hashToUse = hashNoLimit
+        }
+        else{
+            hashToUse = hash
+        }
         if periodSpecifiers != ""{
-            url = (base + comicsMethod + periodSpecifiers +  "&" + comicsForCharacterMethod + charIDString + "&ts=" + ts + "&apikey=" + publicKey + hash )
+            url = (base + comicsMethod + periodSpecifiers +  "&" + comicsForCharacterMethod + charIDString + "&ts=" + ts + "&apikey=" + publicKey + hashToUse )
         }else{
-            url = (base + comicsMethod + comicsForCharacterMethod + charIDString + "&ts=" + ts + "&apikey=" + publicKey + hash )
+            url = (base + comicsMethod + comicsForCharacterMethod + charIDString + "&ts=" + ts + "&apikey=" + publicKey + hashToUse )
         }
         print("Get Comics URL: " + url)
         return url

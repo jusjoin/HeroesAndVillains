@@ -81,8 +81,21 @@ class ViewModel{
         
         mvlService.getCharacterByNameStartsWith(fullName: name){ [unowned self] characters in
             
-            self.characters += characters
-            print("Character Count: \(characters.count)")
+            if !characters.isEmpty{
+                var newCharacters = [marvelCharacter]()
+                for i in 0...characters.count-1{
+                    if !self.characters.isEmpty{
+                        if characters[i].id != self.characters[0].id{
+                            newCharacters.append(characters[i])
+                        }
+                    }else{
+                        newCharacters.append(characters[i])
+                    }
+                }
+                
+                self.characters += characters
+                print("Character Count: \(characters.count)")
+            }
         }
     }
     

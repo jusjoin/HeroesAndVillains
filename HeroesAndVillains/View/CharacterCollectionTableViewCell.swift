@@ -39,7 +39,11 @@ class CharacterCollectionTableViewCell: UITableViewCell {
     }
     
     func setupCharacterCollection(){
-        
+        if(viewModel != nil){
+            if !viewModel.comicCharacters.isEmpty{
+                viewModel.comicCharacters.removeAll()
+            }
+        }
         viewModel.getCharactersForComic(for: viewModel.comic.id)
         
     }

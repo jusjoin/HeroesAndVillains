@@ -101,7 +101,10 @@ extension FavoritesViewController: UITableViewDelegate{
             
             let swipeMenu = UIAlertController(title: nil, message: "Confirm delete", preferredStyle: .actionSheet)
             
-            let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: {(alert: UIAlertAction!) in self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
+            let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: {(alert: UIAlertAction!) in
+                
+                
+                self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
                  self.update()
                 
             })

@@ -10,6 +10,6 @@ import Foundation
 
 struct MarvelVARS{
     
-    static let TopCharacters = ["CAPTAIN MARVEL (CAROL DANVERS)", "Spider-Woman (Jessica Drew)", "Wolverine", "Spider-Man", "Hulk", "Captain America", "Iron Man", "Thor", "Doctor Strange"]
+    static let TopCharacters = ["Captain Marvel (Mar-Vell)", "Spider-Woman (Jessica Drew)",  "Thanos", "Wolverine", "Apocalypse", "Spider-Man", "Doctor Octopus", "Hulk", "Captain America", "Juggernaut", "Iron Man", "Thor", "Professor X", "Doctor Strange"]
     
 }
