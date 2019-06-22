@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Disintegrate
 
 class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesTableView: UITableView!
@@ -103,9 +104,14 @@ extension FavoritesViewController: UITableViewDelegate{
             
             let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: {(alert: UIAlertAction!) in
                 
-                
-                self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
-                 self.update()
+                tableView.cellForRow(at: indexPath)!.disintegrate( completion: {() in
+                    
+                    
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
+                    self.update()
+                    
+                })
                 
             })
             let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
