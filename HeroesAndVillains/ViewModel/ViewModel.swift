@@ -62,7 +62,17 @@ class ViewModel{
         }
     }
     
+    static var dummyCharacters = [aCharacter](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.DummyCharactersNotification, object: nil)
+        }
+    }
+    
     //MARK: Characters
+    
+    static func addDummyCharacter(){
+        dummyCharacters.append(aCharacter(id:dummyCharacters.count+1, name:"dummy", description: "This is not a character", image: "mask.png", alignment: "neutral"))
+    }
     
     func getCharacters(){
         mvlService.getCharacters(){ [unowned self] characters in

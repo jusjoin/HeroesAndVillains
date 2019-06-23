@@ -104,12 +104,16 @@ extension FavoritesViewController: UITableViewDelegate{
             
             let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: {(alert: UIAlertAction!) in
                 
+                self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
+                self.update()
+                
                 tableView.cellForRow(at: indexPath)!.disintegrate( completion: {() in
                     
+//                    var thisCell = tableView.cellForRow(at: indexPath)! as! CharacterTableCell
+//                    print(thisCell.characterNameLabel.text)
+                    let thisIndexPath = [IndexPath(row: indexPath.row, section: 0)]
+                    tableView.deleteRows(at: thisIndexPath, with: .none)
                     
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                    self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
-                    self.update()
                     
                 })
                 

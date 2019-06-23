@@ -27,6 +27,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         setupCharacterCollection()
         //searchTableView.tableFooterView = UIView(frame: .zero)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.TopCharacterNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.DummyCharactersNotification, object: nil)
         
         mainTableView.delegate = self
         mainTableView.dataSource = self
@@ -76,8 +77,10 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
 
 extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.characterCollectionView{
+        if collectionView == self.characterCollectionView && viewModel.topCharacters.count > 0{
             return viewModel.topCharacters.count
+        }else if collectionView == self.characterCollectionView && ViewModel.dummyCharacters.count > 0{
+            return ViewModel.dummyCharacters.count
         }else{
             return 0
         }
@@ -87,8 +90,14 @@ extension HomeViewController: UICollectionViewDataSource{
         if collectionView == self.characterCollectionView{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionCell.identifier, for: indexPath) as! CharacterCollectionCell
             
-            let thisCharacter = viewModel.topCharacters[indexPath.row]
-            cell.configure(with: aCharacter(with: thisCharacter))
+            //TODO: Add setting to enable/disable adding dummy character
+            if viewModel.topCharacters.count > 0{
+                let thisCharacter = viewModel.topCharacters[indexPath.row]
+                cell.configure(with: aCharacter(with: thisCharacter))
+            }else{
+                let thisCharacter = ViewModel.dummyCharacters[indexPath.row]
+                cell.configure(with: thisCharacter)
+            }
             
             return cell
         }else{

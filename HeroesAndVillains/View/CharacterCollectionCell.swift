@@ -38,7 +38,7 @@ class CharacterCollectionCell: UICollectionViewCell {
         viewModel.character = char
         characterNameLabel.text = char.name
         faved = viewModel.CheckFavedCharacters(with: char)
-        
+        characterImageView.image = UIImage(named: char.image)
         dlManager.download(char.image) { [unowned self] dat in
             
             if let data = dat {

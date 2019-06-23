@@ -21,6 +21,15 @@ class aCharacter{
 
     }
     
+    init(id:Int, name:String, description:String, image:String, alignment:String){
+        self.id = id
+        self.name = name
+        self.description = description
+        self.image = image
+        self.alignment = alignment
+        self.urls = [Urls]()
+    }
+    
     init(with aChar: marvelCharacter){
         
         id = aChar.id
