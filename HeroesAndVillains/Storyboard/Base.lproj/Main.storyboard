@@ -415,17 +415,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZMJ-U9-Dgu">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZMJ-U9-Dgu">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xUx-mD-Nql" firstAttribute="trailing" secondItem="ZMJ-U9-Dgu" secondAttribute="trailing" id="0G1-79-W3C"/>
-                            <constraint firstItem="ZMJ-U9-Dgu" firstAttribute="leading" secondItem="xUx-mD-Nql" secondAttribute="leading" id="AiF-Dw-CC0"/>
-                            <constraint firstItem="xUx-mD-Nql" firstAttribute="bottom" secondItem="ZMJ-U9-Dgu" secondAttribute="bottom" id="MdU-7n-ZUz"/>
-                            <constraint firstItem="ZMJ-U9-Dgu" firstAttribute="top" secondItem="xUx-mD-Nql" secondAttribute="top" id="kzJ-4V-lGg"/>
+                            <constraint firstItem="ZMJ-U9-Dgu" firstAttribute="trailing" secondItem="xUx-mD-Nql" secondAttribute="trailing" id="8Xv-Vk-iVp"/>
+                            <constraint firstItem="ZMJ-U9-Dgu" firstAttribute="bottom" secondItem="xUx-mD-Nql" secondAttribute="bottom" id="9sC-w8-SEA"/>
+                            <constraint firstItem="ZMJ-U9-Dgu" firstAttribute="top" secondItem="xUx-mD-Nql" secondAttribute="top" id="r0q-T9-wCT"/>
+                            <constraint firstItem="ZMJ-U9-Dgu" firstAttribute="leading" secondItem="xUx-mD-Nql" secondAttribute="leading" id="r4B-G6-UPr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xUx-mD-Nql"/>
                     </view>

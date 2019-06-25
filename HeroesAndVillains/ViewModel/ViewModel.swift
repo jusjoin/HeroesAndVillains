@@ -10,7 +10,7 @@ import Foundation
 
 class ViewModel{
     
-    var character = aCharacter()
+    var character: aCharacter!
     
     var characters = [marvelCharacter](){
         didSet{
@@ -26,11 +26,13 @@ class ViewModel{
     
     var faveCharacters = [CoreCharacter](){
         didSet{
+            updateUI?()
             NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
         }
     }
     
     var comic = Comic()
+    var updateUI: (()->Void)?
     
     var comics = [marvelComic](){
         didSet{
@@ -62,7 +64,17 @@ class ViewModel{
         }
     }
     
+    static var dummyCharacters = [aCharacter](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.DummyCharactersNotification, object: nil)
+        }
+    }
+    
     //MARK: Characters
+    
+    static func addDummyCharacter(){
+        dummyCharacters.append(aCharacter(id:dummyCharacters.count+1, name:"dummy", description: "This is not a character", image: "mask.png", alignment: "neutral"))
+    }
     
     func getCharacters(){
         mvlService.getCharacters(){ [unowned self] characters in
@@ -120,11 +132,16 @@ class ViewModel{
         return coreManager.saveCharacter(with: char)!
     }
     
+    @discardableResult
     func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
-        
+        // faveCharacters.removeAll { $0 === char         }
         return coreManager.deleteCharacter(withChar: char)
     }
     
+    func deleteCharacterFromFaves(with char: CoreCharacter) {
+        coreManager.deleteCharacter(withChar: char)
+        faveCharacters.removeAll { $0 === char }
+    }
     
     func getCharactersForComic(for comicID: Int){
         
@@ -136,7 +153,6 @@ class ViewModel{
     }
     
     func GetFavoriteCharacters(){
-        
         self.faveCharacters = coreManager.getCoreCharacters()
     }
     

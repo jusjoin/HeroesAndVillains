@@ -10,34 +10,38 @@ import Foundation
 
 class aCharacter{
     
-    var id = Int()
-    var name = String()
-    var description = String()
-    var image = String()
-    var alignment = String()
-    var urls = [Urls]()
+    var id: Int
+    var name: String
+    var description: String
+    var image: String
+    var alignment: String
+    var urls: [Urls]
     
-    init(){
-
+    init(id:Int, name:String, description:String, image:String, alignment:String){
+        self.id = id
+        self.name = name
+        self.description = description
+        self.image = image
+        self.alignment = alignment
+        self.urls = [Urls]()
     }
     
     init(with aChar: marvelCharacter){
-        
         id = aChar.id
         name = aChar.name
         description = aChar.description
         image = aChar.thumbnail.path + "." + aChar.thumbnail.extens
         urls = aChar.urls
-        //alignment = aChar.alignment
+        alignment = ""
     }
     
     init(with core: CoreCharacter){
-        
         self.id = Int(core.id)
         self.name = core.name!
         self.description = core.descript!
         self.image = core.image!
-        
+        urls = []
+        alignment = ""
     }
 }
 
