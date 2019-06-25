@@ -116,6 +116,11 @@ final class CoreManager
         return false
     }
     
+    func deleteCharacter(withChar char: CoreCharacter) {
+        context.delete(char)
+        saveContext()
+    }
+    
     func saveContext() {
         
         do {

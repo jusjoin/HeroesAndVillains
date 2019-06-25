@@ -10,7 +10,7 @@ import Foundation
 
 class ViewModel{
     
-    var character = aCharacter()
+    var character: aCharacter!
     
     var characters = [marvelCharacter](){
         didSet{
@@ -26,11 +26,13 @@ class ViewModel{
     
     var faveCharacters = [CoreCharacter](){
         didSet{
+            updateUI?()
             NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
         }
     }
     
     var comic = Comic()
+    var updateUI: (()->Void)?
     
     var comics = [marvelComic](){
         didSet{
@@ -130,11 +132,16 @@ class ViewModel{
         return coreManager.saveCharacter(with: char)!
     }
     
+    @discardableResult
     func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
         
         return coreManager.deleteCharacter(withChar: char)
     }
     
+    func deleteCharacterFromFaves(with char: CoreCharacter) {
+        coreManager.deleteCharacter(withChar: char)
+        faveCharacters.removeAll { $0 === char }
+    }
     
     func getCharactersForComic(for comicID: Int){
         
@@ -146,7 +153,6 @@ class ViewModel{
     }
     
     func GetFavoriteCharacters(){
-        
         self.faveCharacters = coreManager.getCoreCharacters()
     }
     
