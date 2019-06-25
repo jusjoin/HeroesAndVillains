@@ -41,7 +41,6 @@ I'm holding out for a hero 'til the end of the night</string>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="QDd-v4-L0N" firstAttribute="leading" secondItem="CvV-Et-bzt" secondAttribute="leading" id="2kA-FY-79w"/>
                     <constraint firstItem="CvV-Et-bzt" firstAttribute="leading" secondItem="XJL-jZ-DFK" secondAttribute="trailing" constant="8" id="DoU-pO-CY3"/>

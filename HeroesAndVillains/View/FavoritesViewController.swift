@@ -17,15 +17,12 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD
         favoritesTableView.tableFooterView = .init(frame: .zero)
-=======
         viewModel.updateUI = {
             DispatchQueue.main.async {
                 self.favoritesTableView.reloadData()
             }
         }
->>>>>>> 1948d4640271f569dd11ba7e9cee06c94d57f04b
         setupNavigation()
         setupFavorites()
     }
@@ -52,13 +49,6 @@ class FavoritesViewController: UIViewController {
     
     func update(){
         viewModel.GetFavoriteCharacters()
-<<<<<<< HEAD
-        
-        favoritesTableView.setNeedsDisplay()
-        favoritesTableView.setNeedsLayout()
-        favoritesTableView.reloadData()
-=======
->>>>>>> 1948d4640271f569dd11ba7e9cee06c94d57f04b
     }
 
 }
@@ -118,34 +108,16 @@ extension FavoritesViewController: UITableViewDelegate{
                                               message: "Confirm delete",
                                               preferredStyle: .actionSheet)
             
-<<<<<<< HEAD
-            let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: {(alert: UIAlertAction!) in
-                
-                tableView.cellForRow(at: indexPath)!.disintegrate( completion: {() in
-                    //let thisIndexPath = [IndexPath(row: indexPath.row, section: 0)]
-                    //tableView.deleteRows(at: thisIndexPath, with: .none)
-//                    tableView.cellForRow(at: indexPath)?.contentView.subviews.forEach({$0.layer.removeAllAnimations()})
-//                    tableView.cellForRow(at: indexPath)?.contentView.layer.removeAllAnimations()
-//                    tableView.cellForRow(at: indexPath)?.contentView.layoutIfNeeded()
-                    self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
-//                    var thisCell = tableView.cellForRow(at: indexPath)! as! CharacterTableCell
-//                    print(thisCell.characterNameLabel.text)
-                    
-                    self.update()// tableView.reloadData()
-                })
-                
-=======
             let confirmAction = UIAlertAction(title: "Yes",
                                               style: .default,
                                               handler:
                 { _ in
                     let cell = tableView.cellForRow(at: indexPath)!
                     cell.disintegrate { [unowned self] in
-                        cell.contentView.alpha = 1.0 // undo side-effect caused by disintegrate
                         let char = self.viewModel.faveCharacters[indexPath.row]
                         self.viewModel.deleteCharacterFromFaves(with: char)
+                        cell.contentView.alpha = 1.0 // undo side-effect caused by disintegrate
                     }
->>>>>>> 1948d4640271f569dd11ba7e9cee06c94d57f04b
             })
             let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
             
