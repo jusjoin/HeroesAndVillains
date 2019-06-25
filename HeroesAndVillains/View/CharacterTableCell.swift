@@ -15,20 +15,22 @@ class CharacterTableCell: UITableViewCell {
     
     static let identifier = "CharacterTableCell"
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        characterDescriptionLabel.numberOfLines = 2
+    }
+    
     func configure(with char: aCharacter) {
         characterNameLabel.text = char.name
         characterDescriptionLabel.text = char.description
+        // characterImage.image = UIImage(named: "mask.png")
+        
         dlManager.download(char.image) { [unowned self] dat in
-            
             if let data = dat {
-                
                 let image = UIImage(data: data)
                 self.characterImage.image = image
             }
         }
+ 
     }
-    
-
-    
-    
 }
