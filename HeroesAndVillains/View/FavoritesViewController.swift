@@ -18,7 +18,7 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        favoritesTableView.tableFooterView = .init(frame: .zero)
         setupNavigation()
         setupFavorites()
         
@@ -44,6 +44,9 @@ class FavoritesViewController: UIViewController {
     
     func update(){
         viewModel.GetFavoriteCharacters()
+        
+        favoritesTableView.setNeedsDisplay()
+        favoritesTableView.setNeedsLayout()
         favoritesTableView.reloadData()
     }
 
@@ -104,17 +107,17 @@ extension FavoritesViewController: UITableViewDelegate{
             
             let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: {(alert: UIAlertAction!) in
                 
-                self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
-                self.update()
-                
                 tableView.cellForRow(at: indexPath)!.disintegrate( completion: {() in
-                    
+                    //let thisIndexPath = [IndexPath(row: indexPath.row, section: 0)]
+                    //tableView.deleteRows(at: thisIndexPath, with: .none)
+//                    tableView.cellForRow(at: indexPath)?.contentView.subviews.forEach({$0.layer.removeAllAnimations()})
+//                    tableView.cellForRow(at: indexPath)?.contentView.layer.removeAllAnimations()
+//                    tableView.cellForRow(at: indexPath)?.contentView.layoutIfNeeded()
+                    self.viewModel.deleteCharacterFromFaves(with: aCharacter(with: self.viewModel.faveCharacters[indexPath.row]))
 //                    var thisCell = tableView.cellForRow(at: indexPath)! as! CharacterTableCell
 //                    print(thisCell.characterNameLabel.text)
-                    let thisIndexPath = [IndexPath(row: indexPath.row, section: 0)]
-                    tableView.deleteRows(at: thisIndexPath, with: .none)
                     
-                    
+                    self.update()// tableView.reloadData()
                 })
                 
             })

@@ -130,8 +130,9 @@ class ViewModel{
         return coreManager.saveCharacter(with: char)!
     }
     
+    @discardableResult
     func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
-        
+        // faveCharacters.removeAll { $0 === char         }
         return coreManager.deleteCharacter(withChar: char)
     }
     
