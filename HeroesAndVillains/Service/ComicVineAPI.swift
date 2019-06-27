@@ -18,6 +18,7 @@ struct ComicVineAPI{
     static let moviesMethod = "movies/"
     static let format = "&format=json"
     static let filterMethod = "&filter="
+    static let nameFilter = "name:"
     static let sortMethod = "&sort="
     
     //MARK: Characters
@@ -29,12 +30,32 @@ struct ComicVineAPI{
         return url
     }
     
+    
+    //MARK: Videos
+    
     static func getVideosURL() -> String{
     
         let filters = "video_type:featured"
         let sortOn = "publish_date:desc"
         let url = base + videosMethod + "?" + apiKey + format + filterMethod + filters + sortMethod + sortOn
         print("Get Videos URL: " + url)
+        return url
+    }
+    
+    //Mark:// Comics
+    
+    static func getComicsURL() -> String{
+        
+        let url = base + comicsMethod + apiKey + format
+        print("Get Comics URL: " + url)
+        return url
+    }
+    
+    static func getComicsWithNameURL(name: String) -> String{
+        
+        let nameFilter = "name:"
+        let url = base + comicsMethod + "?" + apiKey + format + filterMethod + nameFilter + name
+        print("Get Comics URL: " + url)
         return url
     }
 }

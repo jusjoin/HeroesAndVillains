@@ -9,6 +9,7 @@
 import Foundation
 
 typealias CVideoHandler = ([CVideo]) -> Void
+typealias ComicVineComicHandler = ([CVComic]) -> Void
 let cvService = ComicVineService.shared
 
 final class ComicVineService{
@@ -21,6 +22,37 @@ final class ComicVineService{
         return URLSession(configuration: config)
     }()
     
+    //Mark: Comics
+    
+    func getComicsWithName(name: String, completion: @escaping ComicVineComicHandler){
+        
+        let urlString = ComicVineAPI.getComicsWithNameURL(name: name)
+        
+        guard let finalURL = URL(string: urlString) else {
+            completion([])
+            return
+        }
+        
+        session.dataTask(with: finalURL) { (dat, _, _) in
+            
+            if let data = dat {
+                
+                do {
+                    let response = try JSONDecoder().decode(ComicVineComicResults.self, from: data)
+                    
+                    let comics = response.results
+                    
+                    completion(comics)
+                    
+                } catch let err {
+                    completion([])
+                    print("Decoding Error: \(err.localizedDescription)")
+                }
+                
+            }
+            
+            }.resume()
+    }
     
     //MARK: Videos
     func getLatestVideos(completion: @escaping CVideoHandler){

@@ -52,6 +52,12 @@ class ViewModel{
         }
     }
     
+    var cvComics = [CVComic](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.CVComicsNotification, object: nil)
+        }
+    }
+    
     var featuredVideos = [CVideo](){
         didSet{
             NotificationCenter.default.post(name: Notification.Name.VideosNotification, object: nil)
@@ -204,6 +210,16 @@ class ViewModel{
             print("Comics Count: \(comics.count)")
         }
     }
+    
+    func getCVComicsWithName(name: String){
+        cvService.getComicsWithName(name: name, completion: {[unowned self] comics in
+            
+            self.cvComics = comics
+            print("CVComics Count: \(comics.count)")
+        })
+    }
+    
+    //MARK: Videos
     
     func getFeaturedVideos(){
         

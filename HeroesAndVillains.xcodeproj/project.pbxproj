@@ -55,6 +55,9 @@
 		8411CF1A22A96E13006C8CC6 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411CF1922A96E13006C8CC6 /* DownloadManager.swift */; };
 		8411CF1C22A9DF90006C8CC6 /* AppVARS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411CF1B22A9DF90006C8CC6 /* AppVARS.swift */; };
 		8411CF1E22AA0302006C8CC6 /* CharacterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411CF1D22AA0302006C8CC6 /* CharacterCollectionCell.swift */; };
+		846DB7EF22C2FC370095BB8D /* CVineComic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DB7EE22C2FC370095BB8D /* CVineComic.swift */; };
+		848E1ECC22C4623D00A126CC /* ComicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848E1ECB22C4623D00A126CC /* ComicTableCell.xib */; };
+		848E1ED022C4635200A126CC /* ComicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E1ECF22C4635200A126CC /* ComicTableCell.swift */; };
 		849E958022AF212900ECEC0A /* ComicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E957E22AF212900ECEC0A /* ComicCollectionViewCell.swift */; };
 		849E958122AF212900ECEC0A /* ComicCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E957F22AF212900ECEC0A /* ComicCollectionViewCell.xib */; };
 		849E958322AF498200ECEC0A /* CharacterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E958222AF498200ECEC0A /* CharacterDetailsViewController.swift */; };
@@ -131,6 +134,9 @@
 		8411CF1922A96E13006C8CC6 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		8411CF1B22A9DF90006C8CC6 /* AppVARS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVARS.swift; sourceTree = "<group>"; };
 		8411CF1D22AA0302006C8CC6 /* CharacterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCollectionCell.swift; sourceTree = "<group>"; };
+		846DB7EE22C2FC370095BB8D /* CVineComic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVineComic.swift; sourceTree = "<group>"; };
+		848E1ECB22C4623D00A126CC /* ComicTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComicTableCell.xib; sourceTree = "<group>"; };
+		848E1ECF22C4635200A126CC /* ComicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicTableCell.swift; sourceTree = "<group>"; };
 		849E957E22AF212900ECEC0A /* ComicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionViewCell.swift; sourceTree = "<group>"; };
 		849E957F22AF212900ECEC0A /* ComicCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicCollectionViewCell.xib; sourceTree = "<group>"; };
 		849E958222AF498200ECEC0A /* CharacterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +235,7 @@
 				840D5FEA22A616950092C216 /* SearchViewController.swift */,
 				8405308D22B4E6A4006A7160 /* CharacterCollectionTableViewCell.xib */,
 				8405308922B4E4B0006A7160 /* CharacterCollectionViewCell.xib */,
+				848E1ECB22C4623D00A126CC /* ComicTableCell.xib */,
 				840D5FFA22A76FE40092C216 /* CharacterTableCell.xib */,
 				849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */,
 				849E957F22AF212900ECEC0A /* ComicCollectionViewCell.xib */,
@@ -238,6 +245,7 @@
 				840EE65322B6ED93007DAA3B /* VideoCollectionTableViewCell.xib */,
 				840EE65622B6EDE9007DAA3B /* VideoCollectionViewCell.swift */,
 				840EE65722B6EDE9007DAA3B /* VideoCollectionViewCell.xib */,
+				848E1ECF22C4635200A126CC /* ComicTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,6 +261,7 @@
 				849E958422AF575100ECEC0A /* Comic.swift */,
 				849E958622AF58F000ECEC0A /* MarvelComic.swift */,
 				840EE65C22B6FC2F007DAA3B /* ComicVineVideo.swift */,
+				846DB7EE22C2FC370095BB8D /* CVineComic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -432,6 +441,7 @@
 			files = (
 				840D5E5222A57EC30092C216 /* LaunchScreen.storyboard in Resources */,
 				8405308E22B4E6A4006A7160 /* CharacterCollectionTableViewCell.xib in Resources */,
+				848E1ECC22C4623D00A126CC /* ComicTableCell.xib in Resources */,
 				8411CF1822A96847006C8CC6 /* mask-filled.png in Resources */,
 				840D5FE722A5E9A40092C216 /* home-Small.png in Resources */,
 				840D5FFC22A76FE40092C216 /* CharacterTableCell.xib in Resources */,
@@ -521,6 +531,7 @@
 				840D5FFB22A76FE40092C216 /* CharacterTableCell.swift in Sources */,
 				8411CF1E22AA0302006C8CC6 /* CharacterCollectionCell.swift in Sources */,
 				840EE65822B6EDE9007DAA3B /* VideoCollectionViewCell.swift in Sources */,
+				846DB7EF22C2FC370095BB8D /* CVineComic.swift in Sources */,
 				8405308822B4E415006A7160 /* CharacterCollectionViewCell.swift in Sources */,
 				840D5FFE22A784190092C216 /* aCharacter.swift in Sources */,
 				849E958322AF498200ECEC0A /* CharacterDetailsViewController.swift in Sources */,
@@ -533,6 +544,7 @@
 				840D5E4522A57EC00092C216 /* AppDelegate.swift in Sources */,
 				8411CF1322A8B198006C8CC6 /* Notification+Name.swift in Sources */,
 				849E958022AF212900ECEC0A /* ComicCollectionViewCell.swift in Sources */,
+				848E1ED022C4635200A126CC /* ComicTableCell.swift in Sources */,
 				840D5FF622A6372B0092C216 /* String+Extension.swift in Sources */,
 				8405308C22B4E650006A7160 /* CharacterCollectionTableViewCell.swift in Sources */,
 				840EE65422B6ED93007DAA3B /* VideoCollectionTableViewCell.swift in Sources */,

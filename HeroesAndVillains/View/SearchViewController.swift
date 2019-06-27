@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-
+    
     @IBOutlet weak var searchTableView: UITableView!
     
     
@@ -18,7 +18,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         createSearch()
         setupNavigation()
         setupSearch()
@@ -32,32 +32,34 @@ class SearchViewController: UIViewController {
     }
     
     func createSearch(){
-    searchController.searchBar.placeholder = "Search Heroes and Villains"
-    searchController.dimsBackgroundDuringPresentation = false
-    searchController.hidesNavigationBarDuringPresentation = false
-    searchController.searchBar.delegate = self
-    definesPresentationContext = true
-    
-    navigationItem.searchController = searchController
-    navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.placeholder = "Search Heroes and Villains"
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.scopeButtonTitles = ["Characters", "Comics"]
+        searchController.searchBar.delegate = self
+        definesPresentationContext = true
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func setupSearch(){
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.register(UINib(nibName: CharacterTableCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: CharacterTableCell.identifier)
+        searchTableView.register(UINib(nibName: ComicTableCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ComicTableCell.identifier)
         searchTableView.tableFooterView = UIView(frame: .zero)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSearch), name: Notification.Name.CharacterNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSearch), name: Notification.Name.CVComicsNotification, object: nil)
     }
     
     @objc func updateSearch(){
-        print("Table reloaded")
+        
         DispatchQueue.main.async{
             self.searchTableView.reloadData()
         }
     }
-
-
+    
 }
 
 extension SearchViewController: UITableViewDelegate{
@@ -81,36 +83,83 @@ extension SearchViewController: UITableViewDelegate{
 extension SearchViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.characters.count
+        switch searchController.searchBar.selectedScopeButtonIndex{
+        case 0:
+            return viewModel.characters.count
+        case 1:
+            return viewModel.cvComics.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableCell.identifier, for: indexPath) as! CharacterTableCell
-        
-        let thisCharacter = viewModel.characters[indexPath.row]
-        cell.configure(with: aCharacter(with: thisCharacter))
-        
-        return cell
+        print("Search scope \(searchController.searchBar.selectedScopeButtonIndex)")
+        switch searchController.searchBar.selectedScopeButtonIndex{
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableCell.identifier, for: indexPath) as! CharacterTableCell
+            
+            let thisCharacter = viewModel.characters[indexPath.row]
+            cell.configure(with: aCharacter(with: thisCharacter))
+            
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ComicTableCell.identifier, for: indexPath) as! ComicTableCell
+            
+            let thisComic = viewModel.cvComics[indexPath.row]
+            cell.configure(with: Comic(with: thisComic))
+            
+            return cell
+            
+        default:
+            print("How did we get here? 100")
+            let someCell = UITableViewCell()
+            return someCell
+        }
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        var allowedChars = CharacterSet(charactersIn: "-._~/? ")
-//        allowedChars.formUnion(CharacterSet.alphanumerics)
+        
         guard let search = searchBar.text?.addingPercentEncoding(withAllowedCharacters: CharacterSet.customAllowedURLCharacters()) else {
             return
         }
         
-        if search.trimmingCharacters(in: .whitespaces).isEmpty{
+        switch searchController.searchBar.selectedScopeButtonIndex{
+        case 0:
+            if search.trimmingCharacters(in: .whitespaces).isEmpty{
+                
+                viewModel.getCharacters()
+            }else{
+                
+                viewModel.getCharactersByName(name: search)
+            }
+        case 1:
+            if search.trimmingCharacters(in: .whitespaces).isEmpty{
+                
+                viewModel.getCVComicsWithName(name: search)
+            }else{
+                
+                viewModel.getCVComicsWithName(name: search)
+            }
             
-            viewModel.getCharacters()
-        }else{
-            
-            viewModel.getCharactersByName(name: search)
+        default:
+            print("How did we get here? 010")
         }
     }
-
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch searchController.searchBar.selectedScopeButtonIndex{
+        case 0:
+            print("Character search selected")
+        case 1:
+            print("Comic search selected")
+        default:
+            print("How did we get here? 001")
+        }
+    }
+    
 }
