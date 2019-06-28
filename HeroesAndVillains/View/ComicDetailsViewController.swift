@@ -36,7 +36,7 @@ class ComicDetailsViewController: UIViewController {
             }
         }
         comicNameLabel.text = viewModel.comic.title
-        comicDescriptionLabel.text = viewModel.comic.description
+        comicDescriptionLabel.text = viewModel.comic.description.stripHTML()
         comicPrice.text = viewModel.comic.price
         comicCreators.text = viewModel.comic.creators
     }

@@ -11,6 +11,8 @@ import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 
+let htmlReplaceString: String  =   "<[^>]+>"
+
 extension String{
 
     var md5: String{
@@ -43,4 +45,16 @@ extension String{
         return addingPercentEncoding(withAllowedCharacters: allowed as CharacterSet)
     }
     
+}
+
+extension String {
+    /**
+     Takes the current String struct and strips out HTML using regular expression. All tags get stripped out.
+     
+     :returns: String html text as plain text
+     */
+    
+    func stripHTML() -> String {
+        return self.replacingOccurrences(of: htmlReplaceString, with: "", options: NSString.CompareOptions.regularExpression, range: nil)
+    }
 }

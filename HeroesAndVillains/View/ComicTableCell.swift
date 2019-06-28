@@ -23,7 +23,8 @@ class ComicTableCell: UITableViewCell {
     
     func configure(with comic: Comic) {
         comicNameLabel.text = comic.title
-        comicDescriptionLabel.text = comic.description
+        let strDesc = comic.description.stripHTML()
+        comicDescriptionLabel.text = strDesc
         // characterImage.image = UIImage(named: "mask.png")
         
         dlManager.download(comic.image) { [unowned self] dat in

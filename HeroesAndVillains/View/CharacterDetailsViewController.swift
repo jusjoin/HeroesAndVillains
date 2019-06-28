@@ -49,6 +49,7 @@ class CharacterDetailsViewController: UIViewController {
 
         setupCharacter()
         setupComicCollection()
+        setupCharacterStatsCollection()
     }
     
     func setupCharacter(){
@@ -74,6 +75,11 @@ class CharacterDetailsViewController: UIViewController {
         detailsTableView.dataSource = self
         detailsTableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
         
+    }
+    
+    func setupCharacterStatsCollection(){
+        
+        detailsTableView.register(UINib.init(nibName: "CharacterStatsTableCell", bundle: Bundle.main), forCellReuseIdentifier: "CharacterStatsTableCell")
     }
 
     @IBAction func detailsButtonTapped(_ sender: Any) {
@@ -125,28 +131,45 @@ extension CharacterDetailsViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {return "\(viewModel.character.name) Comics"}
-        
-        return "Section"
+        switch section{
+        case 0:
+            return "\(viewModel.character.name) Comics"
+        case 1:
+            return "\(viewModel.character.name) Stats"
+        default:
+            return "Section"
+        }
     }
 }
 
 extension CharacterDetailsViewController: UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //setupComicCollection() 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-        cell.viewModel = self.viewModel
-        cell.vcIdentifier = identifier
-
-        //        let thisCharacter = viewModel.characters[indexPath.row]
-        //        cell.configure(with: aCharacter(with: thisCharacter))
-        
-        return cell
+        switch indexPath.section{
+        case 0:
+            //setupComicCollection()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
+            cell.viewModel = self.viewModel
+            cell.vcIdentifier = identifier
+            
+            //        let thisCharacter = viewModel.characters[indexPath.row]
+            //        cell.configure(with: aCharacter(with: thisCharacter))
+            
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterStatsTableCell", for: indexPath) as! CharacterStatsTableCell
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
     
     

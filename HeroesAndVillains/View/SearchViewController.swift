@@ -66,12 +66,21 @@ extension SearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        
-        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
-        detailsVC.viewModel = viewModel
-        detailsVC.viewModel.character = aCharacter(with: viewModel.characters[indexPath.row])
-        
-        self.navigationController?.pushViewController(detailsVC, animated: true)
+        switch searchController.searchBar.selectedScopeButtonIndex{
+        case 0:
+            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+            detailsVC.viewModel = viewModel
+            detailsVC.viewModel.character = aCharacter(with: viewModel.characters[indexPath.row])
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        case 1:
+            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicDetailsViewController") as! ComicDetailsViewController
+            detailsVC.viewModel = viewModel
+            detailsVC.viewModel.comic = Comic(with: viewModel.cvComics[indexPath.row])
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        default:
+            let detailsVC = UIViewController()
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
