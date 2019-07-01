@@ -76,6 +76,12 @@ class ViewModel{
         }
     }
     
+    var characterStats = [CharacterStats](){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.CharacterStatsNotification, object: nil)
+        }
+    }
+    
     //MARK: Characters
     
     static func addDummyCharacter(){
@@ -228,5 +234,16 @@ class ViewModel{
             self.featuredVideos = videos
             print("Videos Count: \(videos.count)")
         }
+    }
+    
+    //MARK: CharacterStats
+    
+    func getCharacterStats(name: String){
+        let cleanName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.customAllowedURLCharacters())
+        csService.getCharacterStatsWithName(name: cleanName!, completion: {[unowned self] characterStats in
+            
+            self.characterStats = characterStats
+            print("Character Stats count: \(characterStats.count)")
+        })
     }
 }

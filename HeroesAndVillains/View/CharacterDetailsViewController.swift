@@ -166,6 +166,7 @@ extension CharacterDetailsViewController: UITableViewDataSource{
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterStatsTableCell", for: indexPath) as! CharacterStatsTableCell
+            cell.viewModel = self.viewModel
             return cell
         default:
             return UITableViewCell()

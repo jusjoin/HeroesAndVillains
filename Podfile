@@ -7,6 +7,7 @@ target 'HeroesAndVillains' do
 
 
 	pod 'Disintegrate'
+  pod 'Charts'
 
   # target 'HeroesAndVillainsTests' do
    # inherit! :search_paths

@@ -45,7 +45,7 @@ class CVComic: Decodable{
 }
 
 
-class CVolume: Decodable {
+struct CVolume: Decodable {
     let apiDetailURL: String
     let id: Int
     let name: String

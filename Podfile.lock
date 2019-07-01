@@ -1,16 +1,22 @@
 PODS:
+  - Charts (3.3.0):
+    - Charts/Core (= 3.3.0)
+  - Charts/Core (3.3.0)
   - Disintegrate (0.2.0)
 
 DEPENDENCIES:
+  - Charts
   - Disintegrate
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Charts
     - Disintegrate
 
 SPEC CHECKSUMS:
+  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
   Disintegrate: 59390cbca1c6fed3f8baa39619300ee36571f0e0
 
-PODFILE CHECKSUM: 011d717e6d70b14094aee915cd8cae81f09d16de
+PODFILE CHECKSUM: 5eb720af8f2b712d1c484f08d1c68bc7e1be11dc
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.7.3
