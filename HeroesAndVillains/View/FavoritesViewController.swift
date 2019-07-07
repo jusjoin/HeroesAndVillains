@@ -14,6 +14,8 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesTableView: UITableView!
     
     let viewModel = ViewModel()
+    var showCharacterFaves = true
+    //var showComicFaves = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,8 @@ class FavoritesViewController: UIViewController {
     func setupFavorites(){
         favoritesTableView.register(UINib(nibName: "CharacterTableCell", bundle: Bundle.main),
                                     forCellReuseIdentifier: "CharacterTableCell")
+        favoritesTableView.register(UINib(nibName: "ComicTableCell", bundle: Bundle.main),
+                                    forCellReuseIdentifier: "ComicTableCell")
         //viewModel.delegate = self
         favoritesTableView.dataSource = self
         favoritesTableView.delegate = self
@@ -45,10 +49,33 @@ class FavoritesViewController: UIViewController {
     func setupNavigation(){
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = Constants.Keys.favoritesTitle.rawValue
+        
+        let comicBarButton = UIBarButtonItem(title: "Comics", style: .plain, target: self, action: #selector(comicButtonTapped))
+        let characterBarButton = UIBarButtonItem(title: "Characters", style: .plain, target: self, action: #selector(characterButtonTapped))
+        self.navigationItem.rightBarButtonItem = comicBarButton
+        self.navigationItem.leftBarButtonItem = characterBarButton
+        //self.navigationItem.rightBarButtonItems = [UIBarButtonItem](arrayLiteral: rBar1, rBar2)
     }
     
     func update(){
+        
         viewModel.GetFavoriteCharacters()
+        viewModel.GetFavoriteComics()
+    }
+    
+    @objc func comicButtonTapped(){
+        
+        //showComicFaves = true
+        showCharacterFaves = false
+        favoritesTableView.reloadData()
+        
+    }
+    @objc func characterButtonTapped(){
+    
+        showCharacterFaves = true
+        //showComicFaves = false
+        favoritesTableView.reloadData()
+        
     }
 
 }
@@ -56,17 +83,30 @@ class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.faveCharacters.count
+        if showCharacterFaves{
+            return viewModel.faveCharacters.count
+        }else{
+            return viewModel.faveComics.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterTableCell", for: indexPath) as! CharacterTableCell
+        if showCharacterFaves{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterTableCell", for: indexPath) as! CharacterTableCell
+            
+            cell.configure(with: aCharacter(with: viewModel.faveCharacters[indexPath.row]))
+            //cell.fvcDelegate = self
         
-        cell.configure(with: aCharacter(with: viewModel.faveCharacters[indexPath.row]))
-        //cell.fvcDelegate = self
-        
-        return cell
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ComicTableCell", for: indexPath) as! ComicTableCell
+            
+            cell.configure(with: Comic(with: viewModel.faveComics[indexPath.row]))
+            //cell.fvcDelegate = self
+            
+            return cell
+        }
     }
     
 }
@@ -86,11 +126,19 @@ extension FavoritesViewController: UITableViewDelegate{
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
-        detailsVC.viewModel = viewModel
-        detailsVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
-        
-        self.navigationController?.pushViewController(detailsVC, animated: true)
+        if showCharacterFaves{
+            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+            detailsVC.viewModel = viewModel
+            detailsVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
+            
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }else{
+            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicetailsViewController") as! ComicDetailsViewController
+            detailsVC.viewModel = viewModel
+            detailsVC.viewModel.comic = Comic(with: viewModel.faveComics[indexPath.row])
+            
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }
     }
     
     // MARK: - Stop using this.
@@ -114,8 +162,13 @@ extension FavoritesViewController: UITableViewDelegate{
                 { _ in
                     let cell = tableView.cellForRow(at: indexPath)!
                     cell.disintegrate { [unowned self] in
-                        let char = self.viewModel.faveCharacters[indexPath.row]
-                        self.viewModel.deleteCharacterFromFaves(with: char)
+                        if self.showCharacterFaves{
+                            let char = self.viewModel.faveCharacters[indexPath.row]
+                            self.viewModel.deleteCharacterFromFaves(with: char)
+                        }else{
+                            let com = self.viewModel.faveComics[indexPath.row]
+                            self.viewModel.deleteComicFromFaves(with: com)
+                        }
                         cell.contentView.alpha = 1.0 // undo side-effect caused by disintegrate
                     }
             })

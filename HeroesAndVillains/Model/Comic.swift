@@ -15,7 +15,7 @@ class Comic{
     var issueNumber = Int()
     var description = String()
     var upc = String()
-    var price = String()
+    var price = Double()
     var image = String()
     var creators = String()
     var urls = [Urls]()
@@ -37,7 +37,7 @@ class Comic{
             image = path + "." + ext
         }
         if !aComic.prices.isEmpty{
-            price = /*aComic.prices[0].type*/ "Price" + ": " + String(aComic.prices[0].price)
+            price = aComic.prices[0].price
         }
         urls = aComic.urls
         guard let c = aComic.creators else {return}
@@ -77,4 +77,28 @@ class Comic{
 //        }
     }
     
+    init(with aComic: CoreComic){
+        
+        id = Int(aComic.id)
+        title = aComic.title ?? "No Title"
+        issueNumber = Int(aComic.issueNumber)
+        description = aComic.descript ?? "Description unavailable"
+        upc = ""
+        price = aComic.price
+        image = aComic.image ?? ""
+        creators = ""
+        urls = [Urls]()
+    }
+    
+}
+
+extension Comic:Equatable{
+    static func == (lhs: Comic, rhs: Comic) -> Bool {
+        if(lhs.id == rhs.id){
+            return true
+        }
+        else{
+            return false
+        }
+    }
 }

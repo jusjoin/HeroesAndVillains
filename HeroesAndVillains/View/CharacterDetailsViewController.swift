@@ -36,10 +36,10 @@ class CharacterDetailsViewController: UIViewController {
     }
     @IBAction func faveButtonTapped(_ sender: Any) {
         if(!faved){
-            faved = viewModel.saveCharacterToFaves(with: viewModel.character)
+            faved = viewModel.saveComicToFaves(with: viewModel.comic)
         }
         else{
-            faved = !viewModel.deleteCharacterFromFaves(with: viewModel.character)
+            faved = !viewModel.deleteComicFromFaves(with: viewModel.comic)
         }
     }
     

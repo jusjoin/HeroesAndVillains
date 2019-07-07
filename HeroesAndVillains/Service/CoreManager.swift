@@ -121,6 +121,83 @@ final class CoreManager
         saveContext()
     }
     
+    func getCoreComics() -> [CoreComic]{
+        
+        //fetch request
+        let fetchRequest = NSFetchRequest<CoreComic>(entityName: Constants.Keys.CoreComic.rawValue)
+        
+        //container
+        var CoreComics = [CoreComic]()
+        
+        do {
+            
+            CoreComics = try context.fetch(fetchRequest)
+            print("CoreComics Count: \(CoreComics.count)")
+            return CoreComics
+            
+        } catch {
+            
+            return []
+        }
+    }
+    
+    func saveComic(withComic comic: Comic) -> Bool{
+        
+        let savedComics = getCoreComics()
+        
+        //entity description
+        let entity = NSEntityDescription.entity(forEntityName: Constants.Keys.CoreComic.rawValue, in: context)!
+        
+        //core entity
+        let CoreComic = NSManagedObject(entity: entity, insertInto: context)
+        
+        CoreComic.setValue(comic.id, forKey: Constants.CoreComicKeys.id.rawValue)
+        CoreComic.setValue(comic.description, forKey: Constants.CoreComicKeys.descript.rawValue)
+        CoreComic.setValue(comic.image, forKey: Constants.CoreComicKeys.image.rawValue)
+        CoreComic.setValue(comic.title, forKey: Constants.CoreComicKeys.title.rawValue)
+        CoreComic.setValue(comic.creators, forKey: Constants.CoreComicKeys.creators.rawValue)
+        CoreComic.setValue(comic.issueNumber, forKey:
+            Constants.CoreComicKeys.issueNumber.rawValue)
+        CoreComic.setValue(comic.price, forKey: Constants.CoreComicKeys.price.rawValue)
+        
+        
+        //check if exists in core data
+        for aComic in savedComics{
+            let co = Comic(with: aComic)
+            if( co == comic)
+            {
+                context.delete(aComic)
+                print("Comic: \(comic.title) already exists in core data.")
+                return false
+            }
+        }
+        
+        //save context
+        saveContext()
+        print("Saved Character To Core: \(comic.title)")
+        return true
+    }
+    
+    func deleteComic(with comic: Comic) -> Bool{
+        
+        let savedComics = getCoreComics()
+        
+        for aComic in savedComics{
+            let co = Comic(with: aComic)
+            if( co == comic)
+            {
+                deleteComic(withCore: aComic)
+                return true
+            }
+        }
+        return false
+    }
+    
+    func deleteComic(withCore comic: CoreComic) {
+        context.delete(comic)
+        saveContext()
+    }
+    
     func saveContext() {
         
         do {

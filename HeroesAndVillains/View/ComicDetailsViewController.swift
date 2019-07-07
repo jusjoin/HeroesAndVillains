@@ -15,9 +15,36 @@ class ComicDetailsViewController: UIViewController {
     @IBOutlet weak var detailsTableView: UITableView!
     @IBOutlet weak var comicPrice: UILabel!
     @IBOutlet weak var comicCreators: UILabel!
+    @IBOutlet weak var faveButton: UIButton!
     
     var viewModel : ViewModel!
     let identifier = "ComicDetailsViewController"
+    
+    var faved = false{ // move to viewModel
+        didSet{
+            if faved == true{
+                let origImage = UIImage(named: "fave-filled.png")
+                let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+                faveButton.setImage(tintedImage, for: .normal)
+                faveButton.tintColor = .yellow
+                //faveButton.setImage(UIImage.init(named: "fave-filled.png"), for: .normal)
+            }else{
+                let origImage = UIImage(named: "fave.png")
+                let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+                faveButton.setImage(tintedImage, for: .normal)
+                faveButton.tintColor = .blue
+            }
+        }
+    }
+    @IBAction func faveButtonTapped(_ sender: Any) {
+        if(!faved){
+            faved = viewModel.saveComicToFaves(with: viewModel.comic)
+        }
+        else{
+            faved = !viewModel.deleteComicFromFaves(with: viewModel.comic)
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +64,9 @@ class ComicDetailsViewController: UIViewController {
         }
         comicNameLabel.text = viewModel.comic.title
         comicDescriptionLabel.text = viewModel.comic.description.stripHTML()
-        comicPrice.text = viewModel.comic.price
+        comicPrice.text = String(viewModel.comic.price)
         comicCreators.text = viewModel.comic.creators
+        faved = viewModel.CheckFavedComics(with: viewModel.comic)
     }
     
     func setupCharacterCollection(){

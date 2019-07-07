@@ -58,6 +58,13 @@ class ViewModel{
         }
     }
     
+    var faveComics = [CoreComic](){
+        didSet{
+            updateUI?()
+            NotificationCenter.default.post(name: Notification.Name.FaveComicsNotification, object: nil)
+        }
+    }
+    
     var featuredVideos = [CVideo](){
         didSet{
             NotificationCenter.default.post(name: Notification.Name.VideosNotification, object: nil)
@@ -141,7 +148,7 @@ class ViewModel{
     
     func saveCharacterToFaves(with char: aCharacter) -> Bool{
         
-        return coreManager.saveCharacter(with: char)!
+        return  coreManager.saveCharacter(with: char)!
     }
     
     @discardableResult
@@ -223,6 +230,46 @@ class ViewModel{
             self.cvComics = comics
             print("CVComics Count: \(comics.count)")
         })
+    }
+    
+    func saveComicToFaves(with comic: Comic) -> Bool{
+        
+        return  coreManager.saveComic(withComic: comic)
+    }
+    
+    @discardableResult
+    func deleteComicFromFaves(with comic: Comic) -> Bool{
+        // faveCharacters.removeAll { $0 === char         }
+        return coreManager.deleteComic(with: comic)
+    }
+    
+    func deleteComicFromFaves(with comic: CoreComic) {
+        coreManager.deleteComic(withCore: comic)
+        faveComics.removeAll { $0 === comic }
+    }
+    
+    func GetFavoriteComics(){
+        self.faveComics = coreManager.getCoreComics()
+    }
+    
+    func CheckFavedComics(with comic: Comic) -> Bool{
+        
+        self.faveComics = coreManager.getCoreComics()
+        print("Favorites:")
+        for aComic in faveComics{
+            let c = Comic(with: aComic)
+            print("Comic: \(c.title)")
+        }
+        for aComic in faveComics{
+            let c = Comic(with: aComic)
+            print("Comics from faves: \(c.title)")
+            if( c == comic)
+            {
+                return true
+            }
+        }
+        
+        return false
     }
     
     //MARK: Videos
