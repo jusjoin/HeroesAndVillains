@@ -73,8 +73,6 @@
 		849E958A22B0B35300ECEC0A /* ComicCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E958822B0B35300ECEC0A /* ComicCollectionTableViewCell.swift */; };
 		849E958B22B0B35400ECEC0A /* ComicCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */; };
 		84D04C4A22C83D0D0017EDA8 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C4922C83D0D0017EDA8 /* GraphView.swift */; };
-		84D04C5022CBEB4E0017EDA8 /* ComicClashLogoBY.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D04C4E22CBEB4D0017EDA8 /* ComicClashLogoBY.png */; };
-		84D04C5122CBEB4E0017EDA8 /* ComicClashLogoRY.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D04C4F22CBEB4E0017EDA8 /* ComicClashLogoRY.png */; };
 		D1E727CE8E19E743866D5380 /* Pods_HeroesAndVillains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2260920A02F7D831EB70A0FE /* Pods_HeroesAndVillains.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,7 +102,7 @@
 		8405309322B5BBAA006A7160 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
 		8405309722B62C77006A7160 /* fave */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fave; sourceTree = "<group>"; };
 		8405309B22B62E10006A7160 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
-		840D5E4122A57EC00092C216 /* HeroesAndVillains.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeroesAndVillains.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		840D5E4122A57EC00092C216 /* Comic Clash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Comic Clash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		840D5E4422A57EC00092C216 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		840D5E4622A57EC00092C216 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		840D5E4922A57EC00092C216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -162,8 +160,6 @@
 		849E958822B0B35300ECEC0A /* ComicCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		84D04C4922C83D0D0017EDA8 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
-		84D04C4E22CBEB4D0017EDA8 /* ComicClashLogoBY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ComicClashLogoBY.png; path = HeroesAndVillains/ComicClashLogoBY.png; sourceTree = SOURCE_ROOT; };
-		84D04C4F22CBEB4E0017EDA8 /* ComicClashLogoRY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ComicClashLogoRY.png; path = HeroesAndVillains/ComicClashLogoRY.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +203,7 @@
 		840D5E4222A57EC00092C216 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				840D5E4122A57EC00092C216 /* HeroesAndVillains.app */,
+				840D5E4122A57EC00092C216 /* Comic Clash.app */,
 				840D5E5822A57EC30092C216 /* HeroesAndVillainsTests.xctest */,
 			);
 			name = Products;
@@ -387,8 +383,6 @@
 		84D04C4D22CBEB370017EDA8 /* logo */ = {
 			isa = PBXGroup;
 			children = (
-				84D04C4E22CBEB4D0017EDA8 /* ComicClashLogoBY.png */,
-				84D04C4F22CBEB4E0017EDA8 /* ComicClashLogoRY.png */,
 			);
 			path = logo;
 			sourceTree = "<group>";
@@ -421,7 +415,7 @@
 			);
 			name = HeroesAndVillains;
 			productName = HeroesAndVillains;
-			productReference = 840D5E4122A57EC00092C216 /* HeroesAndVillains.app */;
+			productReference = 840D5E4122A57EC00092C216 /* Comic Clash.app */;
 			productType = "com.apple.product-type.application";
 		};
 		840D5E5722A57EC30092C216 /* HeroesAndVillainsTests */ = {
@@ -496,7 +490,6 @@
 				8405309822B62C77006A7160 /* fave in Resources */,
 				8405309122B59F8F006A7160 /* fave-filled.png in Resources */,
 				840D5FE122A5E9850092C216 /* search-Small@2x.png in Resources */,
-				84D04C5022CBEB4E0017EDA8 /* ComicClashLogoBY.png in Resources */,
 				840D5FE922A5E9A40092C216 /* home-Small@3x.png in Resources */,
 				840D5FE322A5E9850092C216 /* search-Small.png in Resources */,
 				849E958122AF212900ECEC0A /* ComicCollectionViewCell.xib in Resources */,
@@ -510,7 +503,6 @@
 				840EE65922B6EDE9007DAA3B /* VideoCollectionViewCell.xib in Resources */,
 				840EE65522B6ED93007DAA3B /* VideoCollectionTableViewCell.xib in Resources */,
 				840D5E4A22A57EC00092C216 /* Main.storyboard in Resources */,
-				84D04C5122CBEB4E0017EDA8 /* ComicClashLogoRY.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,7 +774,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jus.HeroesAndVillains;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Comic Clash";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -802,7 +794,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jus.HeroesAndVillains;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Comic Clash";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
