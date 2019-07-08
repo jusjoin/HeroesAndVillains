@@ -159,6 +159,7 @@ extension CharacterDetailsViewController: UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
             cell.viewModel = self.viewModel
             cell.vcIdentifier = identifier
+            cell.delegate = self
             
             //        let thisCharacter = viewModel.characters[indexPath.row]
             //        cell.configure(with: aCharacter(with: thisCharacter))
@@ -171,6 +172,18 @@ extension CharacterDetailsViewController: UITableViewDataSource{
         default:
             return UITableViewCell()
         }
+    }
+    
+    
+}
+
+extension CharacterDetailsViewController: ComicCollectionTableViewCellDelegate{
+    func pushToNavigationController(for comic: Comic) {
+        
+        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicDetailsViewController") as! ComicDetailsViewController
+        viewModel.comic = comic
+        detailsVC.viewModel = viewModel
+        self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     
     

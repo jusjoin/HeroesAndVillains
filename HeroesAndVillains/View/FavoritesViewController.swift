@@ -133,7 +133,7 @@ extension FavoritesViewController: UITableViewDelegate{
             
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }else{
-            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicetailsViewController") as! ComicDetailsViewController
+            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicDetailsViewController") as! ComicDetailsViewController
             detailsVC.viewModel = viewModel
             detailsVC.viewModel.comic = Comic(with: viewModel.faveComics[indexPath.row])
             

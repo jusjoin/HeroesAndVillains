@@ -65,7 +65,7 @@ extension CharacterCollectionTableViewCell: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        delegate?.pushToNavigationController(for: aCharacter(with: viewModel.characters[indexPath.row]))
+        delegate?.pushToNavigationController(for: aCharacter(with: viewModel.comicCharacters[indexPath.row]))
     }
 }
 

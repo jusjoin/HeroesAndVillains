@@ -73,6 +73,7 @@
 		849E958A22B0B35300ECEC0A /* ComicCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E958822B0B35300ECEC0A /* ComicCollectionTableViewCell.swift */; };
 		849E958B22B0B35400ECEC0A /* ComicCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */; };
 		84D04C4A22C83D0D0017EDA8 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C4922C83D0D0017EDA8 /* GraphView.swift */; };
+		84D04C5322D2EBEB0017EDA8 /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D04C5222D2EBEB0017EDA8 /* Game.storyboard */; };
 		D1E727CE8E19E743866D5380 /* Pods_HeroesAndVillains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2260920A02F7D831EB70A0FE /* Pods_HeroesAndVillains.framework */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +161,7 @@
 		849E958822B0B35300ECEC0A /* ComicCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		84D04C4922C83D0D0017EDA8 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		84D04C5222D2EBEB0017EDA8 /* Game.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +318,7 @@
 			children = (
 				840D5E4822A57EC00092C216 /* Main.storyboard */,
 				840D5E5022A57EC30092C216 /* LaunchScreen.storyboard */,
+				84D04C5222D2EBEB0017EDA8 /* Game.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				8405308A22B4E4B0006A7160 /* CharacterCollectionViewCell.xib in Resources */,
 				840EE65922B6EDE9007DAA3B /* VideoCollectionViewCell.xib in Resources */,
 				840EE65522B6ED93007DAA3B /* VideoCollectionTableViewCell.xib in Resources */,
+				84D04C5322D2EBEB0017EDA8 /* Game.storyboard in Resources */,
 				840D5E4A22A57EC00092C216 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
