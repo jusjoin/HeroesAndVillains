@@ -13,7 +13,7 @@
         <!--Search View Controller-->
         <scene sceneID="IdV-E7-bAD">
             <objects>
-                <viewController storyboardIdentifier="SearchVC" id="PkB-II-d4H" customClass="SearchViewController" customModule="HeroesAndVillains" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchVC" id="PkB-II-d4H" customClass="SearchViewController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bPv-Uj-sNS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,7 +44,7 @@
         <!--Home View Controller-->
         <scene sceneID="NYi-eQ-Ib2">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" id="QYx-42-RlT" customClass="HomeViewController" customModule="HeroesAndVillains" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="QYx-42-RlT" customClass="HomeViewController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Op-UL-3ma">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,7 +66,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CharacterCollectionCell" id="tPg-da-ieF" customClass="CharacterCollectionCell" customModule="HeroesAndVillains" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CharacterCollectionCell" id="tPg-da-ieF" customClass="CharacterCollectionCell" customModule="Comic_Clash" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="2.5" width="175" height="194"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -139,7 +139,7 @@
         <!--Character Details View Controller-->
         <scene sceneID="KeX-ik-ow0">
             <objects>
-                <viewController storyboardIdentifier="CharacterDetailsViewController" id="dKh-74-9q3" customClass="CharacterDetailsViewController" customModule="HeroesAndVillains" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CharacterDetailsViewController" id="dKh-74-9q3" customClass="CharacterDetailsViewController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fdq-3J-Wmt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -167,8 +167,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alq-Qz-Rb9">
-                                <rect key="frame" x="169" y="89" width="53" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alq-Qz-Rb9">
+                                <rect key="frame" x="169" y="89" width="58" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Details">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -209,14 +209,20 @@
                                     <action selector="faveButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="fxD-6I-ezU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqV-QQ-cCn">
+                                <rect key="frame" x="267" y="92" width="92" height="30"/>
+                                <state key="normal" title="Add to Team"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="h7c-Js-sTt" firstAttribute="leading" secondItem="2Ot-52-7uG" secondAttribute="leading" constant="16" id="7lN-d9-kfW"/>
                             <constraint firstItem="alq-Qz-Rb9" firstAttribute="leading" secondItem="h7c-Js-sTt" secondAttribute="trailing" constant="18" id="96U-Hs-Htk"/>
+                            <constraint firstItem="SD8-gY-3RL" firstAttribute="top" secondItem="DqV-QQ-cCn" secondAttribute="bottom" constant="63" id="9d7-nC-R3U"/>
                             <constraint firstItem="h7c-Js-sTt" firstAttribute="top" secondItem="2Ot-52-7uG" secondAttribute="top" constant="27" id="A3y-te-cEL"/>
                             <constraint firstItem="FDE-EH-Ldx" firstAttribute="top" secondItem="SD8-gY-3RL" secondAttribute="bottom" constant="8" symbolic="YES" id="ADw-oX-IQu"/>
                             <constraint firstItem="2Ot-52-7uG" firstAttribute="trailing" secondItem="AQk-er-HuC" secondAttribute="trailing" constant="16" id="B8P-qZ-VOb"/>
+                            <constraint firstItem="2Ot-52-7uG" firstAttribute="trailing" secondItem="DqV-QQ-cCn" secondAttribute="trailing" constant="16" id="DDj-b2-4zW"/>
                             <constraint firstItem="SD8-gY-3RL" firstAttribute="top" secondItem="MwF-kx-fa1" secondAttribute="bottom" constant="120" id="T7l-gP-6ok"/>
                             <constraint firstItem="d2p-bx-ZKf" firstAttribute="top" secondItem="alq-Qz-Rb9" secondAttribute="bottom" id="Tdc-lE-kxb"/>
                             <constraint firstItem="MwF-kx-fa1" firstAttribute="leading" secondItem="h7c-Js-sTt" secondAttribute="trailing" constant="-135" id="Vyz-1p-eXs"/>
@@ -231,6 +237,7 @@
                             <constraint firstItem="FDE-EH-Ldx" firstAttribute="leading" secondItem="2Ot-52-7uG" secondAttribute="leading" constant="16" id="lbz-2x-Ha2"/>
                             <constraint firstItem="DAV-Cm-Hds" firstAttribute="leading" secondItem="h7c-Js-sTt" secondAttribute="trailing" constant="18" id="n28-e5-ttD"/>
                             <constraint firstItem="SD8-gY-3RL" firstAttribute="leading" secondItem="2Ot-52-7uG" secondAttribute="leading" constant="16" id="nQE-L0-0lN"/>
+                            <constraint firstItem="DqV-QQ-cCn" firstAttribute="leading" secondItem="alq-Qz-Rb9" secondAttribute="trailing" constant="45" id="oDY-5l-62l"/>
                             <constraint firstItem="DAV-Cm-Hds" firstAttribute="top" secondItem="d2p-bx-ZKf" secondAttribute="bottom" constant="-0.5" id="uJX-lV-MlH"/>
                             <constraint firstItem="FDE-EH-Ldx" firstAttribute="trailing" secondItem="Fdq-3J-Wmt" secondAttribute="trailingMargin" id="wQw-oF-KsZ"/>
                         </constraints>
@@ -251,7 +258,7 @@
         <!--Comic Details View Controller-->
         <scene sceneID="lpb-UP-49M">
             <objects>
-                <viewController storyboardIdentifier="ComicDetailsViewController" id="ZGW-Dj-j2G" customClass="ComicDetailsViewController" customModule="HeroesAndVillains" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ComicDetailsViewController" id="ZGW-Dj-j2G" customClass="ComicDetailsViewController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EXl-7f-qlE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,7 +375,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="S5f-sp-JqK">
             <objects>
-                <tabBarController id="wEy-3L-Y1U" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeViewController" id="wEy-3L-Y1U" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="csb-S0-Y4C">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -387,7 +394,7 @@
         <!--Main Navigation Controller-->
         <scene sceneID="s8S-vw-1XS">
             <objects>
-                <navigationController storyboardIdentifier="HomeNavController" automaticallyAdjustsScrollViewInsets="NO" id="WIX-3Q-VdJ" customClass="MainNavigationController" customModule="HeroesAndVillains" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavController" automaticallyAdjustsScrollViewInsets="NO" id="WIX-3Q-VdJ" customClass="MainNavigationController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="home" selectedImage="home" id="O8C-Qc-mQu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="089-M5-FMQ">
@@ -428,7 +435,7 @@
         <!--Favorites View Controller-->
         <scene sceneID="QPC-1A-Jw3">
             <objects>
-                <viewController storyboardIdentifier="FavoritesViewController" id="rFG-sA-hdO" customClass="FavoritesViewController" customModule="HeroesAndVillains" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavoritesViewController" id="rFG-sA-hdO" customClass="FavoritesViewController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5dz-Mb-YmG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

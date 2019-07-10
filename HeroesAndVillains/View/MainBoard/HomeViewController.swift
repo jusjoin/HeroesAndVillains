@@ -22,6 +22,8 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = Constants.Keys.homeTitle.rawValue
+        let battleBarButton = UIBarButtonItem(title: Constants.Keys.homeGameTitle.rawValue, style: .plain, target: self, action: #selector(battleButtonTapped))
+        self.navigationItem.leftBarButtonItem = battleBarButton
         characterCollectionView.delegate = self
         characterCollectionView.dataSource = self
         setupCharacterCollection()
@@ -35,11 +37,25 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         mainTableView.register(UINib.init(nibName: "VideoCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "VideoCollectionTableViewCell")
         mainTableView.tableFooterView = .init(frame: .zero)
         //setupComicCollectionTableViewCellDelegate()
-
            
     }
     
+    @objc func battleButtonTapped(){
+        
+//        let storyBoard: UIStoryboard = UIStoryboard(name: "Game", bundle: nil)
+//        let newViewController = storyBoard.instantiateViewController(withIdentifier: "GameTabBarController")
+//        self.present(newViewController, animated: true, completion: nil)
+        
+        let gameStoryBoard = UIStoryboard(name: "Game", bundle: nil)
+        let gameVC = (gameStoryBoard.instantiateViewController(withIdentifier: "BattleMainViewController"))
+//        gameVC.viewModel = viewModel
+//        gameVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.pushViewController(gameVC, animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
         updateCharacterCollection()
     }
     

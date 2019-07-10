@@ -35,7 +35,7 @@ class aCharacter{
         alignment = ""
     }
     
-    init(with core: CoreCharacter){
+    init(with core: CoreFavoriteCharacter){
         self.id = Int(core.id)
         self.name = core.name!
         self.description = core.descript!

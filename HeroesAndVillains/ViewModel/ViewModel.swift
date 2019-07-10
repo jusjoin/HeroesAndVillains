@@ -24,7 +24,7 @@ class ViewModel{
         }
     }
     
-    var faveCharacters = [CoreCharacter](){
+    var faveCharacters = [CoreFavoriteCharacter](){
         didSet{
             updateUI?()
             NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
@@ -148,16 +148,16 @@ class ViewModel{
     
     func saveCharacterToFaves(with char: aCharacter) -> Bool{
         
-        return  coreManager.saveCharacter(with: char)!
+        return  coreManager.saveFavoriteCharacterToCore(with: char)!
     }
     
     @discardableResult
     func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
         // faveCharacters.removeAll { $0 === char         }
-        return coreManager.deleteCharacter(withChar: char)
+        return coreManager.deleteFavoriteCharacterFromCore(withChar: char)
     }
     
-    func deleteCharacterFromFaves(with char: CoreCharacter) {
+    func deleteCharacterFromFaves(with char: CoreFavoriteCharacter) {
         coreManager.deleteCharacter(withChar: char)
         faveCharacters.removeAll { $0 === char }
     }
@@ -172,12 +172,12 @@ class ViewModel{
     }
     
     func GetFavoriteCharacters(){
-        self.faveCharacters = coreManager.getCoreCharacters()
+        self.faveCharacters = coreManager.getCoreFavoriteCharacters()
     }
     
     func CheckFavedCharacters(with char: aCharacter) -> Bool{
         
-        self.faveCharacters = coreManager.getCoreCharacters()
+        self.faveCharacters = coreManager.getCoreFavoriteCharacters()
         print("Favorites:")
         for aChar in faveCharacters{
             let c = aCharacter(with:aChar)

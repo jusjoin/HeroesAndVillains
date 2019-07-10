@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="CoreCharacter" representedClassName="CoreCharacter" syncable="YES" codeGenerationType="class">
-        <attribute name="alignment" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="descript" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="CoreBattleCharacter" representedClassName="CoreBattleCharacter" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stats" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <entity name="CoreComic" representedClassName="CoreComic" syncable="YES" codeGenerationType="class">
         <attribute name="creators" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -15,6 +14,13 @@
         <attribute name="issueNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CoreFavoriteCharacter" representedClassName="CoreFavoriteCharacter" syncable="YES" codeGenerationType="class">
+        <attribute name="alignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descript" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="CoreMarvelCharacter" representedClassName="CoreMarvelCharacter" syncable="YES" codeGenerationType="class">
         <attribute name="comics" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -41,9 +47,10 @@
         <attribute name="urls" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CoreCharacter" positionX="-63" positionY="63" width="128" height="120"/>
+        <element name="CoreFavoriteCharacter" positionX="-63" positionY="63" width="128" height="120"/>
         <element name="CoreComic" positionX="-36" positionY="81" width="128" height="150"/>
         <element name="CoreMarvelCharacter" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="CoreMarvelComic" positionX="-54" positionY="72" width="128" height="195"/>
+        <element name="CoreBattleCharacter" positionX="-45" positionY="99" width="128" height="105"/>
     </elements>
 </model>

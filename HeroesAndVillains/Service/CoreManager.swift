@@ -35,13 +35,13 @@ final class CoreManager
     
     //MARK: CoreCharacters
     
-    func getCoreCharacters() -> [CoreCharacter]{
+    func getCoreFavoriteCharacters() -> [CoreFavoriteCharacter]{
         
         //fetch request
-        let fetchRequest = NSFetchRequest<CoreCharacter>(entityName: Constants.Keys.CoreCharacter.rawValue)
+        let fetchRequest = NSFetchRequest<CoreFavoriteCharacter>(entityName: Constants.Keys.CoreFavoriteCharacter.rawValue)
         
         //container
-        var coreCharacters = [CoreCharacter]()
+        var coreCharacters = [CoreFavoriteCharacter]()
         
         do {
             
@@ -55,12 +55,12 @@ final class CoreManager
         }
     }
     
-    func saveCharacter(with char: aCharacter) -> Bool?{
+    func saveFavoriteCharacterToCore(with char: aCharacter) -> Bool?{
         
-        let savedCharacters = getCoreCharacters()
+        let savedCharacters = getCoreFavoriteCharacters()
 
         //entity description
-        let entity = NSEntityDescription.entity(forEntityName: Constants.Keys.CoreCharacter.rawValue, in: context)!
+        let entity = NSEntityDescription.entity(forEntityName: Constants.Keys.CoreFavoriteCharacter.rawValue, in: context)!
         
         //core entity
         let coreCharacter = NSManagedObject(entity: entity, insertInto: context)
@@ -91,7 +91,7 @@ final class CoreManager
     }
     
     //MARK: Delete
-    func deleteCharacter(withCore char: CoreCharacter) {
+    func deleteCharacterFromCore(withCore char: CoreFavoriteCharacter) {
         
         context.delete(char)
         
@@ -101,22 +101,22 @@ final class CoreManager
         
     }
     
-    func deleteCharacter(withChar char: aCharacter) -> Bool{
+    func deleteFavoriteCharacterFromCore(withChar char: aCharacter) -> Bool{
         
-        let savedCharacters = getCoreCharacters()
+        let savedCharacters = getCoreFavoriteCharacters()
         
         for aChar in savedCharacters{
             let ch = aCharacter(with:aChar)
             if( ch == char)
             {
-                deleteCharacter(withCore: aChar)
+                deleteCharacterFromCore(withCore: aChar)
                 return true
             }
         }
         return false
     }
     
-    func deleteCharacter(withChar char: CoreCharacter) {
+    func deleteCharacter(withChar char: CoreFavoriteCharacter) {
         context.delete(char)
         saveContext()
     }

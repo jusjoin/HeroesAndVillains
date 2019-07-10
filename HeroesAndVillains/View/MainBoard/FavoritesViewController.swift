@@ -50,8 +50,8 @@ class FavoritesViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = Constants.Keys.favoritesTitle.rawValue
         
-        let comicBarButton = UIBarButtonItem(title: "Comics", style: .plain, target: self, action: #selector(comicButtonTapped))
-        let characterBarButton = UIBarButtonItem(title: "Characters", style: .plain, target: self, action: #selector(characterButtonTapped))
+        let comicBarButton = UIBarButtonItem(title: Constants.Keys.comicsTitle.rawValue, style: .plain, target: self, action: #selector(comicButtonTapped))
+        let characterBarButton = UIBarButtonItem(title: Constants.Keys.charactersTitle.rawValue, style: .plain, target: self, action: #selector(characterButtonTapped))
         self.navigationItem.rightBarButtonItem = comicBarButton
         self.navigationItem.leftBarButtonItem = characterBarButton
         //self.navigationItem.rightBarButtonItems = [UIBarButtonItem](arrayLiteral: rBar1, rBar2)

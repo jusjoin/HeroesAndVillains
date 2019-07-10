@@ -19,8 +19,14 @@ struct Constants{
         case defaultComicImage = "mask.png"
         case homeVCIdentifier = "HomeViewController"
         case characterDetailsVCIdentifier = "CharacterDetailsViewController"
+        case homeGameTitle = "Clash"
+        case comicsTitle = "Comics"
+        case charactersTitle = "Characters"
+        case gameMainTitle = "Clash Main"
+        case gameBattleTitle = "Battle"
         
-        case CoreCharacter = "CoreCharacter"
+        
+        case CoreFavoriteCharacter = "CoreFavoriteCharacter"
         case CoreComic = "CoreComic"
         case CoreMarvelCharacter = "CoreMarvelCharacter"
         case CoreMarvelComic = "CoreMarvelComic"

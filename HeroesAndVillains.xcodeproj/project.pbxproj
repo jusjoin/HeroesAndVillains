@@ -74,6 +74,8 @@
 		849E958B22B0B35400ECEC0A /* ComicCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */; };
 		84D04C4A22C83D0D0017EDA8 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C4922C83D0D0017EDA8 /* GraphView.swift */; };
 		84D04C5322D2EBEB0017EDA8 /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D04C5222D2EBEB0017EDA8 /* Game.storyboard */; };
+		84D04C5A22D381720017EDA8 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C5922D381720017EDA8 /* BattleViewController.swift */; };
+		84D04C5C22D390910017EDA8 /* BattleMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C5B22D390910017EDA8 /* BattleMainViewController.swift */; };
 		D1E727CE8E19E743866D5380 /* Pods_HeroesAndVillains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2260920A02F7D831EB70A0FE /* Pods_HeroesAndVillains.framework */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +164,8 @@
 		849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		84D04C4922C83D0D0017EDA8 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		84D04C5222D2EBEB0017EDA8 /* Game.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
+		84D04C5922D381720017EDA8 /* BattleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
+		84D04C5B22D390910017EDA8 /* BattleMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleMainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,34 +243,9 @@
 		840D5E6722A57F4A0092C216 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84D04C5822D380590017EDA8 /* GameBoard */,
+				84D04C5722D37FF80017EDA8 /* MainBoard */,
 				84D04C4822C83C910017EDA8 /* CustomViews */,
-				8411CF1D22AA0302006C8CC6 /* CharacterCollectionCell.swift */,
-				8405308B22B4E650006A7160 /* CharacterCollectionTableViewCell.swift */,
-				8405308722B4E415006A7160 /* CharacterCollectionViewCell.swift */,
-				849E958222AF498200ECEC0A /* CharacterDetailsViewController.swift */,
-				848E1EE322C5E3A300A126CC /* CharacterStatsCollectionCell.swift */,
-				848E1EE422C5E3A300A126CC /* CharacterStatsTableCell.swift */,
-				840D5FF922A76FE40092C216 /* CharacterTableCell.swift */,
-				849E958822B0B35300ECEC0A /* ComicCollectionTableViewCell.swift */,
-				849E957E22AF212900ECEC0A /* ComicCollectionViewCell.swift */,
-				8405307F22B4A7AF006A7160 /* ComicDetailsViewController.swift */,
-				848E1ECF22C4635200A126CC /* ComicTableCell.swift */,
-				8405309B22B62E10006A7160 /* FavoritesViewController.swift */,
-				840D5E4622A57EC00092C216 /* HomeViewController.swift */,
-				840D5E7022A5D8430092C216 /* MainNavigationController.swift */,
-				840D5FEA22A616950092C216 /* SearchViewController.swift */,
-				840EE65222B6ED93007DAA3B /* VideoCollectionTableViewCell.swift */,
-				840EE65622B6EDE9007DAA3B /* VideoCollectionViewCell.swift */,
-				8405308D22B4E6A4006A7160 /* CharacterCollectionTableViewCell.xib */,
-				8405308922B4E4B0006A7160 /* CharacterCollectionViewCell.xib */,
-				848E1EE022C5E15100A126CC /* CharacterStatsCollectionCell.xib */,
-				848E1EDF22C5E15100A126CC /* CharacterStatsTableCell.xib */,
-				840D5FFA22A76FE40092C216 /* CharacterTableCell.xib */,
-				849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */,
-				849E957F22AF212900ECEC0A /* ComicCollectionViewCell.xib */,
-				848E1ECB22C4623D00A126CC /* ComicTableCell.xib */,
-				840EE65322B6ED93007DAA3B /* VideoCollectionTableViewCell.xib */,
-				840EE65722B6EDE9007DAA3B /* VideoCollectionViewCell.xib */,
 				840D5FC322A5DE310092C216 /* icons */,
 				8411CF1422A967A6006C8CC6 /* img */,
 			);
@@ -388,6 +367,49 @@
 			children = (
 			);
 			path = logo;
+			sourceTree = "<group>";
+		};
+		84D04C5722D37FF80017EDA8 /* MainBoard */ = {
+			isa = PBXGroup;
+			children = (
+				8411CF1D22AA0302006C8CC6 /* CharacterCollectionCell.swift */,
+				8405308B22B4E650006A7160 /* CharacterCollectionTableViewCell.swift */,
+				8405308722B4E415006A7160 /* CharacterCollectionViewCell.swift */,
+				849E958222AF498200ECEC0A /* CharacterDetailsViewController.swift */,
+				848E1EE322C5E3A300A126CC /* CharacterStatsCollectionCell.swift */,
+				848E1EE422C5E3A300A126CC /* CharacterStatsTableCell.swift */,
+				840D5FF922A76FE40092C216 /* CharacterTableCell.swift */,
+				849E958822B0B35300ECEC0A /* ComicCollectionTableViewCell.swift */,
+				849E957E22AF212900ECEC0A /* ComicCollectionViewCell.swift */,
+				8405307F22B4A7AF006A7160 /* ComicDetailsViewController.swift */,
+				848E1ECF22C4635200A126CC /* ComicTableCell.swift */,
+				8405309B22B62E10006A7160 /* FavoritesViewController.swift */,
+				840D5E4622A57EC00092C216 /* HomeViewController.swift */,
+				840D5E7022A5D8430092C216 /* MainNavigationController.swift */,
+				840D5FEA22A616950092C216 /* SearchViewController.swift */,
+				840EE65222B6ED93007DAA3B /* VideoCollectionTableViewCell.swift */,
+				840EE65622B6EDE9007DAA3B /* VideoCollectionViewCell.swift */,
+				8405308D22B4E6A4006A7160 /* CharacterCollectionTableViewCell.xib */,
+				8405308922B4E4B0006A7160 /* CharacterCollectionViewCell.xib */,
+				848E1EE022C5E15100A126CC /* CharacterStatsCollectionCell.xib */,
+				848E1EDF22C5E15100A126CC /* CharacterStatsTableCell.xib */,
+				840D5FFA22A76FE40092C216 /* CharacterTableCell.xib */,
+				849E958922B0B35300ECEC0A /* ComicCollectionTableViewCell.xib */,
+				849E957F22AF212900ECEC0A /* ComicCollectionViewCell.xib */,
+				848E1ECB22C4623D00A126CC /* ComicTableCell.xib */,
+				840EE65322B6ED93007DAA3B /* VideoCollectionTableViewCell.xib */,
+				840EE65722B6EDE9007DAA3B /* VideoCollectionViewCell.xib */,
+			);
+			path = MainBoard;
+			sourceTree = "<group>";
+		};
+		84D04C5822D380590017EDA8 /* GameBoard */ = {
+			isa = PBXGroup;
+			children = (
+				84D04C5922D381720017EDA8 /* BattleViewController.swift */,
+				84D04C5B22D390910017EDA8 /* BattleMainViewController.swift */,
+			);
+			path = GameBoard;
 			sourceTree = "<group>";
 		};
 		9E358C3F65C5BE5552158F89 /* Pods */ = {
@@ -566,8 +588,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D04C5A22D381720017EDA8 /* BattleViewController.swift in Sources */,
 				8405309422B5BBAA006A7160 /* CoreManager.swift in Sources */,
 				848E1EE522C5E3A300A126CC /* CharacterStatsCollectionCell.swift in Sources */,
+				84D04C5C22D390910017EDA8 /* BattleMainViewController.swift in Sources */,
 				840D5FEB22A616950092C216 /* SearchViewController.swift in Sources */,
 				8411CF1A22A96E13006C8CC6 /* DownloadManager.swift in Sources */,
 				840D5E4722A57EC00092C216 /* HomeViewController.swift in Sources */,

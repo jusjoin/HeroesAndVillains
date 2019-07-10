@@ -10,16 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Battle-->
+        <!--Battle View Controller-->
         <scene sceneID="Qh1-kf-zie">
             <objects>
-                <viewController id="5C3-Os-VTu" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BattleGameViewController" id="5C3-Os-VTu" customClass="BattleViewController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cLv-Aa-nJW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbZ-bV-Tri">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                             </skView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -31,45 +31,79 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4pq-vL-fYW"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Battle" id="64h-iC-KCZ"/>
+                    <navigationItem key="navigationItem" id="bko-pO-NtR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5NR-KR-TwT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="155.07246376811597" y="121.875"/>
+            <point key="canvasLocation" x="1065.217391304348" y="121.875"/>
         </scene>
-        <!--Main-->
+        <!--Battle Main View Controller-->
         <scene sceneID="4F4-Fs-aDo">
             <objects>
-                <viewController id="RTo-04-DaH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BattleMainViewController" id="RTo-04-DaH" customClass="BattleMainViewController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fqU-s1-dQB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask.png" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="beY-iW-tff">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Sac-vR-Kxr" firstAttribute="bottom" secondItem="beY-iW-tff" secondAttribute="bottom" id="70E-fB-IuL"/>
+                            <constraint firstItem="Sac-vR-Kxr" firstAttribute="trailing" secondItem="beY-iW-tff" secondAttribute="trailing" id="9sD-4H-GFJ"/>
+                            <constraint firstItem="beY-iW-tff" firstAttribute="top" secondItem="Sac-vR-Kxr" secondAttribute="top" id="bzu-U9-lin"/>
+                            <constraint firstItem="beY-iW-tff" firstAttribute="leading" secondItem="Sac-vR-Kxr" secondAttribute="leading" id="szH-cZ-XA0"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Sac-vR-Kxr"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Main" id="dz7-dz-O74"/>
+                    <navigationItem key="navigationItem" id="HJz-oh-Aip"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLl-Jy-p5U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="157" y="-526"/>
+            <point key="canvasLocation" x="1066.6666666666667" y="-526.33928571428567"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="zhb-l1-GWU">
+        <!--Main-->
+        <scene sceneID="iPd-J4-4XY">
             <objects>
-                <tabBarController id="Ig3-9H-2nI" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hY8-d4-zWT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0aS-ow-4cx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Main" id="dz7-dz-O74"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fng-Cm-3da">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="RTo-04-DaH" kind="relationship" relationship="viewControllers" id="IYg-LN-Rvk"/>
-                        <segue destination="5C3-Os-VTu" kind="relationship" relationship="viewControllers" id="WzG-6e-bqh"/>
+                        <segue destination="RTo-04-DaH" kind="relationship" relationship="rootViewController" id="0SC-s7-Sy0"/>
                     </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XBL-ZE-JTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KyC-6K-Y33" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-762" y="-202"/>
+            <point key="canvasLocation" x="156.52173913043478" y="-526.33928571428567"/>
+        </scene>
+        <!--Battle-->
+        <scene sceneID="RpV-Ax-hFn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iWe-Qd-Kbk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Battle" id="64h-iC-KCZ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="30w-go-0tY">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5C3-Os-VTu" kind="relationship" relationship="rootViewController" id="G3K-bP-7yY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ozi-qS-Xg3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="155.07246376811597" y="121.875"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="mask.png" width="375" height="375"/>
+    </resources>
 </document>
