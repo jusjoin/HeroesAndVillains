@@ -212,6 +212,9 @@
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqV-QQ-cCn">
                                 <rect key="frame" x="267" y="92" width="92" height="30"/>
                                 <state key="normal" title="Add to Team"/>
+                                <connections>
+                                    <action selector="addToTeamButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="SoE-pr-Eao"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -244,6 +247,7 @@
                         <viewLayoutGuide key="safeArea" id="2Ot-52-7uG"/>
                     </view>
                     <connections>
+                        <outlet property="addToTeamButton" destination="DqV-QQ-cCn" id="rol-5u-y3E"/>
                         <outlet property="characterDescriptionLabel" destination="SD8-gY-3RL" id="C83-CP-mDX"/>
                         <outlet property="characterImageView" destination="h7c-Js-sTt" id="GDk-5l-1GT"/>
                         <outlet property="characterNameLabel" destination="AQk-er-HuC" id="vM4-QY-iA8"/>

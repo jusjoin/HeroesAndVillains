@@ -66,8 +66,8 @@ extension CharacterStatsTableCell: UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        
+        //collectionView.deselectItem(at: indexPath, animated: true)
+        print("Cell selected: \(indexPath.row)")
         //delegate?.pushToNavigationController(for: Comic(with: viewModel.comics[indexPath.row]))
     }
     

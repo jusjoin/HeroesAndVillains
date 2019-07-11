@@ -207,5 +207,55 @@ final class CoreManager
         }
         
     }
+    
+    func getCoreBattleTeams() -> [CoreBattleTeam]{
+        
+        //fetch request
+        let fetchRequest = NSFetchRequest<CoreBattleTeam>(entityName: Constants.Keys.CoreBattleTeam.rawValue)
+        
+        //container
+        var coreBattleTeams = [CoreBattleTeam]()
+        
+        do {
+            
+            coreBattleTeams = try context.fetch(fetchRequest)
+            print("CoreBattleTeams Count: \(coreBattleTeams.count)")
+            return coreBattleTeams
+            
+        } catch {
+            
+            return []
+        }
+    }
+    
+    func saveBattleTeamToCore(_ team: BattleTeam) -> Bool?{
+        
+        let savedTeams = getCoreBattleTeams()
+        
+        //entity description
+        let entity = NSEntityDescription.entity(forEntityName: Constants.Keys.CoreBattleTeam.rawValue, in: context)!
+        
+        //core entity
+        let coreBattleTeam = NSManagedObject(entity: entity, insertInto: context)
+        
+        coreBattleTeam.setValue(team.battleCharacters, forKey: Constants.CoreBattleTeamKeys.battleCharacters.rawValue)
+        
+        //check if exists in core data
+        for aTeam in savedTeams{
+            //let t = aCharacter(with:aChar)
+            if( aTeam.teamName == team.teamName)
+            {
+                context.delete(coreBattleTeam)
+                print("Team: \(team.teamName) already exists in core data.")
+                return false
+            }
+        }
+        
+        //save context
+        saveContext()
+        print("Saved Battle Team To Core: \(team.teamName)")
+        return true
+        
+    }
 }
 

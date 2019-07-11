@@ -14,6 +14,7 @@ class CharacterDetailsViewController: UIViewController {
     @IBOutlet weak var characterDescriptionLabel: UILabel!
     @IBOutlet weak var detailsTableView: UITableView!
     @IBOutlet weak var faveButton: UIButton!
+    @IBOutlet weak var addToTeamButton: UIButton!
     
     var viewModel : ViewModel!
     let identifier = Constants.Keys.characterDetailsVCIdentifier.rawValue
@@ -112,6 +113,22 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
+    @IBAction func addToTeamButtonTapped(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Select stats for character", message: "Only character stats with complete data is useable.", preferredStyle: .alert)
+        //var bChar = BattleCharacter()
+        
+        for c in viewModel.characterStats{
+            alert.addAction(UIAlertAction(title: c.name + String(format: ", PL: %.2f", BattleCharacter.powerLevel(c)), style: .default, handler: {(alert: UIAlertAction!) in
+                let combinedID = String(self.viewModel.character.id) + ";" + c.id
+                let bChar = BattleCharacter(id: (combinedID), name: c.name, image: self.viewModel.character.image, stats: Dictionary<String, Float>())
+                self.viewModel.AddBattleCharacterToTeam(bChar)
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
+    }
     
 }
 

@@ -48,6 +48,9 @@ class CharacterStatsCollectionCell: UICollectionViewCell {
         //characterStatsGraph.chartDescription?.text = "Character attributes"
         
         let leftAxis = characterStatsGraph.leftAxis
+        characterStatsGraph.animate(yAxisDuration: 3)
+        characterStatsGraph.leftAxis.axisMaximum = 110
+        characterStatsGraph.leftAxis.axisMinimum = 0
         leftAxis.enabled = false
         let xAxis = characterStatsGraph.xAxis
         xAxis.enabled = false

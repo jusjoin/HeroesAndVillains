@@ -30,6 +30,11 @@ struct Constants{
         case CoreComic = "CoreComic"
         case CoreMarvelCharacter = "CoreMarvelCharacter"
         case CoreMarvelComic = "CoreMarvelComic"
+        case CoreBattleTeam = "CoreBattleTeam"
+        
+        case DefaultBattleTeam1Name = "Team Alpha"
+        case DefaultBattleTeam2Name = "Team Bravo"
+        case DefaultBattleTeam3Name = "Team Charlie"
     }
     
     enum CoreCharacterKeys: String{
@@ -53,5 +58,14 @@ struct Constants{
         case creators = "creators"
     }
     
+    enum CoreBattleTeamKeys: String{
+        
+        case battleCharacters = "battleCharacters"
+        case teamName = "teamName"
+    }
     
+    enum KeysNum: Int{
+        
+        case battleTeamMaxSize = 3
+    }
 }

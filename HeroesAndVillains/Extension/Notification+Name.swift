@@ -23,5 +23,6 @@ extension Notification.Name{
     static let CVComicsForNotification = Notification.Name("CVComicsForNotification")
     static let CharacterStatsNotification = Notification.Name("CharacterStatsNotification")
     static let FaveComicsNotification = Notification.Name("FaveComicsNotification")
+    static let BattleTeamNotification = Notification.Name("BattleTeamNotification")
     
 }

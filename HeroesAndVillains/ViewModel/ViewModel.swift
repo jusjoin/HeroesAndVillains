@@ -89,6 +89,12 @@ class ViewModel{
         }
     }
     
+    var battleTeam = BattleTeam(){
+        didSet{
+            NotificationCenter.default.post(name: Notification.Name.BattleTeamNotification, object: nil)
+        }
+    }
+    
     //MARK: Characters
     
     static func addDummyCharacter(){
@@ -292,5 +298,19 @@ class ViewModel{
             self.characterStats = characterStats
             print("Character Stats count: \(characterStats.count)")
         })
+    }
+    
+    //MARK: Battle
+    
+    func AddBattleCharacterToTeam(_ battleCharacter: BattleCharacter, _ battleTeamName: String){
+        
+        //Save battleCharacter to core data
+        
+        if battleTeam.battleCharacters.count < Constants.KeysNum.battleTeamMaxSize.rawValue{
+            
+            battleTeam.battleCharacters.append(battleCharacter.id)
+        }
+        
+        //Save battleTeam to core data
     }
 }

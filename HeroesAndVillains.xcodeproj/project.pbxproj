@@ -76,6 +76,8 @@
 		84D04C5322D2EBEB0017EDA8 /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D04C5222D2EBEB0017EDA8 /* Game.storyboard */; };
 		84D04C5A22D381720017EDA8 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C5922D381720017EDA8 /* BattleViewController.swift */; };
 		84D04C5C22D390910017EDA8 /* BattleMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C5B22D390910017EDA8 /* BattleMainViewController.swift */; };
+		84D04C5E22D67C4F0017EDA8 /* BattleCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C5D22D67C4F0017EDA8 /* BattleCharacter.swift */; };
+		84D04C6022D6CC490017EDA8 /* BattleTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D04C5F22D6CC490017EDA8 /* BattleTeam.swift */; };
 		D1E727CE8E19E743866D5380 /* Pods_HeroesAndVillains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2260920A02F7D831EB70A0FE /* Pods_HeroesAndVillains.framework */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +168,8 @@
 		84D04C5222D2EBEB0017EDA8 /* Game.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
 		84D04C5922D381720017EDA8 /* BattleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
 		84D04C5B22D390910017EDA8 /* BattleMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleMainViewController.swift; sourceTree = "<group>"; };
+		84D04C5D22D67C4F0017EDA8 /* BattleCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleCharacter.swift; sourceTree = "<group>"; };
+		84D04C5F22D6CC490017EDA8 /* BattleTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleTeam.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +269,8 @@
 				840EE65C22B6FC2F007DAA3B /* ComicVineVideo.swift */,
 				846DB7EE22C2FC370095BB8D /* CVineComic.swift */,
 				848E1EE722C660EA00A126CC /* SuperHeroStats.swift */,
+				84D04C5D22D67C4F0017EDA8 /* BattleCharacter.swift */,
+				84D04C5F22D6CC490017EDA8 /* BattleTeam.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -612,7 +618,9 @@
 				840D5FF322A633A60092C216 /* MarvelService.swift in Sources */,
 				848E1EEC22C67D3500A126CC /* CharacterStatsService.swift in Sources */,
 				849E958722AF58F000ECEC0A /* MarvelComic.swift in Sources */,
+				84D04C6022D6CC490017EDA8 /* BattleTeam.swift in Sources */,
 				840D5E4D22A57EC00092C216 /* HeroesAndVillains.xcdatamodeld in Sources */,
+				84D04C5E22D67C4F0017EDA8 /* BattleCharacter.swift in Sources */,
 				849E958A22B0B35300ECEC0A /* ComicCollectionTableViewCell.swift in Sources */,
 				840D5E7122A5D8430092C216 /* MainNavigationController.swift in Sources */,
 				840D5E4522A57EC00092C216 /* AppDelegate.swift in Sources */,
