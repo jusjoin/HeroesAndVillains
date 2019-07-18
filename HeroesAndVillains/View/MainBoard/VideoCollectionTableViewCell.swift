@@ -14,7 +14,17 @@ protocol VideoCollectionTableViewCellDelegate{
 }
 
 class VideoCollectionTableViewCell: UITableViewCell {
-    @IBOutlet weak var VideoCollectionView: UICollectionView!
+    lazy var VideoCollectionView: UICollectionView = {
+       let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: VideoCollectionViewCell.identifier)
+        
+        return collectionView
+    }()
     
     
     var viewModel: ViewModel!
@@ -25,14 +35,13 @@ class VideoCollectionTableViewCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.VideoCollectionView.dataSource = self
-        self.VideoCollectionView.delegate = self
-        self.VideoCollectionView.register(UINib.init(nibName: "VideoCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "VideoCollectionViewCell")
-        NotificationCenter.default.addObserver(self, selector: #selector(updateVideoCollection), name: Notification.Name.VideosNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateVideoCollection), name: Notification.Name.VideosForNotification, object: nil)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        //commonInit()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     @objc func updateVideoCollection(){
@@ -48,6 +57,11 @@ class VideoCollectionTableViewCell: UITableViewCell {
     }
     
     func setupVideoCollection(){
+        self.VideoCollectionView.dataSource = self
+        self.VideoCollectionView.delegate = self
+        self.VideoCollectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: "VideoCollectionViewCell")
+        NotificationCenter.default.addObserver(self, selector: #selector(updateVideoCollection), name: Notification.Name.VideosNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateVideoCollection), name: Notification.Name.VideosForNotification, object: nil)
         
         if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
             viewModel.getFeaturedVideos()
@@ -61,7 +75,7 @@ class VideoCollectionTableViewCell: UITableViewCell {
 extension VideoCollectionTableViewCell: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 320, height: 170)
+        return .init(width: frame.width * 0.7, height: frame.height * 0.9)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -95,6 +95,10 @@ class ViewModel{
         }
     }
     
+    init(){
+        GetFavoriteCharacters()
+    }
+    
     //MARK: Characters
     
     static func addDummyCharacter(){
@@ -199,6 +203,10 @@ class ViewModel{
         }
         
         return false
+        
+    }
+    func isFaved(_ char: aCharacter) -> Bool {
+        return !faveCharacters.filter { $0.name == char.name }.isEmpty
     }
     
     //MARK: Comics
@@ -306,7 +314,7 @@ class ViewModel{
         
         //Save battleCharacter to core data
         
-        if battleTeam.battleCharacters.count < Constants.KeysNum.battleTeamMaxSize.rawValue{
+        if battleTeam.battleCharacters.count < Constants.CoreBattleTeamKeysNum.battleTeamMaxSize.rawValue{
             
             battleTeam.battleCharacters.append(battleCharacter.id)
         }

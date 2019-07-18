@@ -10,8 +10,35 @@ import UIKit
 import AVKit
 
 class HomeViewController: UIViewController, UINavigationControllerDelegate {
-    @IBOutlet weak var characterCollectionView: UICollectionView!
-    @IBOutlet weak var mainTableView: UITableView!
+    lazy var characterCollectionView: UICollectionView = {
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let characterCollectionView =
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.33), collectionViewLayout: layout)
+        characterCollectionView.backgroundColor = .white
+        characterCollectionView.dataSource = self
+        characterCollectionView.delegate = self
+        characterCollectionView.register(CharacterCollectionCell.self, forCellWithReuseIdentifier: CharacterCollectionCell.identifier)
+        
+        characterCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        return characterCollectionView
+    }()
+    
+    lazy var mainTableView: UITableView = {
+        
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.delegate = self
+        tableView.dataSource = self
+        // tableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
+        tableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
+        tableView.register(VideoCollectionTableViewCell.self, forCellReuseIdentifier: "VideoCollectionTableViewCell")
+        tableView.tableFooterView = .init(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
     
     let viewModel = ViewModel()
     let identifier = Constants.Keys.homeVCIdentifier.rawValue
@@ -20,36 +47,60 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        setupNavigation()
+        setupCharacterCollectionView()
+        setupMainTableView()
+        setupObservers()
+        
+    }
+    
+    func setupNavigation(){
+        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = Constants.Keys.homeTitle.rawValue
         let battleBarButton = UIBarButtonItem(title: Constants.Keys.homeGameTitle.rawValue, style: .plain, target: self, action: #selector(battleButtonTapped))
         self.navigationItem.leftBarButtonItem = battleBarButton
-        characterCollectionView.delegate = self
-        characterCollectionView.dataSource = self
-        setupCharacterCollection()
-        //searchTableView.tableFooterView = UIView(frame: .zero)
+    }
+    
+    func setupCharacterCollectionView(){
+        
+        view.addSubview(characterCollectionView)
+        
+        //characterCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        NSLayoutConstraint.activate([
+        characterCollectionView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            characterCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.33),
+            characterCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            characterCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        viewModel.getTopCharacters()
+    }
+    
+    func setupMainTableView(){
+        
+        view.addSubview(mainTableView)
+        
+        NSLayoutConstraint.activate([
+            
+            mainTableView.topAnchor.constraint(equalTo: characterCollectionView.bottomAnchor),
+            mainTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mainTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            mainTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+    
+    func setupObservers(){
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.TopCharacterNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.DummyCharactersNotification, object: nil)
-        
-        mainTableView.delegate = self
-        mainTableView.dataSource = self
-        mainTableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
-        mainTableView.register(UINib.init(nibName: "VideoCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "VideoCollectionTableViewCell")
-        mainTableView.tableFooterView = .init(frame: .zero)
-        //setupComicCollectionTableViewCellDelegate()
-           
     }
     
     @objc func battleButtonTapped(){
         
-//        let storyBoard: UIStoryboard = UIStoryboard(name: "Game", bundle: nil)
-//        let newViewController = storyBoard.instantiateViewController(withIdentifier: "GameTabBarController")
-//        self.present(newViewController, animated: true, completion: nil)
-        
         let gameStoryBoard = UIStoryboard(name: "Game", bundle: nil)
         let gameVC = (gameStoryBoard.instantiateViewController(withIdentifier: "BattleMainViewController"))
-//        gameVC.viewModel = viewModel
-//        gameVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
+
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.pushViewController(gameVC, animated: true)
     }
@@ -57,11 +108,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         updateCharacterCollection()
-    }
-    
-    func setupCharacterCollection(){
-    
-        viewModel.getTopCharacters()
     }
     
     
@@ -105,6 +151,7 @@ extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.characterCollectionView{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionCell.identifier, for: indexPath) as! CharacterCollectionCell
+            cell.viewModel = viewModel
             
             //TODO: Add setting to enable/disable adding dummy character
             if viewModel.topCharacters.count > 0{

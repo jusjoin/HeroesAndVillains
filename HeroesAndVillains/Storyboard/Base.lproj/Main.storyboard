@@ -91,9 +91,6 @@
                                                         <constraint firstAttribute="width" constant="25" id="lL8-yq-ZIg"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="fave.png"/>
-                                                    <connections>
-                                                        <action selector="faveButtonTapped:" destination="tPg-da-ieF" eventType="touchUpInside" id="P8F-AR-6Ww"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -104,11 +101,6 @@
                                             <constraint firstAttribute="trailing" secondItem="u4c-pu-Ikv" secondAttribute="trailing" constant="20" id="cjq-m7-FhI"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="LhY-8c-pgy" secondAttribute="trailing" constant="122" id="xWR-Ei-Lwf"/>
                                         </constraints>
-                                        <connections>
-                                            <outlet property="characterImageView" destination="BEi-LE-VaF" id="BRu-rY-KgG"/>
-                                            <outlet property="characterNameLabel" destination="u4c-pu-Ikv" id="crV-AO-jRV"/>
-                                            <outlet property="faveButton" destination="LhY-8c-pgy" id="l3p-Z1-I1U"/>
-                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -127,10 +119,6 @@
                         <viewLayoutGuide key="safeArea" id="dv0-70-e09"/>
                     </view>
                     <navigationItem key="navigationItem" id="akZ-AY-aWk"/>
-                    <connections>
-                        <outlet property="characterCollectionView" destination="8sh-hf-nUF" id="dR4-gw-0JM"/>
-                        <outlet property="mainTableView" destination="Q0S-ko-WVF" id="uGv-dE-baH"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Jc-zS-7qm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -395,10 +383,10 @@
             </objects>
             <point key="canvasLocation" x="-628" y="-23"/>
         </scene>
-        <!--Main Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="s8S-vw-1XS">
             <objects>
-                <navigationController storyboardIdentifier="HomeNavController" automaticallyAdjustsScrollViewInsets="NO" id="WIX-3Q-VdJ" customClass="MainNavigationController" customModule="Comic_Clash" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WIX-3Q-VdJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="home" selectedImage="home" id="O8C-Qc-mQu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="089-M5-FMQ">
@@ -489,7 +477,7 @@
     </scenes>
     <resources>
         <image name="fave.png" width="375" height="375"/>
-        <image name="favorites" width="29" height="29"/>
+        <image name="favorites" width="500" height="500"/>
         <image name="home" width="29" height="29"/>
         <image name="search" width="29" height="29"/>
     </resources>

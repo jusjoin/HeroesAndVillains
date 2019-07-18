@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterCollectionTableViewCell" id="K4c-LA-Ram" customClass="CharacterCollectionTableViewCell" customModule="HeroesAndVillains" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterCollectionTableViewCell" id="K4c-LA-Ram" customClass="CharacterCollectionTableViewCell" customModule="Comic_Clash" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K4c-LA-Ram" id="0NT-Q7-nqY">
@@ -36,9 +36,6 @@
                     <constraint firstItem="bID-SL-kyB" firstAttribute="leading" secondItem="0NT-Q7-nqY" secondAttribute="leading" id="lMc-bO-cU4"/>
                 </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="CharacterCollectionView" destination="bID-SL-kyB" id="fVz-A6-gXv"/>
-            </connections>
             <point key="canvasLocation" x="158" y="66"/>
         </tableViewCell>
     </objects>

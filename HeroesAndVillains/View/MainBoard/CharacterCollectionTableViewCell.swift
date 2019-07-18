@@ -13,7 +13,20 @@ protocol CharacterCollectionTableViewCellDelegate{
 }
 
 class CharacterCollectionTableViewCell: UITableViewCell {
-    @IBOutlet weak var CharacterCollectionView: UICollectionView!
+    lazy var CharacterCollectionView: UICollectionView = {
+       let collectionView = UICollectionView()
+        
+        return collectionView
+    }()
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        //commonInit()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
     
     var viewModel : ViewModel!
     var delegate: CharacterCollectionTableViewCellDelegate?

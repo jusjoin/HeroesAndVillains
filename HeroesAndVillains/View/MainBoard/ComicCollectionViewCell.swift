@@ -9,12 +9,55 @@
 import UIKit
 
 class ComicCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var comicImageView: UIImageView!
-    @IBOutlet weak var comicTitleLabel: UILabel!
+    var comicImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        
+        return imageView
+    }()
+    var comicTitleLabel: UILabel = {
+       let label = UILabel()
+        label.textColor = .black
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 2
+        
+        return label
+    }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    func commonInit() {
+        addSubview(comicImageView)
+        addSubview(comicTitleLabel)
+        
+        //faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
+        
+        comicImageView.translatesAutoresizingMaskIntoConstraints = false
+        comicImageView.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
+
+        comicImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        comicImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
+        
+        comicImageView.bottomAnchor.constraint(equalTo: comicTitleLabel.topAnchor, constant: -8).isActive = true
+        
+        comicTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        
+        comicTitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+
+        
+        comicTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        comicTitleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
     }
     
     func configure(with comic: Comic) {

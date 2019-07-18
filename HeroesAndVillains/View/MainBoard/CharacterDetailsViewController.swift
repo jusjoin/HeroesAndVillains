@@ -122,7 +122,8 @@ class CharacterDetailsViewController: UIViewController {
             alert.addAction(UIAlertAction(title: c.name + String(format: ", PL: %.2f", BattleCharacter.powerLevel(c)), style: .default, handler: {(alert: UIAlertAction!) in
                 let combinedID = String(self.viewModel.character.id) + ";" + c.id
                 let bChar = BattleCharacter(id: (combinedID), name: c.name, image: self.viewModel.character.image, stats: Dictionary<String, Float>())
-                self.viewModel.AddBattleCharacterToTeam(bChar)
+                self.viewModel.AddBattleCharacterToTeam(bChar, Constants.CoreBattleTeamKeys.DefaultBattleTeam1Name.rawValue)
+                //TODO: User selected team names
             }))
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -174,8 +175,8 @@ extension CharacterDetailsViewController: UITableViewDataSource{
         case 0:
             //setupComicCollection()
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-            cell.viewModel = self.viewModel
             cell.vcIdentifier = identifier
+            cell.viewModel = self.viewModel
             cell.delegate = self
             
             //        let thisCharacter = viewModel.characters[indexPath.row]
