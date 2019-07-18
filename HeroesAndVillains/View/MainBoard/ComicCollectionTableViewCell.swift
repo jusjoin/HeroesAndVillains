@@ -16,12 +16,13 @@ class ComicCollectionTableViewCell: UITableViewCell {
     lazy var comicCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: frame.width, height: frame.height)
         let collectionView =
             UICollectionView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(ComicCollectionViewCell.self, forCellWithReuseIdentifier: CharacterCollectionCell.identifier)
+        collectionView.register(ComicCollectionViewCell.self, forCellWithReuseIdentifier: ComicCollectionViewCell.identifier)
         
         return collectionView
     }()
@@ -73,7 +74,8 @@ class ComicCollectionTableViewCell: UITableViewCell {
     }
     
     func setupComicCollection(){
-       
+        
+        addSubview(comicCollectionView)
         comicCollectionView.dataSource = self
         comicCollectionView.delegate = self
         comicCollectionView.widthAnchor.constraint(equalTo: widthAnchor)
@@ -134,7 +136,7 @@ extension ComicCollectionTableViewCell: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = comicCollectionView.dequeueReusableCell(withReuseIdentifier: "ComicCollectionViewCell", for: indexPath as IndexPath) as! ComicCollectionViewCell
+        let cell = comicCollectionView.dequeueReusableCell(withReuseIdentifier: ComicCollectionViewCell.identifier, for: indexPath as IndexPath) as! ComicCollectionViewCell
         
         if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
             let thisComic = viewModel.comics[indexPath.row]

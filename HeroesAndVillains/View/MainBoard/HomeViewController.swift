@@ -15,7 +15,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let characterCollectionView =
-            UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.33), collectionViewLayout: layout)
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.40), collectionViewLayout: layout)
         characterCollectionView.backgroundColor = .white
         characterCollectionView.dataSource = self
         characterCollectionView.delegate = self
@@ -70,7 +70,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         //characterCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
         NSLayoutConstraint.activate([
         characterCollectionView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            characterCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.33),
+            characterCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
             characterCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             characterCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
@@ -122,7 +122,9 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 175, height: 194)
+        let width = collectionView.frame.width * 0.4
+        let height = collectionView.frame.height * 0.7
+        return .init(width: width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -178,14 +180,10 @@ extension HomeViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
-            if tableView.bounds.height * 0.4 > 180{
-                return tableView.bounds.height * 0.4
-            }else {return 180}
+            return tableView.bounds.height * 0.45
         }
         else if indexPath.section == 1{
-            if tableView.bounds.height * 0.6 > 200{
-                return tableView.bounds.height * 0.6
-            }else {return 200}
+            return tableView.bounds.height * 0.45
         }
         
         return 0

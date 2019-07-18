@@ -24,9 +24,9 @@ class MainTabBarController: UITabBarController {
         historyVC.title = "History"
         historyVC.view.backgroundColor = UIColor.cyan
         
-        homeViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
-        downloadsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 1)
-        historyVC.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 2)
+        homeViewController.tabBarItem = UITabBarItem(title: "Home", image:  UIImage(named: "home"), tag: 0)
+        downloadsVC.tabBarItem = UITabBarItem(title: "Search", image:  UIImage(named: "search"), tag: 1)
+        historyVC.tabBarItem = UITabBarItem(title: "Favorites", image:  UIImage(named: "favorites"), tag: 2)
         
         let controllers = [homeViewController, downloadsVC, historyVC]
 //        tabBarController.viewControllers = controllers

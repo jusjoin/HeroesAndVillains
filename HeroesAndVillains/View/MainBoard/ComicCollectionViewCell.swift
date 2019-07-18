@@ -11,7 +11,7 @@ import UIKit
 class ComicCollectionViewCell: UICollectionViewCell {
     var comicImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         
         return imageView
@@ -20,11 +20,13 @@ class ComicCollectionViewCell: UICollectionViewCell {
        let label = UILabel()
         label.textColor = .black
         label.textAlignment = .center
-        label.lineBreakMode = .byWordWrapping
+        label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 2
         
         return label
     }()
+    
+    static let identifier = "ComicCollectionViewCell"
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -58,6 +60,7 @@ class ComicCollectionViewCell: UICollectionViewCell {
         
         comicTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         comicTitleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
+        comicTitleLabel.widthAnchor.constraint(equalTo: comicImageView.widthAnchor).isActive = true
     }
     
     func configure(with comic: Comic) {

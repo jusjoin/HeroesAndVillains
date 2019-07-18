@@ -17,6 +17,7 @@ class VideoCollectionTableViewCell: UITableViewCell {
     lazy var VideoCollectionView: UICollectionView = {
        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: frame.width, height: frame.height)
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
@@ -57,6 +58,8 @@ class VideoCollectionTableViewCell: UITableViewCell {
     }
     
     func setupVideoCollection(){
+        
+        addSubview(VideoCollectionView)
         self.VideoCollectionView.dataSource = self
         self.VideoCollectionView.delegate = self
         self.VideoCollectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: "VideoCollectionViewCell")
@@ -104,7 +107,7 @@ extension VideoCollectionTableViewCell: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = VideoCollectionView.dequeueReusableCell(withReuseIdentifier: "VideoCollectionViewCell", for: indexPath as IndexPath) as! VideoCollectionViewCell
+        let cell = VideoCollectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.identifier, for: indexPath as IndexPath) as! VideoCollectionViewCell
         
 //        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
 //            let thisComic = viewModel.comics[indexPath.row]

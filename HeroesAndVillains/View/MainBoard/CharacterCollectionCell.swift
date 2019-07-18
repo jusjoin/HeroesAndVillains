@@ -11,7 +11,7 @@ import UIKit
 class CharacterCollectionCell: UICollectionViewCell {
     var characterImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
 //        imageView.isUserInteractionEnabled = true
         return imageView
@@ -21,7 +21,8 @@ class CharacterCollectionCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .center
-        label.lineBreakMode = .byWordWrapping
+        label.lineBreakMode = .byTruncatingTail
+         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 2
         return label
     }()
@@ -31,21 +32,12 @@ class CharacterCollectionCell: UICollectionViewCell {
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         button.setImage(tintedImage, for: .normal)
         button.tintColor = .yellow
-        //button.addTarget(self, action: #selector(faveButtonTapped), for: .touchUpInside) // why is this ignored?
+
         return button
     }()
     
     var viewModel: ViewModel!
     static let identifier = "CharacterCollectionCell"
-    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -64,24 +56,17 @@ class CharacterCollectionCell: UICollectionViewCell {
         faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
         
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
-        characterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 40).isActive = true
-        //  characterImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        characterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
         characterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         characterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
-        
         characterImageView.bottomAnchor.constraint(equalTo: characterNameLabel.topAnchor, constant: -8).isActive = true
-        // characterImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.95).isActive = true
-        //characterImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.70).isActive = true
-        
         characterNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        // characterNameLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 8).isActive = true
+
         
         characterNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        // characterImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.95).isActive = true
-        
         characterNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        characterNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
-        characterNameLabel.widthAnchor.constraint(equalTo: characterImageView.widthAnchor) //Why doesn't this constrain label to image width
+        characterNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2).isActive = true
+        characterNameLabel.widthAnchor.constraint(equalTo: characterImageView.widthAnchor).isActive = true
         
         
         faveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -115,20 +100,18 @@ class CharacterCollectionCell: UICollectionViewCell {
     
     func configure(with char: aCharacter){
         viewModel.character = char
-        //characterNameLabel.text = char.name
-        //characterImageView.image = UIImage(named: char.image)
+
         dlManager.download(char.image) { [unowned self] dat in
             
             if let data = dat {
                 
                 let image = UIImage(data: data)
-//                self.characterImageView.image = image
+
                 self.setupImageView(image: image!)
             }
         }
         setupLabel(name: char.name)
         setupFavoritesButton()
-        //faved = viewModel.CheckFavedCharacters(with: char) //configure being called on every scroll or appear is this normal?
         faved = viewModel.isFaved(char)
     }
     

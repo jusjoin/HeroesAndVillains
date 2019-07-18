@@ -20,7 +20,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .center
-        label.lineBreakMode = .byWordWrapping
+        label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 2
         
         return label
@@ -60,6 +60,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         
         videoTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         videoTitleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
+        videoTitleLabel.widthAnchor.constraint(equalTo: videoImageView.widthAnchor).isActive = true
         
     }
     
