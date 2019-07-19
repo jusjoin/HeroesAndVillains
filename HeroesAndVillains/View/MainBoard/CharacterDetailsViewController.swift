@@ -9,52 +9,133 @@
 import UIKit
 
 class CharacterDetailsViewController: UIViewController {
-    @IBOutlet weak var characterImageView: UIImageView!
-    @IBOutlet weak var characterNameLabel: UILabel!
-    @IBOutlet weak var characterDescriptionLabel: UILabel!
-    @IBOutlet weak var detailsTableView: UITableView!
-    @IBOutlet weak var faveButton: UIButton!
-    @IBOutlet weak var addToTeamButton: UIButton!
+    lazy var containerView : UIView = {
+        let view = UIView()
+        
+        return view
+    }()
+    
+    lazy var characterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    lazy var characterNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.textAlignment = .left
+        //label.lineBreakMode = .byWordWrapping
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 2
+        return label
+    }()
+    lazy var characterDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.textAlignment = .left
+        //label.lineBreakMode = .byWordWrapping
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    lazy var faveButton: UIButton = {
+        let button = UIButton()
+        let origImage = UIImage(named: "favorites")
+        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        button.setImage(tintedImage, for: .normal)
+        button.tintColor = .yellow
+        return button
+    }()
+    
+    lazy var detailsButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Details", for: .normal)
+        button.tintColor = .blue
+        return button
+    }()
+    
+    lazy var wikiButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Wiki", for: .normal)
+        button.tintColor = .blue
+        return button
+    }()
+    
+    lazy var comicsButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Comics", for: .normal)
+        button.tintColor = .blue
+        return button
+    }()
+    
+    lazy var addToTeamButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add To Team", for: .normal)
+        button.tintColor = .blue
+        return button
+    }()
+    
+    lazy var detailsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
+        tableView.register(VideoCollectionTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
+        tableView.tableFooterView = .init(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
     
     var viewModel : ViewModel!
     let identifier = Constants.Keys.characterDetailsVCIdentifier.rawValue
     
-    var faved = false{ // move to viewModel
+    var faved = false{ // move to viewModel?
         didSet{
             if faved == true{
-                let origImage = UIImage(named: "fave-filled.png")
+                let origImage = UIImage(named: "favorites-filled")
                 let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
                 faveButton.setImage(tintedImage, for: .normal)
                 faveButton.tintColor = .yellow
-                //faveButton.setImage(UIImage.init(named: "fave-filled.png"), for: .normal)
             }else{
-                let origImage = UIImage(named: "fave.png")
+                let origImage = UIImage(named: "favorites")
                 let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
                 faveButton.setImage(tintedImage, for: .normal)
                 faveButton.tintColor = .blue
             }
         }
     }
-    @IBAction func faveButtonTapped(_ sender: Any) {
-        if(!faved){
-            faved = viewModel.saveComicToFaves(with: viewModel.comic)
-        }
-        else{
-            faved = !viewModel.deleteComicFromFaves(with: viewModel.comic)
-        }
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCharacter()
+        view.backgroundColor = .white
+        setupCharacterImageView()
         setupComicCollection()
         setupCharacterStatsCollection()
     }
     
-    func setupCharacter(){
-         dlManager.download(viewModel.character.image){[unowned self] dat in
+    func setupContainerView(){
+        
+        view.addSubview(containerView)
+        
+        NSLayoutConstraint.activate([
+            containerView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            
+            containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
+            
+            containerView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        
+    }
+    
+    func setupCharacterImageView(){
+        dlManager.download(viewModel.character.image){[unowned self] dat in
             
             if let data = dat {
                 
@@ -62,10 +143,49 @@ class CharacterDetailsViewController: UIViewController {
                 self.characterImageView.image = image
             }
         }
-        characterNameLabel.text = viewModel.character.name
+        
         print(viewModel.character.description)
+        
+        faved = viewModel.isFaved(viewModel.character)
+        
+    }
+    
+    func setupCharacterNameLabel(){
+        characterNameLabel.text = viewModel.character.name
+    }
+    
+    func setupCharacterDescriptionLabel(){
         characterDescriptionLabel.text = viewModel.character.description
-        faved = viewModel.CheckFavedCharacters(with: viewModel.character)
+    }
+    
+    func setupDetailsButton(){
+        
+    }
+    
+    func setupWikiButton(){
+        
+    }
+    
+    func setupComicsButton(){
+        
+    }
+    
+    func setupAddToTeamButton(){
+        
+    }
+    
+    func setupDetailsTableView(){
+        view.addSubview(detailsTableView)
+        
+        NSLayoutConstraint.activate([
+            detailsTableView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+            
+            detailsTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.65),
+            
+            detailsTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
         
     }
 
@@ -80,10 +200,19 @@ class CharacterDetailsViewController: UIViewController {
     
     func setupCharacterStatsCollection(){
         
-        detailsTableView.register(UINib.init(nibName: "CharacterStatsTableCell", bundle: Bundle.main), forCellReuseIdentifier: "CharacterStatsTableCell")
+        detailsTableView.register(UINib.init(nibName: "CharacterStatsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CharacterStatsTableViewCell")
     }
 
-    @IBAction func detailsButtonTapped(_ sender: Any) {
+    func faveButtonTapped(_ sender: Any) {
+        if(!faved){
+            faved = viewModel.saveComicToFaves(with: viewModel.comic)
+        }
+        else{
+            faved = !viewModel.deleteComicFromFaves(with: viewModel.comic)
+        }
+    }
+    
+    func detailsButtonTapped(_ sender: Any) {
         for items in viewModel.character.urls{
             if items.type.lowercased() == "detail"{
                 guard let url = URL(string: items.url) else { return }
@@ -93,7 +222,7 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    @IBAction func wikiButtonTapped(_ sender: Any) {
+    func wikiButtonTapped(_ sender: Any) {
         for items in viewModel.character.urls{
             if items.type.lowercased() == "wiki"{
                 guard let url = URL(string: items.url) else { return }
@@ -103,7 +232,7 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    @IBAction func comicsButtonTapped(_ sender: Any) {
+    func comicsButtonTapped(_ sender: Any) {
         for items in viewModel.character.urls{
             if items.type.lowercased() == "comiclink"{
                 guard let url = URL(string: items.url) else { return }
@@ -113,7 +242,7 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    @IBAction func addToTeamButtonTapped(_ sender: Any) {
+    func addToTeamButtonTapped(_ sender: Any) {
         
         let alert = UIAlertController(title: "Select stats for character", message: "Only character stats with complete data is useable.", preferredStyle: .alert)
         //var bChar = BattleCharacter()
@@ -184,7 +313,7 @@ extension CharacterDetailsViewController: UITableViewDataSource{
             
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterStatsTableCell", for: indexPath) as! CharacterStatsTableCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterStatsTableViewCell", for: indexPath) as! CharacterStatsTableViewCell
             cell.viewModel = self.viewModel
             return cell
         default:

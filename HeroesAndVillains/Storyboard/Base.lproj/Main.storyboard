@@ -161,9 +161,6 @@
                                 <state key="normal" title="Details">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="detailsButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="NK4-YK-1cN"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2p-bx-ZKf">
                                 <rect key="frame" x="169" y="122" width="33" height="33"/>
@@ -171,9 +168,6 @@
                                 <state key="normal" title="Wiki">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="wikiButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="FI1-mB-Euy"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAV-Cm-Hds">
                                 <rect key="frame" x="169" y="154.5" width="58" height="33"/>
@@ -181,9 +175,6 @@
                                 <state key="normal" title="Comics">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="comicsButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="efa-NO-e06"/>
-                                </connections>
                             </button>
                             <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwF-kx-fa1">
                                 <rect key="frame" x="16" y="35" width="25" height="30"/>
@@ -193,16 +184,10 @@
                                     <constraint firstAttribute="height" constant="30" id="xto-e3-4RN"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="fave.png"/>
-                                <connections>
-                                    <action selector="faveButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="fxD-6I-ezU"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqV-QQ-cCn">
                                 <rect key="frame" x="267" y="92" width="92" height="30"/>
                                 <state key="normal" title="Add to Team"/>
-                                <connections>
-                                    <action selector="addToTeamButtonTapped:" destination="dKh-74-9q3" eventType="touchUpInside" id="SoE-pr-Eao"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -234,14 +219,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2Ot-52-7uG"/>
                     </view>
-                    <connections>
-                        <outlet property="addToTeamButton" destination="DqV-QQ-cCn" id="rol-5u-y3E"/>
-                        <outlet property="characterDescriptionLabel" destination="SD8-gY-3RL" id="C83-CP-mDX"/>
-                        <outlet property="characterImageView" destination="h7c-Js-sTt" id="GDk-5l-1GT"/>
-                        <outlet property="characterNameLabel" destination="AQk-er-HuC" id="vM4-QY-iA8"/>
-                        <outlet property="detailsTableView" destination="FDE-EH-Ldx" id="2oY-zP-EPu"/>
-                        <outlet property="faveButton" destination="MwF-kx-fa1" id="H6P-p3-1lN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m8w-aq-il8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -477,7 +454,7 @@
     </scenes>
     <resources>
         <image name="fave.png" width="375" height="375"/>
-        <image name="favorites" width="500" height="500"/>
+        <image name="favorites" width="29" height="29"/>
         <image name="home" width="29" height="29"/>
         <image name="search" width="29" height="29"/>
     </resources>

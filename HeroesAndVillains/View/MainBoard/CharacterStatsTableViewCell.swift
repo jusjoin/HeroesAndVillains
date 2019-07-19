@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CharacterStatsTableCell: UITableViewCell {
+class CharacterStatsTableViewCell: UITableViewCell {
     @IBOutlet weak var CharacterStatsCollectionView: UICollectionView!
     
     var viewModel: ViewModel!
@@ -59,7 +59,7 @@ class CharacterStatsTableCell: UITableViewCell {
 
 }
 
-extension CharacterStatsTableCell: UICollectionViewDelegateFlowLayout{
+extension CharacterStatsTableViewCell: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return .init(width: 320, height: 280)
@@ -73,7 +73,7 @@ extension CharacterStatsTableCell: UICollectionViewDelegateFlowLayout{
     
 }
 
-extension CharacterStatsTableCell: UICollectionViewDataSource{
+extension CharacterStatsTableViewCell: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.characterStats.count
     }
@@ -90,7 +90,7 @@ extension CharacterStatsTableCell: UICollectionViewDataSource{
     
 }
 
-extension CharacterStatsTableCell: UICollectionViewDelegate{
+extension CharacterStatsTableViewCell: UICollectionViewDelegate{
     
     //Paging
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

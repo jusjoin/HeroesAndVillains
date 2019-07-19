@@ -31,7 +31,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
-        // tableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
         tableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
         tableView.register(VideoCollectionTableViewCell.self, forCellReuseIdentifier: "VideoCollectionTableViewCell")
         tableView.tableFooterView = .init(frame: .zero)
@@ -67,9 +66,8 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         
         view.addSubview(characterCollectionView)
         
-        //characterCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
         NSLayoutConstraint.activate([
-        characterCollectionView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+        characterCollectionView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             characterCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
             characterCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             characterCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -131,7 +129,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+        let detailsVC = CharacterDetailsViewController()
         viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
         detailsVC.viewModel = viewModel
         

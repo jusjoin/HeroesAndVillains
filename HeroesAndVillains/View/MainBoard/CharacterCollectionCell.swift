@@ -31,7 +31,7 @@ class CharacterCollectionCell: UICollectionViewCell {
         let origImage = UIImage(named: "favorites")
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         button.setImage(tintedImage, for: .normal)
-        button.tintColor = .yellow
+        button.tintColor = .blue
 
         return button
     }()
@@ -87,12 +87,11 @@ class CharacterCollectionCell: UICollectionViewCell {
                 let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
                 faveButton.setImage(tintedImage, for: .normal)
                 faveButton.tintColor = .yellow
-                //faveButton.setImage(UIImage.init(named: "fave-filled.png"), for: .normal)
             }else{
                 let origImage = UIImage(named: "favorites")
                 let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
                 faveButton.setImage(tintedImage, for: .normal)
-                faveButton.tintColor = .yellow
+                faveButton.tintColor = .blue
             }
         }
     }
