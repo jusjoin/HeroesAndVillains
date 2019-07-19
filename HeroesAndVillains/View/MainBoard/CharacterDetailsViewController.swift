@@ -9,16 +9,25 @@
 import UIKit
 
 class CharacterDetailsViewController: UIViewController {
-    lazy var containerView : UIView = {
+    lazy var containerView: UIView = {
         let view = UIView()
         
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    lazy var descScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
     }()
     
     lazy var characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     lazy var characterNameLabel: UILabel = {
@@ -28,6 +37,7 @@ class CharacterDetailsViewController: UIViewController {
         //label.lineBreakMode = .byWordWrapping
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     lazy var characterDescriptionLabel: UILabel = {
@@ -37,6 +47,7 @@ class CharacterDetailsViewController: UIViewController {
         //label.lineBreakMode = .byWordWrapping
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -46,6 +57,7 @@ class CharacterDetailsViewController: UIViewController {
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         button.setImage(tintedImage, for: .normal)
         button.tintColor = .yellow
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -53,6 +65,7 @@ class CharacterDetailsViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Details", for: .normal)
         button.tintColor = .blue
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -60,6 +73,7 @@ class CharacterDetailsViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Wiki", for: .normal)
         button.tintColor = .blue
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -67,6 +81,7 @@ class CharacterDetailsViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Comics", for: .normal)
         button.tintColor = .blue
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -74,6 +89,7 @@ class CharacterDetailsViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Add To Team", for: .normal)
         button.tintColor = .blue
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -86,7 +102,7 @@ class CharacterDetailsViewController: UIViewController {
         tableView.register(VideoCollectionTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
         tableView.tableFooterView = .init(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
@@ -113,6 +129,8 @@ class CharacterDetailsViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        setupContainerView()
+        setupDescriptionScrollView()
         setupCharacterImageView()
         setupComicCollection()
         setupCharacterStatsCollection()
@@ -124,17 +142,28 @@ class CharacterDetailsViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             containerView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            
-            containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
-            
+            containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             containerView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            
             ])
         
     }
     
     func setupCharacterImageView(){
+        
+        containerView.addSubview(characterImageView)
+        NSLayoutConstraint.activate([
+            
+            characterImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15),
+            characterImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
+            characterImageView.bottomAnchor.constraint(equalTo: descScrollView.topAnchor),
+            characterImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.2),
+            characterImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.4)
+            
+            
+            ])
+        
         dlManager.download(viewModel.character.image){[unowned self] dat in
             
             if let data = dat {
@@ -152,6 +181,17 @@ class CharacterDetailsViewController: UIViewController {
     
     func setupCharacterNameLabel(){
         characterNameLabel.text = viewModel.character.name
+    }
+    
+    func setupDescriptionScrollView(){
+        
+        containerView.addSubview(descScrollView)
+        NSLayoutConstraint.activate([
+           //  descScrollView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.15),
+            descScrollView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            descScrollView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            descScrollView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
+            ])
     }
     
     func setupCharacterDescriptionLabel(){
@@ -179,11 +219,8 @@ class CharacterDetailsViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             detailsTableView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
-            
             detailsTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.65),
-            
             detailsTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            
             detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
