@@ -10,7 +10,16 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
-    @IBOutlet weak var searchTableView: UITableView!
+    lazy var searchTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .white
+        tableView.register(CharacterTableCell.self, forCellReuseIdentifier: CharacterTableCell.identifier)
+        tableView.register(ComicTableCell.self, forCellReuseIdentifier: ComicTableCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     
     let viewModel = ViewModel()
@@ -19,19 +28,32 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createSearch()
-        setupNavigation()
-        setupSearch()
+        CreateSearch()
+        SetupNavigation()
+        SetupSearch()
+        SetupSearchTableView()
         
         
     }
     
-    func setupNavigation(){
+    func SetupSearchTableView(){
+        view.addSubview(searchTableView)
+        
+        NSLayoutConstraint.activate([
+            searchTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            searchTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            searchTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            
+            ])
+    }
+    
+    func SetupNavigation(){
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = Constants.Keys.searchTitle.rawValue
     }
     
-    func createSearch(){
+    func CreateSearch(){
         searchController.searchBar.placeholder = "Search Heroes and Villains"
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
@@ -43,17 +65,17 @@ class SearchViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    func setupSearch(){
+    func SetupSearch(){
         searchTableView.delegate = self
         searchTableView.dataSource = self
-        searchTableView.register(UINib(nibName: CharacterTableCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: CharacterTableCell.identifier)
-        searchTableView.register(UINib(nibName: ComicTableCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: ComicTableCell.identifier)
+        searchTableView.register(CharacterTableCell.self, forCellReuseIdentifier: CharacterTableCell.identifier)
+        searchTableView.register(ComicTableCell.self, forCellReuseIdentifier: ComicTableCell.identifier)
         searchTableView.tableFooterView = UIView(frame: .zero)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSearch), name: Notification.Name.CharacterNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSearch), name: Notification.Name.CVComicsNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UpdateSearch), name: Notification.Name.CharacterNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UpdateSearch), name: Notification.Name.CVComicsNotification, object: nil)
     }
     
-    @objc func updateSearch(){
+    @objc func UpdateSearch(){
         
         DispatchQueue.main.async{
             self.searchTableView.reloadData()
@@ -68,12 +90,12 @@ extension SearchViewController: UITableViewDelegate{
         
         switch searchController.searchBar.selectedScopeButtonIndex{
         case 0:
-            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+            let detailsVC = CharacterDetailsViewController()
             detailsVC.viewModel = viewModel
             detailsVC.viewModel.character = aCharacter(with: viewModel.characters[indexPath.row])
             self.navigationController?.pushViewController(detailsVC, animated: true)
         case 1:
-            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicDetailsViewController") as! ComicDetailsViewController
+            let detailsVC = ComicDetailsViewController()
             detailsVC.viewModel = viewModel
             detailsVC.viewModel.comic = Comic(with: viewModel.cvComics[indexPath.row])
             self.navigationController?.pushViewController(detailsVC, animated: true)

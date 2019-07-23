@@ -17,18 +17,16 @@ class MainTabBarController: UITabBarController {
         let homeViewController = HomeViewController()
         homeViewController.title = "Home"
         
-        let downloadsVC = ViewController()
-        downloadsVC.title = "Downloads"
-        downloadsVC.view.backgroundColor = UIColor.blue
-        let historyVC = ViewController()
-        historyVC.title = "History"
-        historyVC.view.backgroundColor = UIColor.cyan
+        let searchVC = SearchViewController()
+        searchVC.title = "Search"
+        let favoritesVC = FavoritesViewController()
+        favoritesVC.title = "Favorites"
         
         homeViewController.tabBarItem = UITabBarItem(title: "Home", image:  UIImage(named: "home"), tag: 0)
-        downloadsVC.tabBarItem = UITabBarItem(title: "Search", image:  UIImage(named: "search"), tag: 1)
-        historyVC.tabBarItem = UITabBarItem(title: "Favorites", image:  UIImage(named: "favorites"), tag: 2)
+        searchVC.tabBarItem = UITabBarItem(title: "Search", image:  UIImage(named: "search"), tag: 1)
+        favoritesVC.tabBarItem = UITabBarItem(title: "Favorites", image:  UIImage(named: "favorites"), tag: 2)
         
-        let controllers = [homeViewController, downloadsVC, historyVC]
+        let controllers = [homeViewController, searchVC, favoritesVC]
 //        tabBarController.viewControllers = controllers
         
         self.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}

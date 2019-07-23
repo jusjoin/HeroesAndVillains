@@ -10,19 +10,63 @@ import UIKit
 
 class CharacterCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var characterImageView: UIImageView!
-    @IBOutlet weak var characterNameLabel: UILabel!
+    lazy var characterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        
+        return imageView
+    }()
+    lazy var characterNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.textAlignment = .center
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 2
+        
+        return label
+    }()
     
     
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
     }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    func commonInit() {
+        
+        addSubview(characterImageView)
+        addSubview(characterNameLabel)
+        
+        characterImageView.translatesAutoresizingMaskIntoConstraints = false
+        characterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
+        
+        characterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        characterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
+        
+        characterImageView.bottomAnchor.constraint(equalTo: characterNameLabel.topAnchor, constant: -8).isActive = true
+        
+        characterNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        characterNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        
+        characterNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        characterNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
+        characterNameLabel.widthAnchor.constraint(equalTo: characterImageView.widthAnchor).isActive = true
+        
+    }
+    
     
     func configure(with character: aCharacter) {
         
-        //comicImageView.image =
         characterNameLabel.text = character.name
         
         if character.image == Constants.Keys.defaultComicImage.rawValue{

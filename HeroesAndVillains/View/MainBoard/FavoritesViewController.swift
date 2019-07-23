@@ -11,7 +11,17 @@ import Disintegrate
 
 class FavoritesViewController: UIViewController {
     
-    @IBOutlet weak var favoritesTableView: UITableView!
+    lazy var favoritesTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .white
+        tableView.register(CharacterTableCell.self, forCellReuseIdentifier: CharacterTableCell.identifier)
+        tableView.register(ComicTableCell.self, forCellReuseIdentifier: ComicTableCell.identifier)
+        tableView.tableFooterView = .init(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     let viewModel = ViewModel()
     var showCharacterFaves = true
@@ -19,14 +29,15 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favoritesTableView.tableFooterView = .init(frame: .zero)
+        setupNavigation()
+        setupFavoritesTableView()
+        
         viewModel.updateUI = {
             DispatchQueue.main.async {
                 self.favoritesTableView.reloadData()
             }
         }
-        setupNavigation()
-        setupFavorites()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,17 +45,32 @@ class FavoritesViewController: UIViewController {
         update()
     }
     
-    func setupFavorites(){
-        favoritesTableView.register(UINib(nibName: "CharacterTableCell", bundle: Bundle.main),
-                                    forCellReuseIdentifier: "CharacterTableCell")
-        favoritesTableView.register(UINib(nibName: "ComicTableCell", bundle: Bundle.main),
-                                    forCellReuseIdentifier: "ComicTableCell")
-        //viewModel.delegate = self
-        favoritesTableView.dataSource = self
-        favoritesTableView.delegate = self
+    func setupFavoritesTableView(){
+        view.addSubview(favoritesTableView)
+        
         favoritesTableView.rowHeight = UITableView.automaticDimension
         favoritesTableView.estimatedRowHeight = 100.0
+        
+        NSLayoutConstraint.activate([
+            favoritesTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            favoritesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            favoritesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            favoritesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        
+        
     }
+    
+//    func setupFavorites(){
+//        favoritesTableView.register(CharacterTableCell.self,
+//                                    forCellReuseIdentifier: "CharacterTableCell")
+//        favoritesTableView.register(ComicTableCell.self,
+//                                    forCellReuseIdentifier: "ComicTableCell")
+//        //viewModel.delegate = self
+//        favoritesTableView.dataSource = self
+//        favoritesTableView.delegate = self
+//
+//    }
     
     func setupNavigation(){
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -127,13 +153,13 @@ extension FavoritesViewController: UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         
         if showCharacterFaves{
-            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as! CharacterDetailsViewController
+            let detailsVC = CharacterDetailsViewController()
             detailsVC.viewModel = viewModel
             detailsVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
             
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }else{
-            let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicDetailsViewController") as! ComicDetailsViewController
+            let detailsVC = ComicDetailsViewController()
             detailsVC.viewModel = viewModel
             detailsVC.viewModel.comic = Comic(with: viewModel.faveComics[indexPath.row])
             

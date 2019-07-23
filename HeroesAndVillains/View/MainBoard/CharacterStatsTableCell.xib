@@ -37,7 +37,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="CharacterStatsCollectionView" destination="9SV-oB-jRb" id="Fs7-uN-hzs"/>
+                <outlet property="characterStatsCollectionView" destination="9SV-oB-jRb" id="Fs7-uN-hzs"/>
             </connections>
             <point key="canvasLocation" x="-495.6521739130435" y="-140.625"/>
         </tableViewCell>

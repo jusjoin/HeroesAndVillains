@@ -9,20 +9,46 @@
 import UIKit
 
 class CharacterStatsTableViewCell: UITableViewCell {
-    @IBOutlet weak var CharacterStatsCollectionView: UICollectionView!
+    lazy var characterStatsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: frame.width, height: frame.height)
+        let collectionView =
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        return collectionView
+    }()
     
     var viewModel: ViewModel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+    
+    func commonInit() {
         
-        CharacterStatsCollectionView.delegate = self
-        CharacterStatsCollectionView.dataSource = self
+        setupCollectionView()
+    }
+    
+    func setupCollectionView(){
         
-        self.CharacterStatsCollectionView.register(UINib.init(nibName: "CharacterStatsCollectionCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CharacterStatsCollectionCell")
+        addSubview(characterStatsCollectionView)
+        characterStatsCollectionView.widthAnchor.constraint(equalTo: widthAnchor)
+        characterStatsCollectionView.heightAnchor.constraint(equalTo: heightAnchor)
+        characterStatsCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        characterStatsCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        
+        self.characterStatsCollectionView.register( CharacterStatsCollectionCell.self, forCellWithReuseIdentifier: "CharacterStatsCollectionCell")
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterStats), name: Notification.Name.CharacterStatsNotification, object: nil)
-        
-        
     }
     
     //Paging
@@ -38,31 +64,19 @@ class CharacterStatsTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     @objc func updateCharacterStats(){
         DispatchQueue.main.async{
-            self.CharacterStatsCollectionView.reloadData()
+            self.characterStatsCollectionView.reloadData()
         }
     }
-    
-//    private func indexOfMajorCell() -> Int {
-//        let itemWidth = CharacterStatsCollectionView.collectionViewLayout.collectionViewContentSize.width
-//        let proportionalOffset = CharacterStatsCollectionView.collectionViewLayout.collectionView!.contentOffset.x / itemWidth
-//        let index = Int(round(proportionalOffset))
-//        let safeIndex = max(0, min(viewModel.characterStats.count - 1, index))
-//        return safeIndex
-//
-//    }
-
 }
 
 extension CharacterStatsTableViewCell: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return .init(width: 320, height: 280)
+    return .init(width: frame.width, height: frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -80,7 +94,7 @@ extension CharacterStatsTableViewCell: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = CharacterStatsCollectionView.dequeueReusableCell(withReuseIdentifier: "CharacterStatsCollectionCell", for: indexPath as IndexPath) as! CharacterStatsCollectionCell
+        let cell = characterStatsCollectionView.dequeueReusableCell(withReuseIdentifier: "CharacterStatsCollectionCell", for: indexPath as IndexPath) as! CharacterStatsCollectionCell
         if viewModel.characterStats.count > 0{ cell.characterStats = viewModel.characterStats[indexPath.row]
             cell.configure(thisCharacter: viewModel.characterStats[indexPath.row])
         }
@@ -97,8 +111,8 @@ extension CharacterStatsTableViewCell: UICollectionViewDelegate{
         
 
         let cellWidth = collectionView( // 1
-            CharacterStatsCollectionView,
-            layout: CharacterStatsCollectionView.collectionViewLayout,
+            characterStatsCollectionView,
+            layout: characterStatsCollectionView.collectionViewLayout,
             sizeForItemAt: IndexPath(item: 0, section: 0)
             ).width
 

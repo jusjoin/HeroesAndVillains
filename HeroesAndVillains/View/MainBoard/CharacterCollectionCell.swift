@@ -22,7 +22,7 @@ class CharacterCollectionCell: UICollectionViewCell {
         label.textColor = .black
         label.textAlignment = .center
         label.lineBreakMode = .byTruncatingTail
-         label.adjustsFontSizeToFitWidth = true
+        label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 2
         return label
     }()
@@ -110,6 +110,7 @@ class CharacterCollectionCell: UICollectionViewCell {
             }
         }
         setupLabel(name: char.name)
+        print(char.name)
         setupFavoritesButton()
         faved = viewModel.isFaved(char)
     }

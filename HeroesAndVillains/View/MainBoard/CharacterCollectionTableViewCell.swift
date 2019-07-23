@@ -13,36 +13,48 @@ protocol CharacterCollectionTableViewCellDelegate{
 }
 
 class CharacterCollectionTableViewCell: UITableViewCell {
-    lazy var CharacterCollectionView: UICollectionView = {
-       let collectionView = UICollectionView()
-        
+    lazy var characterCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: frame.width, height: frame.height)
+        let collectionView =
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(CharacterCollectionViewCell.self, forCellWithReuseIdentifier: "CharacterCollectionViewCell")
         return collectionView
     }()
     
+    var viewModel : ViewModel!
+    var delegate: CharacterCollectionTableViewCellDelegate?
+    var vcIdentifier: String?
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        //commonInit()
+        commonInit()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
     }
     
-    var viewModel : ViewModel!
-    var delegate: CharacterCollectionTableViewCellDelegate?
-    var vcIdentifier: String?{
-        didSet{
-            setupCharacterCollection()
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.CharacterCollectionView.dataSource = self
-        self.CharacterCollectionView.delegate = self
-        self.CharacterCollectionView.register(UINib.init(nibName: "CharacterCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CharacterCollectionViewCell")
+    func commonInit() {
+        setupCharacterCollection()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.CharactersForNotification, object: nil)
+        
+        addSubview(characterCollectionView)
+        NSLayoutConstraint.activate([
+            characterCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            characterCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            characterCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            //characterCollectionView.heightAnchor.constraint(equalTo: heightAnchor),
+            //characterCollectionView.widthAnchor.constraint(equalTo: widthAnchor),
+            characterCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -62,9 +74,9 @@ class CharacterCollectionTableViewCell: UITableViewCell {
     }
     
     @objc func updateCharacterCollection(){
-        DispatchQueue.main.async{
-            self.CharacterCollectionView.reloadData()
-        }
+        //DispatchQueue.main.async{
+            self.characterCollectionView.reloadData()
+        //}
     }
 
 }
@@ -72,7 +84,9 @@ class CharacterCollectionTableViewCell: UITableViewCell {
 extension CharacterCollectionTableViewCell: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 160, height: 176)
+        let size = CGSize.init(width: frame.width * 0.5, height: frame.height)
+        print(size)
+        return size
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -90,7 +104,7 @@ extension CharacterCollectionTableViewCell: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = CharacterCollectionView.dequeueReusableCell(withReuseIdentifier: "CharacterCollectionViewCell", for: indexPath as IndexPath) as! CharacterCollectionViewCell
+        let cell = characterCollectionView.dequeueReusableCell(withReuseIdentifier: "CharacterCollectionViewCell", for: indexPath as IndexPath) as! CharacterCollectionViewCell
         
         let thisCharacter = viewModel.comicCharacters[indexPath.row]
         cell.configure(with: aCharacter(with: thisCharacter))

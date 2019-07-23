@@ -48,14 +48,6 @@ class ComicCollectionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-//    override func didMoveToWindow() {
-//        super.didMoveToWindow()
-//        DispatchQueue.main.async {
-//            print(self)
-//            self.comicCollectionView.reloadData()
-//        }
-//    }
-    
     func setupDates(){
         
         let dateFormatter = DateFormatter()

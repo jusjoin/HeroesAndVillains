@@ -46,7 +46,10 @@ class Comic{
 //            for items in c.items!{
 //                creators += items.name + "; "
 //            }
-            creators = ci[0].name
+            for c in ci{
+                creators += c.name + "; "
+            }
+            creators.removeLast(2)
         }
     }
     

@@ -238,7 +238,7 @@ extension HomeViewController: UITableViewDataSource{
 extension HomeViewController: ComicCollectionTableViewCellDelegate{
     func pushToNavigationController(for comic: Comic) {
         
-        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicDetailsViewController") as! ComicDetailsViewController
+        let detailsVC = ComicDetailsViewController()
         viewModel.comic = comic
         detailsVC.viewModel = viewModel
         self.navigationController?.pushViewController(detailsVC, animated: true)

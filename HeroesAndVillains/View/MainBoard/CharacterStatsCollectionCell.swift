@@ -10,17 +10,102 @@ import UIKit
 import Charts
 
 class CharacterStatsCollectionCell: UICollectionViewCell {
-    @IBOutlet weak var characterImageView: UIImageView!
-    @IBOutlet weak var characterNameLabel: UILabel!
-    @IBOutlet weak var characterInfoTextView: UITextView!
-//    @IBOutlet weak var characterStatsScrollView: UIScrollView!
-    @IBOutlet weak var characterStatsGraph: BarChartView!
+    lazy var characterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    lazy var characterNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.textAlignment = .center
+        label.lineBreakMode = .byTruncatingTail
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    lazy var characterInfoLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.textAlignment = .left
+        label.lineBreakMode = .byTruncatingTail
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 2
+        return label
+    }()
+
+    lazy var characterStatsGraph: BarChartView = {
+        let statGraph = BarChartView()
+        
+        return statGraph
+    }()
     
     var characterStats: CharacterStats?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+//    override init(style: UICollectionViewCell.CellStyle, reuseIdentifier: String?) {
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//        commonInit()
+//    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    func commonInit() {
+        
+        setupCharacterImageView()
+        setupCharacterNameLabel()
+        setupCharacterInfoLabel()
+        setupCharacterStatsGraph()
+    }
+    
+    func setupCharacterImageView(){
+        addSubview(characterImageView)
+        NSLayoutConstraint.activate([
+            characterImageView.topAnchor.constraint(equalTo: topAnchor),
+            characterImageView.leadingAnchor.constraint(equalTo: leftAnchor),
+            characterImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25),
+            characterImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25)
+            ])
+    }
+    
+    func setupCharacterNameLabel(){
+        addSubview(characterNameLabel)
+        NSLayoutConstraint.activate([
+            characterNameLabel.topAnchor.constraint(equalTo: characterImageView.topAnchor),
+            characterNameLabel.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 5),
+            characterNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            characterNameLabel.heightAnchor.constraint(equalTo: characterImageView.heightAnchor, multiplier: 0.2)
+            ])
+    }
+    
+    func setupCharacterInfoLabel(){
+        addSubview(characterInfoLabel)
+        NSLayoutConstraint.activate([
+            characterInfoLabel.topAnchor.constraint(equalTo: characterNameLabel.bottomAnchor),
+            characterInfoLabel.leftAnchor.constraint(equalTo: characterImageView.leadingAnchor),
+            characterInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            characterInfoLabel.bottomAnchor.constraint(equalTo: characterImageView.bottomAnchor)
+            ])
+        
+    }
+    
+    func setupCharacterStatsGraph(){
+        addSubview(characterImageView)
+        NSLayoutConstraint.activate([
+            characterStatsGraph.topAnchor.constraint(equalTo: characterImageView.bottomAnchor),
+            characterStatsGraph.leadingAnchor.constraint(equalTo: characterImageView.leadingAnchor),
+            characterStatsGraph.trailingAnchor.constraint(equalTo: trailingAnchor),
+            characterStatsGraph.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
     }
     
    

@@ -37,6 +37,7 @@ class CharacterDetailsViewController: UIViewController {
         //label.lineBreakMode = .byWordWrapping
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 2
+        label.font = UIFont.boldSystemFont(ofSize: 16.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,9 +45,8 @@ class CharacterDetailsViewController: UIViewController {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .left
-        //label.lineBreakMode = .byWordWrapping
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -64,7 +64,7 @@ class CharacterDetailsViewController: UIViewController {
     lazy var detailsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Details", for: .normal)
-        button.tintColor = .blue
+        button.setTitleColor(.blue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -72,7 +72,7 @@ class CharacterDetailsViewController: UIViewController {
     lazy var wikiButton: UIButton = {
         let button = UIButton()
         button.setTitle("Wiki", for: .normal)
-        button.tintColor = .blue
+        button.setTitleColor(.blue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -80,7 +80,7 @@ class CharacterDetailsViewController: UIViewController {
     lazy var comicsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Comics", for: .normal)
-        button.tintColor = .blue
+        button.setTitleColor(.blue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -88,7 +88,7 @@ class CharacterDetailsViewController: UIViewController {
     lazy var addToTeamButton: UIButton = {
         let button = UIButton()
         button.setTitle("Add To Team", for: .normal)
-        button.tintColor = .blue
+        button.setTitleColor(.blue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -99,9 +99,8 @@ class CharacterDetailsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
-        tableView.register(VideoCollectionTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
+        tableView.register(CharacterStatsTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
         tableView.tableFooterView = .init(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -127,22 +126,36 @@ class CharacterDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
-        setupContainerView()
-        setupDescriptionScrollView()
-        setupCharacterImageView()
-        setupComicCollection()
-        setupCharacterStatsCollection()
+        SetupContainerView()
+        SetupDescriptionScrollView()
+        SetupCharacterImageView()
+        SetupFaveButton()
+        SetupCharacterNameLabel()
+        SetupDetailsButton()
+        SetupWikiButton()
+        SetupComicsButton()
+        SetupAddToTeamButton()
+        SetupDetailsTableView()
+        SetupComicCollection()
+        SetupCharacterStatsCollection()
+        SetupCharacterDescriptionLabel()
+        
+        detailsButton.addTarget(self, action: #selector(detailsButtonTapped(_:)), for: .touchUpInside)
+        wikiButton.addTarget(self, action: #selector(wikiButtonTapped(_:)), for: .touchUpInside)
+        comicsButton.addTarget(self, action: #selector(comicsButtonTapped(_:)), for: .touchUpInside)
+        addToTeamButton.addTarget(self, action: #selector(addToTeamButtonTapped(_:)), for: .touchUpInside)
+        
     }
     
-    func setupContainerView(){
+    func SetupContainerView(){
         
         view.addSubview(containerView)
         
         NSLayoutConstraint.activate([
-            containerView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
             containerView.widthAnchor.constraint(equalTo: view.widthAnchor),
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             
@@ -150,7 +163,7 @@ class CharacterDetailsViewController: UIViewController {
         
     }
     
-    func setupCharacterImageView(){
+    func SetupCharacterImageView(){
         
         containerView.addSubview(characterImageView)
         NSLayoutConstraint.activate([
@@ -158,7 +171,7 @@ class CharacterDetailsViewController: UIViewController {
             characterImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15),
             characterImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
             characterImageView.bottomAnchor.constraint(equalTo: descScrollView.topAnchor),
-            characterImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.2),
+            characterImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.5),
             characterImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.4)
             
             
@@ -179,68 +192,112 @@ class CharacterDetailsViewController: UIViewController {
         
     }
     
-    func setupCharacterNameLabel(){
-        characterNameLabel.text = viewModel.character.name
+    func SetupFaveButton(){
+        characterImageView.addSubview(faveButton)
+        faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
+        faveButton.leadingAnchor.constraint(equalTo: characterImageView.leadingAnchor, constant: 5).isActive = true
+        faveButton.topAnchor.constraint(equalTo: characterImageView.topAnchor, constant: -5).isActive = true
+        faveButton.widthAnchor.constraint(equalTo: characterImageView.widthAnchor, multiplier: 0.2).isActive = true
+        faveButton.heightAnchor.constraint(equalTo: characterImageView.heightAnchor, multiplier: 0.3).isActive = true
     }
     
-    func setupDescriptionScrollView(){
+    func SetupCharacterNameLabel(){
+        view.addSubview(characterNameLabel)
+        characterNameLabel.text = viewModel.character.name
+        
+        NSLayoutConstraint.activate([
+            characterNameLabel.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 5),
+            characterNameLabel.topAnchor.constraint(equalTo: characterImageView.topAnchor, constant: 5),
+            characterNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    func SetupDescriptionScrollView(){
         
         containerView.addSubview(descScrollView)
         NSLayoutConstraint.activate([
            //  descScrollView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.15),
-            descScrollView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            descScrollView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             descScrollView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             descScrollView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
             ])
     }
     
-    func setupCharacterDescriptionLabel(){
+    func SetupCharacterDescriptionLabel(){
+        
         characterDescriptionLabel.text = viewModel.character.description
-    }
-    
-    func setupDetailsButton(){
+        descScrollView.addSubview(characterDescriptionLabel)
         
+        NSLayoutConstraint.activate([
+            characterDescriptionLabel.topAnchor.constraint(equalTo: descScrollView.topAnchor, constant: 5),
+            characterDescriptionLabel.trailingAnchor.constraint(equalTo: descScrollView.trailingAnchor),
+            characterDescriptionLabel.leadingAnchor.constraint(equalTo: descScrollView.leadingAnchor),
+            characterDescriptionLabel.widthAnchor.constraint(equalTo: descScrollView.widthAnchor),
+            characterDescriptionLabel.bottomAnchor.constraint(equalTo: descScrollView.bottomAnchor)
+            ])
     }
     
-    func setupWikiButton(){
+    func SetupDetailsButton(){
+        containerView.addSubview(detailsButton)
         
+        NSLayoutConstraint.activate([
+            detailsButton.topAnchor.constraint(equalTo: characterNameLabel.bottomAnchor, constant: 5),
+            detailsButton.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 5)
+            ])
     }
     
-    func setupComicsButton(){
+    func SetupWikiButton(){
+        containerView.addSubview(wikiButton)
         
+        NSLayoutConstraint.activate([
+            wikiButton.topAnchor.constraint(equalTo: detailsButton.bottomAnchor, constant: 5),
+            wikiButton.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 5)
+            ])
     }
     
-    func setupAddToTeamButton(){
+    func SetupComicsButton(){
+        containerView.addSubview(comicsButton)
         
+        NSLayoutConstraint.activate([
+            comicsButton.topAnchor.constraint(equalTo: wikiButton.bottomAnchor, constant: 5),
+            comicsButton.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 5)
+            ])
     }
     
-    func setupDetailsTableView(){
+    func SetupAddToTeamButton(){
+        containerView.addSubview(addToTeamButton)
+        
+        NSLayoutConstraint.activate([
+            addToTeamButton.topAnchor.constraint(equalTo: characterNameLabel.bottomAnchor, constant: 5),
+            addToTeamButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
+            ])
+    }
+    
+    func SetupDetailsTableView(){
         view.addSubview(detailsTableView)
         
         NSLayoutConstraint.activate([
             detailsTableView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
-            detailsTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.65),
+            detailsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailsTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            detailsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
     }
 
-    func setupComicCollection(){
+    func SetupComicCollection(){
 
-        detailsTableView.tableFooterView = UIView(frame: .zero)
-        detailsTableView.delegate = self
-        detailsTableView.dataSource = self
-        detailsTableView.register(UINib.init(nibName: "ComicCollectionTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ComicCollectionTableViewCell")
+        detailsTableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
         
     }
     
-    func setupCharacterStatsCollection(){
+    func SetupCharacterStatsCollection(){
         
-        detailsTableView.register(UINib.init(nibName: "CharacterStatsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CharacterStatsTableViewCell")
+        detailsTableView.register(CharacterStatsTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
     }
 
-    func faveButtonTapped(_ sender: Any) {
+    @objc func faveButtonTapped(_ sender: Any) {
         if(!faved){
             faved = viewModel.saveComicToFaves(with: viewModel.comic)
         }
@@ -249,7 +306,7 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    func detailsButtonTapped(_ sender: Any) {
+    @objc func detailsButtonTapped(_ sender: Any) {
         for items in viewModel.character.urls{
             if items.type.lowercased() == "detail"{
                 guard let url = URL(string: items.url) else { return }
@@ -259,7 +316,7 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    func wikiButtonTapped(_ sender: Any) {
+    @objc func wikiButtonTapped(_ sender: Any) {
         for items in viewModel.character.urls{
             if items.type.lowercased() == "wiki"{
                 guard let url = URL(string: items.url) else { return }
@@ -269,7 +326,7 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    func comicsButtonTapped(_ sender: Any) {
+    @objc func comicsButtonTapped(_ sender: Any) {
         for items in viewModel.character.urls{
             if items.type.lowercased() == "comiclink"{
                 guard let url = URL(string: items.url) else { return }
@@ -279,7 +336,7 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    func addToTeamButtonTapped(_ sender: Any) {
+    @objc func addToTeamButtonTapped(_ sender: Any) {
         
         let alert = UIAlertController(title: "Select stats for character", message: "Only character stats with complete data is useable.", preferredStyle: .alert)
         //var bChar = BattleCharacter()
@@ -339,14 +396,10 @@ extension CharacterDetailsViewController: UITableViewDataSource{
         
         switch indexPath.section{
         case 0:
-            //setupComicCollection()
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-            cell.vcIdentifier = identifier
             cell.viewModel = self.viewModel
+            cell.vcIdentifier = identifier
             cell.delegate = self
-            
-            //        let thisCharacter = viewModel.characters[indexPath.row]
-            //        cell.configure(with: aCharacter(with: thisCharacter))
             
             return cell
         case 1:
@@ -364,9 +417,9 @@ extension CharacterDetailsViewController: UITableViewDataSource{
 extension CharacterDetailsViewController: ComicCollectionTableViewCellDelegate{
     func pushToNavigationController(for comic: Comic) {
         
-        let detailsVC = storyboard?.instantiateViewController(withIdentifier: "ComicDetailsViewController") as! ComicDetailsViewController
-        viewModel.comic = comic
+        let detailsVC = ComicDetailsViewController()
         detailsVC.viewModel = viewModel
+        viewModel.comic = comic
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

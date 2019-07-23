@@ -285,6 +285,9 @@ class ViewModel{
         
         return false
     }
+    func isFaved(_ comic: Comic) -> Bool {
+        return !faveComics.filter { $0.title == comic.title }.isEmpty
+    }
     
     //MARK: Videos
     
