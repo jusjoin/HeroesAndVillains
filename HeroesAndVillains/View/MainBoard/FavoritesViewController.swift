@@ -48,8 +48,8 @@ class FavoritesViewController: UIViewController {
     func setupFavoritesTableView(){
         view.addSubview(favoritesTableView)
         
-        favoritesTableView.rowHeight = UITableView.automaticDimension
-        favoritesTableView.estimatedRowHeight = 100.0
+//        favoritesTableView.rowHeight = UITableView.automaticDimension
+//        favoritesTableView.estimatedRowHeight = 100.0
         
         NSLayoutConstraint.activate([
             favoritesTableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -168,11 +168,11 @@ extension FavoritesViewController: UITableViewDelegate{
     }
     
     // MARK: - Stop using this.
-    /*
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-     */
+ 
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         

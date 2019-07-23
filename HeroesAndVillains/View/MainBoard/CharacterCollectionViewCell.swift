@@ -22,7 +22,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         label.textColor = .black
         label.textAlignment = .center
         label.lineBreakMode = .byTruncatingTail
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         
         return label
     }()
@@ -45,22 +45,19 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         addSubview(characterNameLabel)
         
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
-        characterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-        
+        characterImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         characterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-        characterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
-        
-        characterImageView.bottomAnchor.constraint(equalTo: characterNameLabel.topAnchor, constant: -8).isActive = true
-        
+//        characterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
+        characterImageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        characterImageView.bottomAnchor.constraint(equalTo: characterNameLabel.topAnchor).isActive = true
+//        characterImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = false
+
         characterNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        characterNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        
-        
+        characterNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        characterNameLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor).isActive = true
         characterNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        characterNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
-        characterNameLabel.widthAnchor.constraint(equalTo: characterImageView.widthAnchor).isActive = true
+        characterNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        //characterNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2).isActive = true
         
     }
     

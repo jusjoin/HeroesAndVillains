@@ -23,6 +23,7 @@ class CharacterCollectionTableViewCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CharacterCollectionViewCell.self, forCellWithReuseIdentifier: "CharacterCollectionViewCell")
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
@@ -42,7 +43,7 @@ class CharacterCollectionTableViewCell: UITableViewCell {
     }
     
     func commonInit() {
-        setupCharacterCollection()
+        //setupCharacterCollection()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.CharactersForNotification, object: nil)
         
         addSubview(characterCollectionView)
@@ -74,9 +75,9 @@ class CharacterCollectionTableViewCell: UITableViewCell {
     }
     
     @objc func updateCharacterCollection(){
-        //DispatchQueue.main.async{
+        DispatchQueue.main.async{
             self.characterCollectionView.reloadData()
-        //}
+        }
     }
 
 }

@@ -78,7 +78,6 @@ class ComicDetailsViewController: UIViewController {
         button.setImage(tintedImage, for: .normal)
         button.tintColor = .yellow
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -137,6 +136,15 @@ class ComicDetailsViewController: UIViewController {
         }
     }
     
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
+//    }
+//    
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,6 +164,7 @@ class ComicDetailsViewController: UIViewController {
         
         comicDetailsButton.addTarget(self, action: #selector(detailsButtonTapped(_:)), for: .touchUpInside)
         comicPurchaseButton.addTarget(self, action: #selector(purchaseButtonTapped(_:)), for: .touchUpInside)
+        faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
     }
     
     func SetupContainerView(){
@@ -294,7 +303,7 @@ class ComicDetailsViewController: UIViewController {
             detailsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailsTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
             detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            detailsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            detailsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
     }
     
@@ -359,6 +368,7 @@ extension ComicDetailsViewController: UITableViewDataSource{
         cell.viewModel = self.viewModel
         cell.vcIdentifier = identifier
         cell.delegate = self
+        cell.setupCharacterCollection()
         
         return cell
     }

@@ -23,8 +23,8 @@ struct MarvelAPI {
     static let limit = "50"
     static let offset = 0
     static let ts = String(Int(Date().timeIntervalSince1970))
-    static let publicKey = "ec1082c0a7d0c82057b98aab4e1a4a18"
-    static let privateKey = "7eab78cecd6feda9c1948cf74af6a474cc021c50"
+    static let publicKey = "2f2e2c7ca638152ab1e5654743680a42" //"ec1082c0a7d0c82057b98aab4e1a4a18"
+    static let privateKey = "5f113a103171e48d8e8afd99fde752df10c07757"//"7eab78cecd6feda9c1948cf74af6a474cc021c50"
     static let hash = "&hash=" + (ts+privateKey+publicKey).md5 + "&limit=" + limit
     static let hashNoLimit = "&hash=" + (ts+privateKey+publicKey).md5
     
