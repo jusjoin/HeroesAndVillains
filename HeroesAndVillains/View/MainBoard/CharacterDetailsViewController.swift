@@ -188,7 +188,7 @@ class CharacterDetailsViewController: UIViewController {
         
         print(viewModel.character.description)
         
-        faved = viewModel.isFaved(viewModel.character)
+        faved = ViewModel.isFaved(viewModel.character)
         
     }
     

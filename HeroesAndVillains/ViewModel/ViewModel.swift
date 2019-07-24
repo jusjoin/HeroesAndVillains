@@ -24,15 +24,15 @@ class ViewModel{
         }
     }
     
-    var faveCharacters = [CoreFavoriteCharacter](){
+    static var faveCharacters = [CoreFavoriteCharacter](){
         didSet{
-            updateUI?()
+            ViewModel.updateUI?()
             NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
         }
     }
     
     var comic = Comic()
-    var updateUI: (()->Void)?
+    static var updateUI: (()->Void)?
     
     var comics = [marvelComic](){
         didSet{
@@ -60,7 +60,7 @@ class ViewModel{
     
     var faveComics = [CoreComic](){
         didSet{
-            updateUI?()
+            ViewModel.updateUI?()
             NotificationCenter.default.post(name: Notification.Name.FaveComicsNotification, object: nil)
         }
     }
@@ -156,20 +156,20 @@ class ViewModel{
         }
     }
     
-    func saveCharacterToFaves(with char: aCharacter) -> Bool{
+    static func saveCharacterToFaves(with char: aCharacter) -> Bool{
         
         return  coreManager.saveFavoriteCharacterToCore(with: char)!
     }
     
     @discardableResult
-    func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
+    static func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
         // faveCharacters.removeAll { $0 === char         }
         return coreManager.deleteFavoriteCharacterFromCore(withChar: char)
     }
     
     func deleteCharacterFromFaves(with char: CoreFavoriteCharacter) {
         coreManager.deleteCharacter(withChar: char)
-        faveCharacters.removeAll { $0 === char }
+        ViewModel.faveCharacters.removeAll { $0 === char }
     }
     
     func getCharactersForComic(for comicID: Int){
@@ -182,18 +182,18 @@ class ViewModel{
     }
     
     func GetFavoriteCharacters(){
-        self.faveCharacters = coreManager.getCoreFavoriteCharacters()
+        ViewModel.faveCharacters = coreManager.getCoreFavoriteCharacters()
     }
     
     func CheckFavedCharacters(with char: aCharacter) -> Bool{
         
-        self.faveCharacters = coreManager.getCoreFavoriteCharacters()
+        ViewModel.faveCharacters = coreManager.getCoreFavoriteCharacters()
         print("Favorites:")
-        for aChar in faveCharacters{
+        for aChar in ViewModel.faveCharacters{
             let c = aCharacter(with:aChar)
             print("Character: \(c.name)")
         }
-        for aChar in faveCharacters{
+        for aChar in ViewModel.faveCharacters{
             let c = aCharacter(with:aChar)
             print("Character from faves: \(c.name)")
             if( c == char)
@@ -205,7 +205,7 @@ class ViewModel{
         return false
         
     }
-    func isFaved(_ char: aCharacter) -> Bool {
+    static func isFaved(_ char: aCharacter) -> Bool {
         return !faveCharacters.filter { $0.name == char.name }.isEmpty
     }
     

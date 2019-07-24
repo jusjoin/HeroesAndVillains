@@ -36,7 +36,7 @@ class CharacterCollectionCell: UICollectionViewCell {
         return button
     }()
     
-    var viewModel: ViewModel!
+    var thisCharacter: aCharacter!
     static let identifier = "CharacterCollectionCell"
     
     required init?(coder aDecoder: NSCoder) {
@@ -98,7 +98,7 @@ class CharacterCollectionCell: UICollectionViewCell {
     
     
     func configure(with char: aCharacter){
-        viewModel.character = char
+        thisCharacter = char
 
         dlManager.download(char.image) { [unowned self] dat in
             
@@ -112,17 +112,17 @@ class CharacterCollectionCell: UICollectionViewCell {
         setupLabel(name: char.name)
         print(char.name)
         setupFavoritesButton()
-        faved = viewModel.isFaved(char)
+        faved = ViewModel.isFaved(char)
     }
     
     
     @objc func faveButtonTapped(_ sender: UIButton) {
         print("Fave button tapped")
         if(!faved){
-            faved = viewModel.saveCharacterToFaves(with: viewModel.character)
+            faved = ViewModel.saveCharacterToFaves(with: thisCharacter)
         }
         else{
-            faved = !viewModel.deleteCharacterFromFaves(with: viewModel.character)
+            faved = !ViewModel.deleteCharacterFromFaves(with: thisCharacter)
         }
     }
     

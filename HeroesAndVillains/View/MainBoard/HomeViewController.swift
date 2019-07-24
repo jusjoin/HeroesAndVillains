@@ -151,7 +151,7 @@ extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.characterCollectionView{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionCell.identifier, for: indexPath) as! CharacterCollectionCell
-            cell.viewModel = viewModel
+            cell.thisCharacter = aCharacter(with: viewModel.topCharacters[indexPath.row])
             
             //TODO: Add setting to enable/disable adding dummy character
             if viewModel.topCharacters.count > 0{
