@@ -25,6 +25,12 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         return characterCollectionView
     }()
     
+    lazy var comicCollectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        
+        return collectionView
+    }()
+    
     lazy var mainTableView: UITableView = {
         
         let tableView = UITableView()
@@ -39,19 +45,35 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         return tableView
     }()
     
-    let viewModel = ViewModel()
+    let viewModel = HomeViewModel()
     let identifier = Constants.Keys.homeVCIdentifier.rawValue
     
+    var comicPeriodDateDescriptor = "thisMonth"
+    var comicPeriodDate1 = String()
+    var comicPeriodDate2 = String()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: Bundle.main)
+        commonInit()
+    }
+    
+    func commonInit() {
         
         view.backgroundColor = .white
+        viewModel.GetFavoriteCharacters()
         setupNavigation()
         setupCharacterCollectionView()
         setupMainTableView()
         setupObservers()
-        
+        setupDates()
+        viewModel.getTopCharacters()
+        viewModel.getComicsLatest(dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
+        viewModel.getFeaturedVideos()
     }
     
     func setupNavigation(){
@@ -72,7 +94,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
             characterCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             characterCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
-        viewModel.getTopCharacters()
+        
     }
     
     func setupMainTableView(){
@@ -115,6 +137,17 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    func setupDates(){
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let today = Date()
+        comicPeriodDate2 = dateFormatter.string(from: today)
+        let thePast = Calendar.current.date(byAdding: .weekOfYear, value: -24, to: Date())!
+        comicPeriodDate1 = dateFormatter.string(from: thePast)
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
@@ -130,8 +163,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
         collectionView.deselectItem(at: indexPath, animated: true)
         
         let detailsVC = CharacterDetailsViewController()
-        viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
-        detailsVC.viewModel = viewModel
+        //viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
+        detailsVC.viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
         
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
@@ -141,8 +174,8 @@ extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.characterCollectionView && viewModel.topCharacters.count > 0{
             return viewModel.topCharacters.count
-        }else if collectionView == self.characterCollectionView && ViewModel.dummyCharacters.count > 0{
-            return ViewModel.dummyCharacters.count
+        }else if collectionView == self.characterCollectionView && viewModel.dummyCharacters.count > 0{
+            return viewModel.dummyCharacters.count
         }else{
             return 0
         }
@@ -158,7 +191,7 @@ extension HomeViewController: UICollectionViewDataSource{
                 let thisCharacter = viewModel.topCharacters[indexPath.row]
                 cell.configure(with: aCharacter(with: thisCharacter))
             }else{
-                let thisCharacter = ViewModel.dummyCharacters[indexPath.row]
+                let thisCharacter = viewModel.dummyCharacters[indexPath.row]
                 cell.configure(with: thisCharacter)
             }
             
@@ -213,7 +246,8 @@ extension HomeViewController: UITableViewDataSource{
         
         if indexPath.section == 0{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-        cell.viewModel = viewModel
+        
+        cell.comics = viewModel.comics
         cell.vcIdentifier = identifier
         cell.delegate = self
         
@@ -222,7 +256,7 @@ extension HomeViewController: UITableViewDataSource{
         
         if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCollectionTableViewCell", for: indexPath) as! VideoCollectionTableViewCell
-            cell.viewModel = viewModel
+            cell.videos = viewModel.featuredVideos
             cell.vcIdentifier = identifier
             cell.delegate = self
             
@@ -239,8 +273,8 @@ extension HomeViewController: ComicCollectionTableViewCellDelegate{
     func pushToNavigationController(for comic: Comic) {
         
         let detailsVC = ComicDetailsViewController()
-        viewModel.comic = comic
-        detailsVC.viewModel = viewModel
+//        viewModel.comic = comic
+//        detailsVC.viewModel = viewModel
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

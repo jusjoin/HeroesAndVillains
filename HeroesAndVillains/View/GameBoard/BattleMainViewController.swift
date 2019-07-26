@@ -29,7 +29,7 @@ class BattleMainViewController: UIViewController {
     
     @objc func gameButtonTapped(){
 
-        let gameStoryBoard = UIStoryboard(name: "Game", bundle: nil)
+        let gameStoryBoard = UIStoryboard(name: "Game", bundle: Bundle.main)
         let gameVC = (gameStoryBoard.instantiateViewController(withIdentifier: "BattleGameViewController"))
         self.navigationController?.pushViewController(gameVC, animated: true)
     }

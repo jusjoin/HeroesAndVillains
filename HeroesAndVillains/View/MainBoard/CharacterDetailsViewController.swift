@@ -105,7 +105,9 @@ class CharacterDetailsViewController: UIViewController {
         return tableView
     }()
     
-    var viewModel : ViewModel!
+//    var thisCharacter: aCharacter!
+//    var thisCharacterStats: CharacterStats!
+    let viewModel = CharacterViewModel()
     let identifier = Constants.Keys.characterDetailsVCIdentifier.rawValue
     
     var faved = false{ // move to viewModel?
@@ -124,23 +126,35 @@ class CharacterDetailsViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: Bundle.main)
+        commonInit()
+    }
+    
+    func commonInit() {
         
+        viewModel.getComicsForCharacter(for: viewModel.character.id, dateDescriptor: viewModel.comicPeriodDateDescriptor, forDate1: viewModel.comicPeriodDate1, forDate2: viewModel.comicPeriodDate2)
+        viewModel.getCharacterStats(name: viewModel.character.name)
+        setupNavigation()
         view.backgroundColor = .white
-        SetupContainerView()
-        SetupDescriptionScrollView()
-        SetupCharacterImageView()
-        SetupFaveButton()
-        SetupCharacterNameLabel()
-        SetupDetailsButton()
-        SetupWikiButton()
-        SetupComicsButton()
-        SetupAddToTeamButton()
-        SetupDetailsTableView()
-        SetupComicCollection()
-        SetupCharacterStatsCollection()
-        SetupCharacterDescriptionLabel()
+        setupContainerView()
+        setupDescriptionScrollView()
+        setupCharacterImageView()
+        setupFaveButton()
+        setupCharacterNameLabel()
+        setupDetailsButton()
+        setupWikiButton()
+        setupComicsButton()
+        setupAddToTeamButton()
+        setupDetailsTableView()
+        setupComicCollection()
+        setupCharacterStatsCollection()
+        setupCharacterDescriptionLabel()
         
         detailsButton.addTarget(self, action: #selector(detailsButtonTapped(_:)), for: .touchUpInside)
         wikiButton.addTarget(self, action: #selector(wikiButtonTapped(_:)), for: .touchUpInside)
@@ -149,7 +163,36 @@ class CharacterDetailsViewController: UIViewController {
         
     }
     
-    func SetupContainerView(){
+    func setupDates(){
+        
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let today = Date()
+                viewModel.comicPeriodDate2 = dateFormatter.string(from: today)
+                let thePast = Calendar.current.date(byAdding: .weekOfYear, value: -24, to: Date())!
+                viewModel.comicPeriodDate1 = dateFormatter.string(from: thePast)
+            }
+    
+    func setupNavigation(){
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        self.navigationItem.title = Constants.Keys.favoritesTitle.rawValue
+        
+//        let comicBarButton = UIBarButtonItem(title: Constants.Keys.comicsTitle.rawValue, style: .plain, target: self, action: #selector(faveButtonTapped))
+//        let characterBarButton = UIBarButtonItem(title: Constants.Keys.charactersTitle.rawValue, style: .plain, target: self, action: #selector(characterButtonTapped))
+//        self.navigationItem.rightBarButtonItem = comicBarButton
+//        self.navigationItem.leftBarButtonItem = characterBarButton
+        //self.navigationItem.rightBarButtonItems = [UIBarButtonItem](arrayLiteral: rBar1, rBar2)
+        
+        let buttonIcon = UIImage(named: "favorites")
+        
+        let rightBarButton = UIBarButtonItem(title: "Favorite", style: UIBarButtonItem.Style.done, target: self, action: #selector(faveButtonTapped))
+        rightBarButton.image = buttonIcon
+        
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    func setupContainerView(){
         
         view.addSubview(containerView)
         
@@ -163,7 +206,7 @@ class CharacterDetailsViewController: UIViewController {
         
     }
     
-    func SetupCharacterImageView(){
+    func setupCharacterImageView(){
         
         containerView.addSubview(characterImageView)
         NSLayoutConstraint.activate([
@@ -188,11 +231,11 @@ class CharacterDetailsViewController: UIViewController {
         
         print(viewModel.character.description)
         
-        faved = ViewModel.isFaved(viewModel.character)
+        faved = viewModel.isFaved(viewModel.character)
         
     }
     
-    func SetupFaveButton(){
+    func setupFaveButton(){
         characterImageView.addSubview(faveButton)
         faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
         faveButton.leadingAnchor.constraint(equalTo: characterImageView.leadingAnchor, constant: 5).isActive = true
@@ -201,7 +244,7 @@ class CharacterDetailsViewController: UIViewController {
         faveButton.heightAnchor.constraint(equalTo: characterImageView.heightAnchor, multiplier: 0.3).isActive = true
     }
     
-    func SetupCharacterNameLabel(){
+    func setupCharacterNameLabel(){
         view.addSubview(characterNameLabel)
         characterNameLabel.text = viewModel.character.name
         
@@ -212,7 +255,7 @@ class CharacterDetailsViewController: UIViewController {
         ])
     }
     
-    func SetupDescriptionScrollView(){
+    func setupDescriptionScrollView(){
         
         containerView.addSubview(descScrollView)
         NSLayoutConstraint.activate([
@@ -223,7 +266,7 @@ class CharacterDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupCharacterDescriptionLabel(){
+    func setupCharacterDescriptionLabel(){
         
         characterDescriptionLabel.text = viewModel.character.description
         descScrollView.addSubview(characterDescriptionLabel)
@@ -237,7 +280,7 @@ class CharacterDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupDetailsButton(){
+    func setupDetailsButton(){
         containerView.addSubview(detailsButton)
         
         NSLayoutConstraint.activate([
@@ -246,7 +289,7 @@ class CharacterDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupWikiButton(){
+    func setupWikiButton(){
         containerView.addSubview(wikiButton)
         
         NSLayoutConstraint.activate([
@@ -255,7 +298,7 @@ class CharacterDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupComicsButton(){
+    func setupComicsButton(){
         containerView.addSubview(comicsButton)
         
         NSLayoutConstraint.activate([
@@ -264,7 +307,7 @@ class CharacterDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupAddToTeamButton(){
+    func setupAddToTeamButton(){
         containerView.addSubview(addToTeamButton)
         
         NSLayoutConstraint.activate([
@@ -273,7 +316,7 @@ class CharacterDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupDetailsTableView(){
+    func setupDetailsTableView(){
         view.addSubview(detailsTableView)
         
         NSLayoutConstraint.activate([
@@ -286,23 +329,23 @@ class CharacterDetailsViewController: UIViewController {
         
     }
 
-    func SetupComicCollection(){
+    func setupComicCollection(){
 
         detailsTableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
         
     }
     
-    func SetupCharacterStatsCollection(){
+    func setupCharacterStatsCollection(){
         
         detailsTableView.register(CharacterStatsTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
     }
 
     @objc func faveButtonTapped(_ sender: Any) {
         if(!faved){
-            faved = viewModel.saveComicToFaves(with: viewModel.comic)
+            faved = viewModel.saveCharacterToFaves(with: viewModel.character)
         }
         else{
-            faved = !viewModel.deleteComicFromFaves(with: viewModel.comic)
+            faved = viewModel.deleteCharacterFromFaves(with: viewModel.character)
         }
     }
     
@@ -397,14 +440,14 @@ extension CharacterDetailsViewController: UITableViewDataSource{
         switch indexPath.section{
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-            cell.viewModel = self.viewModel
+            cell.comics = viewModel.characterComics
             cell.vcIdentifier = identifier
             cell.delegate = self
             
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterStatsTableViewCell", for: indexPath) as! CharacterStatsTableViewCell
-            cell.viewModel = self.viewModel
+            cell.characterStats = viewModel.characterStats
             return cell
         default:
             return UITableViewCell()
@@ -418,8 +461,8 @@ extension CharacterDetailsViewController: ComicCollectionTableViewCellDelegate{
     func pushToNavigationController(for comic: Comic) {
         
         let detailsVC = ComicDetailsViewController()
-        detailsVC.viewModel = viewModel
-        viewModel.comic = comic
+        //detailsVC.viewModel = viewModel
+        detailsVC.viewModel.comic = comic
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

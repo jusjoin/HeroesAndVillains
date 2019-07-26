@@ -18,33 +18,25 @@ class ViewModel{
         }
     }
     
-    var topCharacters = [marvelCharacter](){
-        didSet{
-            NotificationCenter.default.post(name: Notification.Name.TopCharacterNotification, object: nil)
-        }
-    }
     
-    static var faveCharacters = [CoreFavoriteCharacter](){
-        didSet{
-            ViewModel.updateUI?()
-            NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
-        }
-    }
+    
+//    var faveCharacters = [CoreFavoriteCharacter](){
+//        didSet{
+//            self.updateUI?()
+//            NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
+//        }
+//    }
     
     var comic = Comic()
-    static var updateUI: (()->Void)?
+    var updateUI: (()->Void)?
     
-    var comics = [marvelComic](){
-        didSet{
-            NotificationCenter.default.post(name: Notification.Name.ComicsNotification, object: nil)
-        }
-    }
     
     var characterComics = [marvelComic](){
         didSet{
             NotificationCenter.default.post(name: Notification.Name.ComicsForNotification, object: nil)
         }
     }
+    
     
     var comicCharacters = [marvelCharacter](){
         didSet{
@@ -60,50 +52,34 @@ class ViewModel{
     
     var faveComics = [CoreComic](){
         didSet{
-            ViewModel.updateUI?()
+            self.updateUI?()
             NotificationCenter.default.post(name: Notification.Name.FaveComicsNotification, object: nil)
         }
     }
     
-    var featuredVideos = [CVideo](){
-        didSet{
-            NotificationCenter.default.post(name: Notification.Name.VideosNotification, object: nil)
-        }
-    }
     
-    var videosForCharacter = [CVideo](){
-        didSet{
-            NotificationCenter.default.post(name: Notification.Name.VideosForNotification, object: nil)
-        }
-    }
     
-    static var dummyCharacters = [aCharacter](){
-        didSet{
-            NotificationCenter.default.post(name: Notification.Name.DummyCharactersNotification, object: nil)
-        }
-    }
     
-    var characterStats = [CharacterStats](){
-        didSet{
-            NotificationCenter.default.post(name: Notification.Name.CharacterStatsNotification, object: nil)
-        }
-    }
     
-    var battleTeam = BattleTeam(){
-        didSet{
-            NotificationCenter.default.post(name: Notification.Name.BattleTeamNotification, object: nil)
-        }
-    }
+//    var characterStats = [CharacterStats](){
+//        didSet{
+//            NotificationCenter.default.post(name: Notification.Name.CharacterStatsNotification, object: nil)
+//        }
+//    }
     
-    init(){
-        GetFavoriteCharacters()
-    }
+//    var battleTeam = BattleTeam(){
+//        didSet{
+//            NotificationCenter.default.post(name: Notification.Name.BattleTeamNotification, object: nil)
+//        }
+//    }
+    
+//    init(){
+//        GetFavoriteCharacters()
+//    }
     
     //MARK: Characters
     
-    static func addDummyCharacter(){
-        dummyCharacters.append(aCharacter(id:dummyCharacters.count+1, name:"dummy", description: "This is not a character", image: "mask.png", alignment: "neutral"))
-    }
+    
     
     func getCharacters(){
         mvlService.getCharacters(){ [unowned self] characters in
@@ -140,37 +116,23 @@ class ViewModel{
         }
     }
     
-    func getTopCharacters(){
-
-
-        for charName in MarvelVARS.TopCharacters{
-            mvlService.getCharacterByFullName(fullName: charName){[unowned self] character in
-                
-                guard let thisCharacter = character.first else{
-                    return
-                }
-                self.topCharacters.append(thisCharacter)
-                print("Added \(thisCharacter.name) to top characters.")
-                
-            }
-        }
-    }
     
-    static func saveCharacterToFaves(with char: aCharacter) -> Bool{
-        
-        return  coreManager.saveFavoriteCharacterToCore(with: char)!
-    }
     
-    @discardableResult
-    static func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
-        // faveCharacters.removeAll { $0 === char         }
-        return coreManager.deleteFavoriteCharacterFromCore(withChar: char)
-    }
+//    func saveCharacterToFaves(with char: aCharacter) -> Bool{
+//        
+//        return  coreManager.saveFavoriteCharacterToCore(with: char)!
+//    }
+//    
+//    @discardableResult
+//    func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
+//        // faveCharacters.removeAll { $0 === char         }
+//        return coreManager.deleteFavoriteCharacterFromCore(withChar: char)
+//    }
     
-    func deleteCharacterFromFaves(with char: CoreFavoriteCharacter) {
-        coreManager.deleteCharacter(withChar: char)
-        ViewModel.faveCharacters.removeAll { $0 === char }
-    }
+//    func deleteCharacterFromFaves(with char: CoreFavoriteCharacter) {
+//        coreManager.deleteCharacter(withChar: char)
+//        self.faveCharacters.removeAll { $0 === char }
+//    }
     
     func getCharactersForComic(for comicID: Int){
         
@@ -181,62 +143,55 @@ class ViewModel{
         }
     }
     
-    func GetFavoriteCharacters(){
-        ViewModel.faveCharacters = coreManager.getCoreFavoriteCharacters()
-    }
+//    func GetFavoriteCharacters(){
+//        self.faveCharacters = coreManager.getCoreFavoriteCharacters()
+//    }
     
-    func CheckFavedCharacters(with char: aCharacter) -> Bool{
-        
-        ViewModel.faveCharacters = coreManager.getCoreFavoriteCharacters()
-        print("Favorites:")
-        for aChar in ViewModel.faveCharacters{
-            let c = aCharacter(with:aChar)
-            print("Character: \(c.name)")
-        }
-        for aChar in ViewModel.faveCharacters{
-            let c = aCharacter(with:aChar)
-            print("Character from faves: \(c.name)")
-            if( c == char)
-            {
-                return true
-            }
-        }
-        
-        return false
-        
-    }
-    static func isFaved(_ char: aCharacter) -> Bool {
-        return !faveCharacters.filter { $0.name == char.name }.isEmpty
-    }
+//    func CheckFavedCharacters(with char: aCharacter) -> Bool{
+//        
+//        self.faveCharacters = coreManager.getCoreFavoriteCharacters()
+//        print("Favorites:")
+//        for aChar in self.faveCharacters{
+//            let c = aCharacter(with:aChar)
+//            print("Character: \(c.name)")
+//        }
+//        for aChar in self.faveCharacters{
+//            let c = aCharacter(with:aChar)
+//            print("Character from faves: \(c.name)")
+//            if( c == char)
+//            {
+//                return true
+//            }
+//        }
+//        
+//        return false
+//        
+//    }
+//    func isFaved(_ char: aCharacter) -> Bool {
+//        return !faveCharacters.filter { $0.name == char.name }.isEmpty
+//    }
     
     //MARK: Comics
     
-    func getComics(){
-        
-        mvlService.getComics(){ [unowned self] comics in
-            
-            self.comics = comics
-            print("Comics Count: \(comics.count)")
-        }
-    }
+//    func getComics(){
+//        
+//        mvlService.getComics(){ [unowned self] comics in
+//            
+//            self.comics = comics
+//            print("Comics Count: \(comics.count)")
+//        }
+//    }
     
-    func getComicsForCharacter(for charID: Int, dateDescriptor period: String, forDate1 date1: String?, forDate2 date2: String?){
-
-        mvlService.getComicsForCharacter(for: charID, dateDescriptor: period, forDate1: date1, forDate2: date2){ [unowned self] comics in
-            
-            self.characterComics = comics
-            print("Comics Count: \(comics.count)")
-        }
-    }
+//    func getComicsForCharacter(for charID: Int, dateDescriptor period: String, forDate1 date1: String?, forDate2 date2: String?){
+//
+//        mvlService.getComicsForCharacter(for: charID, dateDescriptor: period, forDate1: date1, forDate2: date2){ [unowned self] comics in
+//            
+//            self.characterComics = comics
+//            print("Comics Count: \(comics.count)")
+//        }
+//    }
     
-    func getComicsLatest(dateDescriptor period: String, forDate1 date1: String?, forDate2 date2: String?){
-        
-        mvlService.getComicsLatest(dateDescriptor: period, forDate1: date1, forDate2: date2){ [unowned self] comics in
-            
-            self.comics = comics
-            print("Comics Count: \(comics.count)")
-        }
-    }
+    
     
     func getCVComicsWithName(name: String){
         cvService.getComicsWithName(name: name, completion: {[unowned self] comics in
@@ -291,37 +246,30 @@ class ViewModel{
     
     //MARK: Videos
     
-    func getFeaturedVideos(){
-        
-        cvService.getLatestVideos(){ [unowned self] videos in
-            
-            self.featuredVideos = videos
-            print("Videos Count: \(videos.count)")
-        }
-    }
+    
     
     //MARK: CharacterStats
     
-    func getCharacterStats(name: String){
-        let cleanName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.customAllowedURLCharacters())
-        csService.getCharacterStatsWithName(name: cleanName!, completion: {[unowned self] characterStats in
-            
-            self.characterStats = characterStats
-            print("Character Stats count: \(characterStats.count)")
-        })
-    }
+//    func getCharacterStats(name: String){
+//        let cleanName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.customAllowedURLCharacters())
+//        csService.getCharacterStatsWithName(name: cleanName!, completion: {[unowned self] characterStats in
+//            
+//            self.characterStats = characterStats
+//            print("Character Stats count: \(characterStats.count)")
+//        })
+//    }
     
     //MARK: Battle
     
-    func AddBattleCharacterToTeam(_ battleCharacter: BattleCharacter, _ battleTeamName: String){
-        
-        //Save battleCharacter to core data
-        
-        if battleTeam.battleCharacters.count < Constants.CoreBattleTeamKeysNum.battleTeamMaxSize.rawValue{
-            
-            battleTeam.battleCharacters.append(battleCharacter.id)
-        }
-        
-        //Save battleTeam to core data
-    }
+//    func AddBattleCharacterToTeam(_ battleCharacter: BattleCharacter, _ battleTeamName: String){
+//        
+//        //Save battleCharacter to core data
+//        
+//        if battleTeam.battleCharacters.count < Constants.CoreBattleTeamKeysNum.battleTeamMaxSize.rawValue{
+//            
+//            battleTeam.battleCharacters.append(battleCharacter.id)
+//        }
+//        
+//        //Save battleTeam to core data
+//    }
 }

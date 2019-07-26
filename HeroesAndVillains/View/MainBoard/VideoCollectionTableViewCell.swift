@@ -28,7 +28,8 @@ class VideoCollectionTableViewCell: UITableViewCell {
     }()
     
     
-    var viewModel: ViewModel!
+//    var viewModel: VideoViewModel!
+    var videos: [CVideo]!
     var delegate: VideoCollectionTableViewCellDelegate?
     var vcIdentifier: String?{
         didSet{
@@ -66,11 +67,11 @@ class VideoCollectionTableViewCell: UITableViewCell {
         NotificationCenter.default.addObserver(self, selector: #selector(updateVideoCollection), name: Notification.Name.VideosNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateVideoCollection), name: Notification.Name.VideosForNotification, object: nil)
         
-        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
-            viewModel.getFeaturedVideos()
-        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
-            //viewModel.getFeaturedVideosFor(for: viewModel.character.id, dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
-        }
+//        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
+//            viewModel.getFeaturedVideos()
+//        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
+//            //viewModel.getFeaturedVideosFor(for: viewModel.character.id, dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
+//        }
     }
     
 }
@@ -84,7 +85,7 @@ extension VideoCollectionTableViewCell: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let video = viewModel.featuredVideos[indexPath.row].lowURL
+        let video = videos[indexPath.row].lowURL
         let videoURL = URL(string: video!)!
         let player = AVPlayer(url: videoURL)
         
@@ -102,7 +103,7 @@ extension VideoCollectionTableViewCell: UICollectionViewDataSource{
 //            return viewModel.characterComics.count
 //        }
         
-        return viewModel.featuredVideos.count
+        return videos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -119,7 +120,7 @@ extension VideoCollectionTableViewCell: UICollectionViewDataSource{
 //            return cell
 //        }
         
-        let thisVideo = viewModel.featuredVideos[indexPath.row]
+        let thisVideo = videos[indexPath.row]
         cell.configure(with: thisVideo)
         return cell
     }

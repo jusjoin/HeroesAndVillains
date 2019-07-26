@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
     }()
     
     
-    let viewModel = ViewModel()
+    let viewModel = SearchViewModel()
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {

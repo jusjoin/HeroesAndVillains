@@ -81,9 +81,9 @@ final class MarvelService{
                     print("Decoding Error: \(err.localizedDescription)")
                 }
                 
-            }else{
+            }/*else{
                 ViewModel.addDummyCharacter()
-            }
+            }*/
             
             }.resume()
     }

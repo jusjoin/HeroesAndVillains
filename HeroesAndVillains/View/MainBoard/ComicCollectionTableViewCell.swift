@@ -27,7 +27,8 @@ class ComicCollectionTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    var viewModel : ViewModel!
+//    var viewModel : ViewModel!
+    var comics : [marvelComic]!
     var delegate: ComicCollectionTableViewCellDelegate?
     var vcIdentifier: String?{
         didSet{
@@ -35,9 +36,13 @@ class ComicCollectionTableViewCell: UITableViewCell {
         }
     }
     
-    var comicPeriodDateDescriptor = "thisMonth"
-    var comicPeriodDate1 = String()
-    var comicPeriodDate2 = String()
+    func setupData(comics: [marvelComic]){
+        self.comics = comics
+    }
+    
+//    var comicPeriodDateDescriptor = "thisMonth"
+//    var comicPeriodDate1 = String()
+//    var comicPeriodDate2 = String()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -48,16 +53,16 @@ class ComicCollectionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    func setupDates(){
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let today = Date()
-        comicPeriodDate2 = dateFormatter.string(from: today)
-        let thePast = Calendar.current.date(byAdding: .weekOfYear, value: -24, to: Date())!
-        comicPeriodDate1 = dateFormatter.string(from: thePast)
-    }
+//    func setupDates(){
+//        
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let today = Date()
+//        comicPeriodDate2 = dateFormatter.string(from: today)
+//        let thePast = Calendar.current.date(byAdding: .weekOfYear, value: -24, to: Date())!
+//        comicPeriodDate1 = dateFormatter.string(from: thePast)
+//    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -76,18 +81,18 @@ class ComicCollectionTableViewCell: UITableViewCell {
         comicCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor)
         NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsForNotification, object: nil)
-        setupDates()
+        //setupDates()
         
-        if(viewModel != nil){
-            if !viewModel.characterComics.isEmpty{
-                viewModel.characterComics.removeAll()
-            }
+//        if(viewModel != nil){
+        if !comics.isEmpty{
+            comics.removeAll()
         }
-        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
-            viewModel.getComicsLatest(dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
-        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
-            viewModel.getComicsForCharacter(for: viewModel.character.id, dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
-        }
+//        }
+//        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
+//            viewModel.getComicsLatest(dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
+//        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
+//            viewModel.getComicsForCharacter(for: viewModel.character.id, dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
+//        }
     }
     
     @objc func updateComicCollection(){
@@ -103,13 +108,13 @@ class ComicCollectionTableViewCell: UITableViewCell {
 extension ComicCollectionTableViewCell: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: frame.width * 0.7, height: frame.height * 0.9)
+        return .init(width: frame.width * 0.3, height: frame.height * 0.9)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        delegate?.pushToNavigationController(for: Comic(with: viewModel.comics[indexPath.row]))
+        delegate?.pushToNavigationController(for: Comic(with: comics[indexPath.row]))
     }
 }
 
@@ -117,28 +122,28 @@ extension ComicCollectionTableViewCell: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
-            return viewModel.comics.count
-        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
-            return viewModel.characterComics.count
-        }
+//        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
+//            return viewModel.comics.count
+//        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
+//            return viewModel.characterComics.count
+//        }
         
-        return 0
+        return comics.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = comicCollectionView.dequeueReusableCell(withReuseIdentifier: ComicCollectionViewCell.identifier, for: indexPath as IndexPath) as! ComicCollectionViewCell
         
-        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
-            let thisComic = viewModel.comics[indexPath.row]
+        //if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
+            let thisComic = comics[indexPath.row]
             cell.configure(with: Comic(with: thisComic))
-            return cell
-        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
-            let thisComic = viewModel.characterComics[indexPath.row]
-            cell.configure(with: Comic(with: thisComic))
-            return cell
-        }
+//            return cell
+//        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
+//            let thisComic = viewModel.characterComics[indexPath.row]
+//            cell.configure(with: Comic(with: thisComic))
+//            return cell
+//        }
         
         return cell
     }

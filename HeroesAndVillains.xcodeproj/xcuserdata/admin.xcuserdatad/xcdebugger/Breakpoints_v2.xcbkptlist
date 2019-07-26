@@ -57,22 +57,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HeroesAndVillains/ViewModel/ViewModel.swift"
-            timestampString = "585669186.346688"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "ViewModel"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/MarvelService.swift"
             timestampString = "582968234.20976"
             startingColumnNumber = "9223372036854775807"
@@ -97,54 +81,6 @@
             endingLineNumber = "77"
             landmarkName = "getCharacterByFullName(fullName:completion:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HeroesAndVillains/ViewModel/ViewModel.swift"
-            timestampString = "585669186.347187"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "CheckFavedCharacters(with:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HeroesAndVillains.ViewModel.getComics() -&gt; ()"
-                  moduleName = "HeroesAndVillains"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/IOS%20Training/Repos/HeroesAndVillains/HeroesAndVillains/ViewModel/ViewModel.swift"
-                  timestampString = "581975100.485562"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "22">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;HeroesAndVillains.marvelComic&gt;) -&gt; () in HeroesAndVillains.ViewModel.getComics() -&gt; ()"
-                  moduleName = "HeroesAndVillains"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/IOS%20Training/Repos/HeroesAndVillains/HeroesAndVillains/ViewModel/ViewModel.swift"
-                  timestampString = "581975100.489755"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "44">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -640,22 +576,6 @@
             startingLineNumber = "21"
             endingLineNumber = "21"
             landmarkName = "faved"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HeroesAndVillains/ViewModel/ViewModel.swift"
-            timestampString = "585669186.347973"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "faveCharacters"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>

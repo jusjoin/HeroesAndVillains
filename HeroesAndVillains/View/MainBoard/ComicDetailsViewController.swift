@@ -381,7 +381,7 @@ extension ComicDetailsViewController: CharacterCollectionTableViewCellDelegate{
         
         let detailsVC = CharacterDetailsViewController()
         viewModel.character = character
-        detailsVC.viewModel = viewModel
+        //detailsVC.viewModel = viewModel
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

@@ -23,7 +23,7 @@ class FavoritesViewController: UIViewController {
         return tableView
     }()
     
-    let viewModel = ViewModel()
+    let viewModel = FavoritesViewModel()
     var showCharacterFaves = true
     //var showComicFaves = false
     
@@ -32,7 +32,7 @@ class FavoritesViewController: UIViewController {
         setupNavigation()
         setupFavoritesTableView()
         
-        ViewModel.updateUI = {
+        viewModel.updateUI = {
             DispatchQueue.main.async {
                 self.favoritesTableView.reloadData()
             }
@@ -195,7 +195,10 @@ extension FavoritesViewController: UITableViewDelegate{
                             let com = self.viewModel.faveComics[indexPath.row]
                             self.viewModel.deleteComicFromFaves(with: com)
                         }
-                        cell.contentView.alpha = 1.0 // undo side-effect caused by disintegrate
+                        cell.subviews.forEach{
+                        $0.alpha = 1.0
+                        // undo side-effect caused by disintegrate
+                        }
                     }
             })
             let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)

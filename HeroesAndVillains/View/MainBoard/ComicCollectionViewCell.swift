@@ -59,7 +59,6 @@ class ComicCollectionViewCell: UICollectionViewCell {
 
         
         comicTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        comicTitleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
         comicTitleLabel.widthAnchor.constraint(equalTo: comicImageView.widthAnchor).isActive = true
     }
     

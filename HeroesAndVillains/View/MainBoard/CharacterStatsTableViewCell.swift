@@ -22,7 +22,7 @@ class CharacterStatsTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    var viewModel: ViewModel!
+    var characterStats: [CharacterStats]!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -58,9 +58,9 @@ class CharacterStatsTableViewCell: UITableViewCell {
     }
     //Paging
     
-    override func layoutSubviews() {
-        viewModel.getCharacterStats(name: viewModel.character.name)
-    }
+//    override func layoutSubviews() {
+//        viewModel.getCharacterStats(name: viewModel.character.name)
+//    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -89,14 +89,14 @@ extension CharacterStatsTableViewCell: UICollectionViewDelegateFlowLayout{
 
 extension CharacterStatsTableViewCell: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.characterStats.count
+        return [characterStats].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = characterStatsCollectionView.dequeueReusableCell(withReuseIdentifier: "CharacterStatsCollectionCell", for: indexPath as IndexPath) as! CharacterStatsCollectionCell
-        if viewModel.characterStats.count > 0{ cell.characterStats = viewModel.characterStats[indexPath.row]
-            cell.configure(thisCharacter: viewModel.characterStats[indexPath.row])
+        if characterStats.count > 0{ cell.characterStats = characterStats[indexPath.row]
+            cell.configure(thisCharacter: characterStats[indexPath.row])
         }
         return cell
     }
