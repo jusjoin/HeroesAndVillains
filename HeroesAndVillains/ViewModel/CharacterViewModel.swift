@@ -80,7 +80,7 @@ class CharacterViewModel{
     @discardableResult
     func deleteCharacterFromFaves(with char: aCharacter) -> Bool{
         // faveCharacters.removeAll { $0 === char         }
-        return coreManager.deleteFavoriteCharacterFromCore(withChar: char)
+        return coreManager.deleteFavoriteCharacterFromCore(with: char)
     }
     
     func isFaved(_ char: aCharacter) -> Bool {

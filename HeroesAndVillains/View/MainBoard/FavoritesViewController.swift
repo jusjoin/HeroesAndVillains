@@ -110,7 +110,7 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showCharacterFaves{
-            return ViewModel.faveCharacters.count
+            return viewModel.faveCharacters.count
         }else{
             return viewModel.faveComics.count
         }
@@ -121,7 +121,7 @@ extension FavoritesViewController: UITableViewDataSource{
         if showCharacterFaves{
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterTableCell", for: indexPath) as! CharacterTableCell
             
-            cell.configure(with: aCharacter(with: ViewModel.faveCharacters[indexPath.row]))
+            cell.configure(with: aCharacter(with: viewModel.faveCharacters[indexPath.row]))
             //cell.fvcDelegate = self
         
             return cell
@@ -154,13 +154,13 @@ extension FavoritesViewController: UITableViewDelegate{
         
         if showCharacterFaves{
             let detailsVC = CharacterDetailsViewController()
-            detailsVC.viewModel = viewModel
-            detailsVC.viewModel.character = aCharacter(with: ViewModel.faveCharacters[indexPath.row])
+            //detailsVC.viewModel = viewModel
+            detailsVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
             
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }else{
             let detailsVC = ComicDetailsViewController()
-            detailsVC.viewModel = viewModel
+            //detailsVC.viewModel = viewModel
             detailsVC.viewModel.comic = Comic(with: viewModel.faveComics[indexPath.row])
             
             self.navigationController?.pushViewController(detailsVC, animated: true)
@@ -189,7 +189,7 @@ extension FavoritesViewController: UITableViewDelegate{
                     let cell = tableView.cellForRow(at: indexPath)!
                     cell.disintegrate { [unowned self] in
                         if self.showCharacterFaves{
-                            let char = ViewModel.faveCharacters[indexPath.row]
+                            let char = self.viewModel.faveCharacters[indexPath.row]
                             self.viewModel.deleteCharacterFromFaves(with: char)
                         }else{
                             let com = self.viewModel.faveComics[indexPath.row]

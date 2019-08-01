@@ -101,7 +101,7 @@ final class CoreManager
         
     }
     
-    func deleteFavoriteCharacterFromCore(withChar char: aCharacter) -> Bool{
+    func deleteFavoriteCharacterFromCore(with char: aCharacter) -> Bool{
         
         let savedCharacters = getCoreFavoriteCharacters()
         

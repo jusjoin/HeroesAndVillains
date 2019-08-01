@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/CoreManager.swift"
-            timestampString = "585062891.535736"
+            timestampString = "586330167.341144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "deleteFavoriteCharacterFromCore(withChar:)"
+            landmarkName = "deleteFavoriteCharacterFromCore(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/CoreManager.swift"
-            timestampString = "585062891.536032"
+            timestampString = "586330167.34144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
             endingLineNumber = "116"
-            landmarkName = "deleteFavoriteCharacterFromCore(withChar:)"
+            landmarkName = "deleteFavoriteCharacterFromCore(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/CoreManager.swift"
-            timestampString = "585062891.536085"
+            timestampString = "586330167.341527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/CoreManager.swift"
-            timestampString = "585062891.536131"
+            timestampString = "586330167.341578"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
             endingLineNumber = "115"
-            landmarkName = "deleteFavoriteCharacterFromCore(withChar:)"
+            landmarkName = "deleteFavoriteCharacterFromCore(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/ViewModel/ViewModel.swift"
-            timestampString = "585690172.327404"
+            timestampString = "586330167.342123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "143"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/ViewModel/ViewModel.swift"
-            timestampString = "585690172.331565"
+            timestampString = "586330167.342195"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "141"
@@ -186,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/MarvelService.swift"
-            timestampString = "582968234.2232111"
+            timestampString = "586330167.342255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/MarvelService.swift"
-            timestampString = "582968234.223388"
+            timestampString = "586330167.342312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "70"
@@ -218,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/MarvelService.swift"
-            timestampString = "582968234.2234761"
+            timestampString = "586330167.342363"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
@@ -266,7 +266,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/ViewModel/ViewModel.swift"
-            timestampString = "585690172.33257"
+            timestampString = "586330167.34245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
@@ -505,11 +505,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/ViewModel/ViewModel.swift"
-            timestampString = "585690172.333167"
+            timestampString = "586330167.3430099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303">
+            startingLineNumber = "276"
+            endingLineNumber = "276">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -551,7 +551,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/CoreManager.swift"
-            timestampString = "585062891.5382839"
+            timestampString = "586330167.34313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "158"
@@ -663,12 +663,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/Service/CoreManager.swift"
-            timestampString = "585062891.538482"
+            timestampString = "586330167.343423"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "deleteFavoriteCharacterFromCore(withChar:)"
+            landmarkName = "deleteFavoriteCharacterFromCore(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -679,7 +679,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/HomeViewController.swift"
-            timestampString = "585687213.442872"
+            timestampString = "586330167.343714"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "24"
@@ -695,11 +695,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterCollectionCell.swift"
-            timestampString = "585690172.333881"
+            timestampString = "586330167.344063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "configure(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -711,11 +711,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/HomeViewController.swift"
-            timestampString = "585687213.443002"
+            timestampString = "586330167.344332"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -727,11 +727,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterCollectionCell.swift"
-            timestampString = "585690172.333974"
+            timestampString = "586330167.344434"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "commonInit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -743,7 +743,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.443113"
+            timestampString = "586330167.344485"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "15"
@@ -836,7 +836,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.4432369"
+            timestampString = "586330167.344548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
@@ -852,7 +852,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.443283"
+            timestampString = "586330167.344607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
@@ -868,7 +868,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.443327"
+            timestampString = "586330167.344664"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -884,7 +884,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.44337"
+            timestampString = "586330167.344721"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -900,7 +900,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.443429"
+            timestampString = "586330167.344779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
@@ -916,7 +916,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.443544"
+            timestampString = "586330167.345003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
@@ -932,7 +932,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.443617"
+            timestampString = "586330167.34507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -948,7 +948,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
-            timestampString = "585687213.443666"
+            timestampString = "586330167.345131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
@@ -964,7 +964,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/VideoCollectionTableViewCell.swift"
-            timestampString = "585173389.934881"
+            timestampString = "586325168.59422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
@@ -980,7 +980,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterDetailsViewController.swift"
-            timestampString = "585690172.334159"
+            timestampString = "586330167.34522"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
@@ -996,11 +996,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterDetailsViewController.swift"
-            timestampString = "585690172.334252"
+            timestampString = "586330167.34588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "setupCharacterImageView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1012,11 +1012,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterDetailsViewController.swift"
-            timestampString = "585690172.334306"
+            timestampString = "586330167.346414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "418"
-            endingLineNumber = "418"
+            startingLineNumber = "424"
+            endingLineNumber = "424"
             landmarkName = "tableView(_:titleForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1028,11 +1028,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicDetailsViewController.swift"
-            timestampString = "585690172.334376"
+            timestampString = "586330167.347689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1044,7 +1044,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterCollectionViewCell.swift"
-            timestampString = "585690172.334433"
+            timestampString = "586329109.988072"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -1060,7 +1060,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterCollectionViewCell.swift"
-            timestampString = "585690172.334505"
+            timestampString = "586329109.988119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -1076,7 +1076,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterCollectionViewCell.swift"
-            timestampString = "585690172.334568"
+            timestampString = "586329109.988219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -1124,11 +1124,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/CharacterCollectionCell.swift"
-            timestampString = "585690172.334747"
+            timestampString = "586330167.349305"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "configure(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1156,7 +1156,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicDetailsViewController.swift"
-            timestampString = "585690172.33481"
+            timestampString = "586330167.349517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "131"
@@ -1204,11 +1204,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicDetailsViewController.swift"
-            timestampString = "585690172.334932"
+            timestampString = "586330167.351285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
             landmarkName = "tableView(_:heightForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1284,28 +1284,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicDetailsViewController.swift"
-            timestampString = "585690172.335266"
+            timestampString = "586330167.3519861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
             landmarkName = "tableView(_:heightForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HeroesAndVillains/View/MainBoard/HomeViewController.swift"
-            timestampString = "585687213.447297"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
-            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1332,12 +1316,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/ComicDetailsViewController.swift"
-            timestampString = "585690172.338549"
+            timestampString = "586330167.352337"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "commonInit()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1348,7 +1332,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/FavoritesViewController.swift"
-            timestampString = "585687213.449218"
+            timestampString = "586330167.352657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "199"
@@ -1364,7 +1348,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeroesAndVillains/View/MainBoard/FavoritesViewController.swift"
-            timestampString = "585687213.449272"
+            timestampString = "586330167.3527139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
@@ -1418,6 +1402,102 @@
             startingLineNumber = "102"
             endingLineNumber = "102"
             landmarkName = "setupCharacterStatsGraph()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HeroesAndVillains/ViewModel/HomeViewModel.swift"
+            timestampString = "586330167.353618"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "getComicsLatest(dateDescriptor:forDate1:forDate2:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HeroesAndVillains/ViewModel/HomeViewModel.swift"
+            timestampString = "586330167.3536969"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "comics"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
+            timestampString = "586330167.353773"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "updateComicCollection()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HeroesAndVillains/View/MainBoard/ComicCollectionTableViewCell.swift"
+            timestampString = "586330167.353842"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "setupComicCollection()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HeroesAndVillains/View/MainBoard/HomeViewController.swift"
+            timestampString = "586330167.353937"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HeroesAndVillains/View/MainBoard/HomeViewController.swift"
+            timestampString = "586330167.3539931"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

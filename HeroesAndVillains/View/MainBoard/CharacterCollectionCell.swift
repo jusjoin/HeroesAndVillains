@@ -38,6 +38,7 @@ class CharacterCollectionCell: UICollectionViewCell {
     
     var thisCharacter: aCharacter!
     static let identifier = "CharacterCollectionCell"
+    var viewModelDelegate: ViewModelCharacterFavoritesDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -112,17 +113,17 @@ class CharacterCollectionCell: UICollectionViewCell {
         setupLabel(name: char.name)
         print(char.name)
         setupFavoritesButton()
-        faved = ViewModel.isFaved(char)
+        faved = viewModelDelegate!.isFaved(char: char) //ViewMoviewModelDelegatedel.isFaved(char)
     }
     
     
     @objc func faveButtonTapped(_ sender: UIButton) {
         print("Fave button tapped")
         if(!faved){
-            faved = ViewModel.saveCharacterToFaves(with: thisCharacter)
+            faved = viewModelDelegate!.saveCharacterToFaves(char: thisCharacter)
         }
         else{
-            faved = !ViewModel.deleteCharacterFromFaves(with: thisCharacter)
+            faved = viewModelDelegate!.deleteCharacterFromFaves(char: thisCharacter)
         }
     }
     

@@ -26,24 +26,48 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
     }()
     
     lazy var comicCollectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        //layout.itemSize = CGSize(width: frame.width, height: frame.height)
+        let collectionView =
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.30), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(ComicCollectionViewCell.self, forCellWithReuseIdentifier: ComicCollectionViewCell.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
     }()
     
-    lazy var mainTableView: UITableView = {
+    lazy var videoCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: VideoCollectionViewCell.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        let tableView = UITableView()
-        tableView.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
-        tableView.register(VideoCollectionTableViewCell.self, forCellReuseIdentifier: "VideoCollectionTableViewCell")
-        tableView.tableFooterView = .init(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tableView
+        return collectionView
     }()
+    
+    
+//    lazy var mainTableView: UITableView = {
+//
+//        let tableView = UITableView()
+//        tableView.backgroundColor = .white
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
+//        tableView.register(VideoCollectionTableViewCell.self, forCellReuseIdentifier: "VideoCollectionTableViewCell")
+//        tableView.tableFooterView = .init(frame: .zero)
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return tableView
+//    }()
     
     let viewModel = HomeViewModel()
     let identifier = Constants.Keys.homeVCIdentifier.rawValue
@@ -68,7 +92,9 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         viewModel.GetFavoriteCharacters()
         setupNavigation()
         setupCharacterCollectionView()
-        setupMainTableView()
+        setupComicCollectionView()
+        setupVideoCollectionView()
+        //setupMainTableView()
         setupObservers()
         setupDates()
         viewModel.getTopCharacters()
@@ -97,23 +123,64 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         
     }
     
-    func setupMainTableView(){
+    func setupComicCollectionView(){
         
-        view.addSubview(mainTableView)
-        
+        view.addSubview(comicCollectionView)
+        comicCollectionView.dataSource = self
+        comicCollectionView.delegate = self
         NSLayoutConstraint.activate([
+            comicCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            comicCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
+            //comicCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            comicCollectionView.topAnchor.constraint(equalTo: characterCollectionView.bottomAnchor),
+            comicCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+
+            //NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsForNotification, object: nil)
+            //setupDates()
             
-            mainTableView.topAnchor.constraint(equalTo: characterCollectionView.bottomAnchor),
-            mainTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            mainTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            mainTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+//            if(comics != nil){
+//                if !comics.isEmpty{
+//                    comics.removeAll()
+//                }
+//            }
+        
     }
+    
+    func setupVideoCollectionView(){
+        
+        view.addSubview(videoCollectionView)
+        videoCollectionView.dataSource = self
+        videoCollectionView.delegate = self
+        NSLayoutConstraint.activate([
+            videoCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            videoCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.30),
+            //comicCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            videoCollectionView.topAnchor.constraint(equalTo: comicCollectionView.bottomAnchor),
+            videoCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            videoCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsNotification, object: nil)
+    }
+//    func setupMainTableView(){
+//
+//        view.addSubview(mainTableView)
+//
+//        NSLayoutConstraint.activate([
+//
+//            mainTableView.topAnchor.constraint(equalTo: characterCollectionView.bottomAnchor),
+//            mainTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            mainTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            mainTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//        ])
+//    }
     
     func setupObservers(){
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.TopCharacterNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.DummyCharactersNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateVideosCollection), name: Notification.Name.VideosNotification, object: nil)
     }
     
     @objc func battleButtonTapped(){
@@ -137,6 +204,18 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    @objc func updateComicCollection(){
+        DispatchQueue.main.async{
+            self.comicCollectionView.reloadData()
+        }
+    }
+    
+    @objc func updateVideosCollection(){
+        DispatchQueue.main.async{
+            self.videoCollectionView.reloadData()
+        }
+    }
+    
     func setupDates(){
         
         let dateFormatter = DateFormatter()
@@ -153,20 +232,52 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width * 0.4
-        let height = collectionView.frame.height * 0.7
-        return .init(width: width, height: height)
+        if collectionView == self.characterCollectionView{
+            let width = collectionView.frame.width * 0.4
+            let height = collectionView.frame.height * 0.7
+            return .init(width: width, height: height)
+        }
+        if collectionView == self.comicCollectionView{
+            let width = collectionView.frame.width * 0.3
+            let height = collectionView.frame.height * 0.9
+            return .init(width: width, height: height)
+        }
+        if collectionView == self.videoCollectionView{
+            let width = collectionView.frame.width * 0.8
+            let height = collectionView.frame.height * 0.9
+            return .init(width: width, height: height)
+        }
+        
+        return CGSize(width: 0, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        collectionView.deselectItem(at: indexPath, animated: true)
-        
-        let detailsVC = CharacterDetailsViewController()
-        //viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
-        detailsVC.viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
-        
-        self.navigationController?.pushViewController(detailsVC, animated: true)
+        if collectionView == characterCollectionView{
+            collectionView.deselectItem(at: indexPath, animated: true)
+            
+            let detailsVC = CharacterDetailsViewController(thisCharacter: aCharacter(with: viewModel.topCharacters[indexPath.row]))
+            //viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
+            //detailsVC.viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
+            
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }
+        if collectionView == comicCollectionView{
+            let detailsVC = ComicDetailsViewController(thisComic: Comic(with: viewModel.comics[indexPath.row]))
+            //detailsVC.viewModel.comic = Comic(with: viewModel.comics[indexPath.row])
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }
+        if collectionView == videoCollectionView{
+            let video = viewModel.featuredVideos[indexPath.row].lowURL
+            let videoURL = URL(string: video!)!
+            let player = AVPlayer(url: videoURL)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            
+            present(playerViewController, animated: true) {
+                player.play()
+            }
+            
+        }
     }
 }
 
@@ -176,6 +287,10 @@ extension HomeViewController: UICollectionViewDataSource{
             return viewModel.topCharacters.count
         }else if collectionView == self.characterCollectionView && viewModel.dummyCharacters.count > 0{
             return viewModel.dummyCharacters.count
+        }else if collectionView == self.comicCollectionView{
+            return viewModel.comics.count
+        }else if collectionView == self.videoCollectionView{
+            return viewModel.featuredVideos.count
         }else{
             return 0
         }
@@ -185,7 +300,7 @@ extension HomeViewController: UICollectionViewDataSource{
         if collectionView == self.characterCollectionView{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionCell.identifier, for: indexPath) as! CharacterCollectionCell
             cell.thisCharacter = aCharacter(with: viewModel.topCharacters[indexPath.row])
-            
+            cell.viewModelDelegate = self
             //TODO: Add setting to enable/disable adding dummy character
             if viewModel.topCharacters.count > 0{
                 let thisCharacter = viewModel.topCharacters[indexPath.row]
@@ -196,6 +311,20 @@ extension HomeViewController: UICollectionViewDataSource{
             }
             
             return cell
+        }
+        else if collectionView == self.comicCollectionView{
+            let cell = comicCollectionView.dequeueReusableCell(withReuseIdentifier: ComicCollectionViewCell.identifier, for: indexPath as IndexPath) as! ComicCollectionViewCell
+            
+            let thisComic = viewModel.comics[indexPath.row]
+            cell.configure(with: Comic(with: thisComic))
+            
+            return cell
+        }else if collectionView == self.videoCollectionView{
+            let cell = videoCollectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.identifier, for: indexPath as IndexPath) as! VideoCollectionViewCell
+
+            let thisVideo = viewModel.featuredVideos[indexPath.row]
+            cell.configure(with: thisVideo)
+            return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionCell.identifier, for: indexPath) as! CharacterCollectionCell
             
@@ -203,68 +332,6 @@ extension HomeViewController: UICollectionViewDataSource{
         }
     }
     
-    
-    
-}
-
-extension HomeViewController: UITableViewDelegate{
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0{
-            return tableView.bounds.height * 0.45
-        }
-        else if indexPath.section == 1{
-            return tableView.bounds.height * 0.45
-        }
-        
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-                
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {return "Latest Comics"}
-        if section == 1 {return "Latest Videos"}
-        
-        return "Section"
-    }
-}
-
-extension HomeViewController: UITableViewDataSource{
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-        
-        cell.comics = viewModel.comics
-        cell.vcIdentifier = identifier
-        cell.delegate = self
-        
-        return cell
-        }
-        
-        if indexPath.section == 1{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCollectionTableViewCell", for: indexPath) as! VideoCollectionTableViewCell
-            cell.videos = viewModel.featuredVideos
-            cell.vcIdentifier = identifier
-            cell.delegate = self
-            
-            return cell
-        }
-        
-        return UITableViewCell(frame: CGRect(origin: .zero, size: .zero))
-    }
     
     
 }
@@ -291,6 +358,25 @@ extension HomeViewController: VideoCollectionTableViewCellDelegate{
             player.play()
         }
         
+    }
+    
+}
+
+extension HomeViewController: ViewModelCharacterFavoritesDelegate{
+    func deleteCharacterFromFaves(char: aCharacter) -> Bool {
+        return viewModel.deleteCharacterFromFaves(char: char)
+    }
+    
+    func saveCharacterToFaves(char: aCharacter) -> Bool{
+        return viewModel.saveCharacterToFaves(char: char)
+    }
+    
+    func deleteCharacterFromFaves(char: aCharacter) {
+        viewModel.deleteCharacterFromFaves(char: char)
+    }
+    
+    func isFaved(char: aCharacter) -> Bool {
+        return viewModel.isFaved(char)
     }
 }
 

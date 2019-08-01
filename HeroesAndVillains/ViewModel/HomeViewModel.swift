@@ -8,6 +8,18 @@
 
 import Foundation
 
+protocol ViewModelCharacterFavoritesDelegate{
+    func isFaved(char :aCharacter) -> Bool
+    func saveCharacterToFaves(char :aCharacter) -> Bool
+    func deleteCharacterFromFaves(char :aCharacter) -> Bool
+}
+
+protocol ViewModelComicFavoritesDelegate{
+    func isFaved(_ :Comic) -> Bool
+    func saveComicToFaves(_ :Comic)
+    func deleteComicFromFaves(_ :Comic)
+}
+
 class HomeViewModel{
     
     var topCharacters = [marvelCharacter](){
@@ -54,11 +66,21 @@ class HomeViewModel{
             NotificationCenter.default.post(name: Notification.Name.FaveCharactersNotification, object: nil)
         }
     }
+
+        func saveCharacterToFaves(char: aCharacter) -> Bool{
     
-    func deleteCharacterFromFaves(with char: CoreFavoriteCharacter) {
-        coreManager.deleteCharacter(withChar: char)
-        self.faveCharacters.removeAll { $0 === char }
-    }
+            return  coreManager.saveFavoriteCharacterToCore(with: char)!
+        }
+        
+    @discardableResult
+        func deleteCharacterFromFaves(char: aCharacter) -> Bool{
+            return coreManager.deleteFavoriteCharacterFromCore(with: char)
+        }
+    
+//    func deleteCharacterFromFaves(with char: CoreFavoriteCharacter) {
+//        coreManager.deleteCharacter(withChar: char)
+//        self.faveCharacters.removeAll { $0 === char }
+//    }
     
     func CheckFavedCharacters(with char: aCharacter) -> Bool{
         
@@ -109,7 +131,7 @@ class HomeViewModel{
         mvlService.getComicsLatest(dateDescriptor: period, forDate1: date1, forDate2: date2){ [unowned self] comics in
             
             self.comics = comics
-            print("Comics Count: \(comics.count)")
+            print("Self.Comics Count: \(self.comics.count)")
         }
     }
     

@@ -108,7 +108,7 @@ class ComicDetailsViewController: UIViewController {
         return tableView
     }()
     
-    var viewModel : ViewModel!
+    var viewModel = ViewModel()
     let identifier = "ComicDetailsViewController"
     
     var faved = false{ // move to viewModel
@@ -136,17 +136,23 @@ class ComicDetailsViewController: UIViewController {
         }
     }
     
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
-//    }
-//    
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//        faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
-//    }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
     
-    override func viewDidLoad() {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        commonInit()
+    }
+    
+    init(thisComic: Comic){
+        viewModel.comic = thisComic
+        super.init(nibName: nil, bundle: Bundle.main)
+        commonInit()
+    }
+    
+    func commonInit() {
         super.viewDidLoad()
 
         SetupContainerView()

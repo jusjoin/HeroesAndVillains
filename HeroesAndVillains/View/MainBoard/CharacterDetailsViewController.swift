@@ -136,6 +136,12 @@ class CharacterDetailsViewController: UIViewController {
         commonInit()
     }
     
+    init(thisCharacter: aCharacter){
+        viewModel.character = thisCharacter
+        super.init(nibName: nil, bundle: Bundle.main)
+        commonInit()
+    }
+    
     func commonInit() {
         
         viewModel.getComicsForCharacter(for: viewModel.character.id, dateDescriptor: viewModel.comicPeriodDateDescriptor, forDate1: viewModel.comicPeriodDate1, forDate2: viewModel.comicPeriodDate2)

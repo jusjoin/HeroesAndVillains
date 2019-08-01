@@ -83,11 +83,11 @@ class ComicCollectionTableViewCell: UITableViewCell {
         NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsForNotification, object: nil)
         //setupDates()
         
-//        if(viewModel != nil){
-        if !comics.isEmpty{
-            comics.removeAll()
+        if(comics != nil){
+            if !comics.isEmpty{
+                comics.removeAll()
+            }
         }
-//        }
 //        if vcIdentifier == Constants.Keys.homeVCIdentifier.rawValue{
 //            viewModel.getComicsLatest(dateDescriptor: comicPeriodDateDescriptor, forDate1: comicPeriodDate1, forDate2: comicPeriodDate2)
 //        }else if vcIdentifier == Constants.Keys.characterDetailsVCIdentifier.rawValue{
