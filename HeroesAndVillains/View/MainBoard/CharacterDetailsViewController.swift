@@ -93,20 +93,35 @@ class CharacterDetailsViewController: UIViewController {
         return button
     }()
     
-    lazy var detailsTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
-        tableView.register(CharacterStatsTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
-        tableView.tableFooterView = .init(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
+    lazy var comicCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        //layout.itemSize = CGSize(width: frame.width, height: frame.height)
+        let collectionView =
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.30), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(ComicCollectionViewCell.self, forCellWithReuseIdentifier: ComicCollectionViewCell.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
     }()
     
-//    var thisCharacter: aCharacter!
-//    var thisCharacterStats: CharacterStats!
+    lazy var characterStatsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
+        let collectionView =
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
+    
     let viewModel = CharacterViewModel()
     let identifier = Constants.Keys.characterDetailsVCIdentifier.rawValue
     
@@ -144,6 +159,8 @@ class CharacterDetailsViewController: UIViewController {
     
     func commonInit() {
         
+        setupDates()
+        setupObservers()
         viewModel.getComicsForCharacter(for: viewModel.character.id, dateDescriptor: viewModel.comicPeriodDateDescriptor, forDate1: viewModel.comicPeriodDate1, forDate2: viewModel.comicPeriodDate2)
         viewModel.getCharacterStats(name: viewModel.character.name)
         setupNavigation()
@@ -157,9 +174,9 @@ class CharacterDetailsViewController: UIViewController {
         setupWikiButton()
         setupComicsButton()
         setupAddToTeamButton()
-        setupDetailsTableView()
-        setupComicCollection()
-        setupCharacterStatsCollection()
+        //setupDetailsTableView()
+        setupComicCollectionView()
+        //setupStatsCollectionView()
         setupCharacterDescriptionLabel()
         
         detailsButton.addTarget(self, action: #selector(detailsButtonTapped(_:)), for: .touchUpInside)
@@ -178,17 +195,15 @@ class CharacterDetailsViewController: UIViewController {
                 viewModel.comicPeriodDate2 = dateFormatter.string(from: today)
                 let thePast = Calendar.current.date(byAdding: .weekOfYear, value: -24, to: Date())!
                 viewModel.comicPeriodDate1 = dateFormatter.string(from: thePast)
-            }
+    }
+    
+    func setupObservers(){
+        NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsForNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterStats), name: Notification.Name.CharacterStatsNotification, object: nil)
+    }
     
     func setupNavigation(){
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationItem.title = Constants.Keys.favoritesTitle.rawValue
-        
-//        let comicBarButton = UIBarButtonItem(title: Constants.Keys.comicsTitle.rawValue, style: .plain, target: self, action: #selector(faveButtonTapped))
-//        let characterBarButton = UIBarButtonItem(title: Constants.Keys.charactersTitle.rawValue, style: .plain, target: self, action: #selector(characterButtonTapped))
-//        self.navigationItem.rightBarButtonItem = comicBarButton
-//        self.navigationItem.leftBarButtonItem = characterBarButton
-        //self.navigationItem.rightBarButtonItems = [UIBarButtonItem](arrayLiteral: rBar1, rBar2)
         
         let buttonIcon = UIImage(named: "favorites")
         
@@ -322,28 +337,43 @@ class CharacterDetailsViewController: UIViewController {
             ])
     }
     
-    func setupDetailsTableView(){
-        view.addSubview(detailsTableView)
+//    func setupDetailsTableView(){
+//        view.addSubview(detailsTableView)
+//
+//        NSLayoutConstraint.activate([
+//            detailsTableView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+//            detailsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            detailsTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            detailsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
+//
+//    }
+
+    func setupComicCollectionView(){
         
+        view.addSubview(comicCollectionView)
+//        comicCollectionView.dataSource = self
+//        comicCollectionView.delegate = self
         NSLayoutConstraint.activate([
-            detailsTableView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
-            detailsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailsTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            detailsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-    }
-
-    func setupComicCollection(){
-
-        detailsTableView.register(ComicCollectionTableViewCell.self, forCellReuseIdentifier: "ComicCollectionTableViewCell")
-        
+            comicCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            comicCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            //comicCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            comicCollectionView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+            comicCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
     }
     
-    func setupCharacterStatsCollection(){
+    func setupStatsCollectionView(){
         
-        detailsTableView.register(CharacterStatsTableViewCell.self, forCellReuseIdentifier: "CharacterStatsTableViewCell")
+        view.addSubview(characterStatsCollectionView)
+        NSLayoutConstraint.activate([
+        characterStatsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        characterStatsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+        characterStatsCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        characterStatsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        self.characterStatsCollectionView.register( CharacterStatsCollectionCell.self, forCellWithReuseIdentifier: "CharacterStatsCollectionCell")
     }
 
     @objc func faveButtonTapped(_ sender: Any) {
@@ -403,74 +433,160 @@ class CharacterDetailsViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
+    @objc func updateComicCollection(){
+        DispatchQueue.main.async{
+            self.comicCollectionView.reloadData()
+        }
+    }
+    
+    @objc func updateCharacterStats(){
+        DispatchQueue.main.async{
+            self.characterStatsCollectionView.reloadData()
+        }
+    }
+    
 }
+
+extension CharacterDetailsViewController: UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        switch collectionView{
+        case self.comicCollectionView:
+            return .init(width: view.frame.width * 0.3, height: view.frame.height * 0.9)
+            
+        case self.characterStatsCollectionView:
+            return .init(width: view.frame.width * 0.3, height: view.frame.height * 0.9)
+            
+        default: return .init(width: 0, height: 0)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        switch collectionView{
+            
+        case self.comicCollectionView:
+            let detailsVC = CharacterDetailsViewController(thisCharacter: viewModel.character)
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+            
+        default:
+            print("Stats selected")
+            
+        }
+    }
+}
+
+extension CharacterDetailsViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch collectionView{
+        case self.comicCollectionView:
+            return viewModel.characterComics.count
+            
+        case self.characterStatsCollectionView:
+            return viewModel.characterStats.count
+        
+        default:
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        switch collectionView{
+        case self.comicCollectionView:
+            let cell = comicCollectionView.dequeueReusableCell(withReuseIdentifier: ComicCollectionViewCell.identifier, for: indexPath as IndexPath) as! ComicCollectionViewCell
+            
+            let thisComic = viewModel.characterComics[indexPath.row]
+            cell.configure(with: Comic(with: thisComic))
+            
+            return cell
+            
+        case self.characterStatsCollectionView:
+            let cell = characterStatsCollectionView.dequeueReusableCell(withReuseIdentifier: "CharacterStatsCollectionCell", for: indexPath as IndexPath) as! CharacterStatsCollectionCell
+            if viewModel.characterStats.count > 0{ cell.characterStats = viewModel.characterStats[indexPath.row]
+                cell.configure(thisCharacter: viewModel.characterStats[indexPath.row])
+            }
+            return cell
+            
+        default:
+            let cell = UICollectionViewCell()
+            return cell
+        }
+    }
+    
+    
+    
+}
+
 
 //MARK: Table view
 
-extension CharacterDetailsViewController: UITableViewDelegate{
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView.bounds.height * 0.6 > 340{
-            return tableView.bounds.height * 0.6
-        }else {return 340}
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section{
-        case 0:
-            return "\(viewModel.character.name) Comics"
-        case 1:
-            return "\(viewModel.character.name) Stats"
-        default:
-            return "Section"
-        }
-    }
-}
+//extension CharacterDetailsViewController: UITableViewDelegate{
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if tableView.bounds.height * 0.6 > 340{
+//            return tableView.bounds.height * 0.6
+//        }else {return 340}
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//
+//    }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section{
+//        case 0:
+//            return "\(viewModel.character.name) Comics"
+//        case 1:
+//            return "\(viewModel.character.name) Stats"
+//        default:
+//            return "Section"
+//        }
+//    }
+//}
+//
+//extension CharacterDetailsViewController: UITableViewDataSource{
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 2
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        switch indexPath.section{
+//        case 0:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
+//            cell.comics = viewModel.characterComics
+//            cell.vcIdentifier = identifier
+//            cell.delegate = self
+//
+//            return cell
+//        case 1:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterStatsTableViewCell", for: indexPath) as! CharacterStatsTableViewCell
+//            cell.characterStats = viewModel.characterStats
+//            return cell
+//        default:
+//            return UITableViewCell()
+//        }
+//    }
+//
+//
+//}
 
-extension CharacterDetailsViewController: UITableViewDataSource{
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch indexPath.section{
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCollectionTableViewCell", for: indexPath) as! ComicCollectionTableViewCell
-            cell.comics = viewModel.characterComics
-            cell.vcIdentifier = identifier
-            cell.delegate = self
-            
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterStatsTableViewCell", for: indexPath) as! CharacterStatsTableViewCell
-            cell.characterStats = viewModel.characterStats
-            return cell
-        default:
-            return UITableViewCell()
-        }
-    }
-    
-    
-}
-
-extension CharacterDetailsViewController: ComicCollectionTableViewCellDelegate{
-    func pushToNavigationController(for comic: Comic) {
-        
-        let detailsVC = ComicDetailsViewController()
-        //detailsVC.viewModel = viewModel
-        detailsVC.viewModel.comic = comic
-        self.navigationController?.pushViewController(detailsVC, animated: true)
-    }
-    
-    
-}
+//extension CharacterDetailsViewController: ComicCollectionTableViewCellDelegate{
+//    func pushToNavigationController(for comic: Comic) {
+//
+//        let detailsVC = ComicDetailsViewController()
+//        //detailsVC.viewModel = viewModel
+//        detailsVC.viewModel.comic = comic
+//        self.navigationController?.pushViewController(detailsVC, animated: true)
+//    }
+//
+//
+//}

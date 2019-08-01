@@ -135,16 +135,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
             comicCollectionView.topAnchor.constraint(equalTo: characterCollectionView.bottomAnchor),
             comicCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
-
-            //NotificationCenter.default.addObserver(self, selector: #selector(updateComicCollection), name: Notification.Name.ComicsForNotification, object: nil)
-            //setupDates()
-            
-//            if(comics != nil){
-//                if !comics.isEmpty{
-//                    comics.removeAll()
-//                }
-//            }
-        
     }
     
     func setupVideoCollectionView(){
@@ -232,41 +222,40 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.characterCollectionView{
+        
+        switch collectionView{
+        case self.characterCollectionView:
             let width = collectionView.frame.width * 0.4
             let height = collectionView.frame.height * 0.7
             return .init(width: width, height: height)
-        }
-        if collectionView == self.comicCollectionView{
+            
+        case self.comicCollectionView:
             let width = collectionView.frame.width * 0.3
             let height = collectionView.frame.height * 0.9
             return .init(width: width, height: height)
-        }
-        if collectionView == self.videoCollectionView{
+            
+        case self.videoCollectionView:
             let width = collectionView.frame.width * 0.8
             let height = collectionView.frame.height * 0.9
             return .init(width: width, height: height)
+            
+        default:
+            return CGSize(width: 0, height: 0)
         }
-        
-        return CGSize(width: 0, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == characterCollectionView{
-            collectionView.deselectItem(at: indexPath, animated: true)
-            
+        
+        switch collectionView{
+        case self.characterCollectionView:
             let detailsVC = CharacterDetailsViewController(thisCharacter: aCharacter(with: viewModel.topCharacters[indexPath.row]))
-            //viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
-            //detailsVC.viewModel.character = aCharacter(with: viewModel.topCharacters[indexPath.row])
+            self.navigationController?.pushViewController(detailsVC, animated: true)
             
-            self.navigationController?.pushViewController(detailsVC, animated: true)
-        }
-        if collectionView == comicCollectionView{
+        case self.comicCollectionView:
             let detailsVC = ComicDetailsViewController(thisComic: Comic(with: viewModel.comics[indexPath.row]))
-            //detailsVC.viewModel.comic = Comic(with: viewModel.comics[indexPath.row])
             self.navigationController?.pushViewController(detailsVC, animated: true)
-        }
-        if collectionView == videoCollectionView{
+            
+        case self.videoCollectionView:
             let video = viewModel.featuredVideos[indexPath.row].lowURL
             let videoURL = URL(string: video!)!
             let player = AVPlayer(url: videoURL)
@@ -277,27 +266,39 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
                 player.play()
             }
             
+        default:
+            print("")
         }
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.characterCollectionView && viewModel.topCharacters.count > 0{
-            return viewModel.topCharacters.count
-        }else if collectionView == self.characterCollectionView && viewModel.dummyCharacters.count > 0{
-            return viewModel.dummyCharacters.count
-        }else if collectionView == self.comicCollectionView{
+        
+        switch collectionView{
+        case self.characterCollectionView:
+            if viewModel.topCharacters.count > 0{
+                return viewModel.topCharacters.count
+            }else if viewModel.dummyCharacters.count > 0{
+                return viewModel.dummyCharacters.count
+            }
+            
+        case self.comicCollectionView:
             return viewModel.comics.count
-        }else if collectionView == self.videoCollectionView{
+            
+        case self.videoCollectionView:
             return viewModel.featuredVideos.count
-        }else{
+            
+        default:
             return 0
         }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.characterCollectionView{
+        
+        switch collectionView{
+        case self.characterCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionCell.identifier, for: indexPath) as! CharacterCollectionCell
             cell.thisCharacter = aCharacter(with: viewModel.topCharacters[indexPath.row])
             cell.viewModelDelegate = self
@@ -311,24 +312,27 @@ extension HomeViewController: UICollectionViewDataSource{
             }
             
             return cell
-        }
-        else if collectionView == self.comicCollectionView{
+            
+        case self.comicCollectionView:
             let cell = comicCollectionView.dequeueReusableCell(withReuseIdentifier: ComicCollectionViewCell.identifier, for: indexPath as IndexPath) as! ComicCollectionViewCell
             
             let thisComic = viewModel.comics[indexPath.row]
             cell.configure(with: Comic(with: thisComic))
             
             return cell
-        }else if collectionView == self.videoCollectionView{
+        
+        case self.videoCollectionView:
             let cell = videoCollectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.identifier, for: indexPath as IndexPath) as! VideoCollectionViewCell
-
+            
             let thisVideo = viewModel.featuredVideos[indexPath.row]
             cell.configure(with: thisVideo)
             return cell
-        }else{
+            
+        default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionCell.identifier, for: indexPath) as! CharacterCollectionCell
             
             return cell
+            
         }
     }
     

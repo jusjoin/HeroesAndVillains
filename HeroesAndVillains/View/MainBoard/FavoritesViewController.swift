@@ -153,16 +153,10 @@ extension FavoritesViewController: UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         
         if showCharacterFaves{
-            let detailsVC = CharacterDetailsViewController()
-            //detailsVC.viewModel = viewModel
-            detailsVC.viewModel.character = aCharacter(with: viewModel.faveCharacters[indexPath.row])
-            
+            let detailsVC = CharacterDetailsViewController(thisCharacter: aCharacter(with: viewModel.faveCharacters[indexPath.row]))
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }else{
-            let detailsVC = ComicDetailsViewController()
-            //detailsVC.viewModel = viewModel
-            detailsVC.viewModel.comic = Comic(with: viewModel.faveComics[indexPath.row])
-            
+            let detailsVC = ComicDetailsViewController(thisComic: Comic(with: viewModel.faveComics[indexPath.row]))
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }
     }

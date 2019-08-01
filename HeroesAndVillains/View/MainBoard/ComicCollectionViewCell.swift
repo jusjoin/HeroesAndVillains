@@ -79,7 +79,7 @@ class ComicCollectionViewCell: UICollectionViewCell {
                 
                 let image = UIImage(data: data)
                 self.comicImageView.image = image
-                //BUG random crahses happen here if scrolling too quickly due to images being deallocated while scrolling
+                //BUG random crashes happen here if scrolling too quickly due to images being deallocated while scrolling
             }
         }
         }

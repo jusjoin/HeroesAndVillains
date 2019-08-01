@@ -97,18 +97,21 @@ class ComicDetailsViewController: UIViewController {
         return button
     }()
     
-    lazy var detailsTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(CharacterCollectionTableViewCell.self, forCellReuseIdentifier: "CharacterCollectionTableViewCell")
-        tableView.tableFooterView = .init(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
+    lazy var characterCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
+        let collectionView =
+            UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(CharacterCollectionViewCell.self, forCellWithReuseIdentifier: "CharacterCollectionViewCell")
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
-    var viewModel = ViewModel()
+    var viewModel = ComicViewModel()
     let identifier = "ComicDetailsViewController"
     
     var faved = false{ // move to viewModel
@@ -155,25 +158,43 @@ class ComicDetailsViewController: UIViewController {
     func commonInit() {
         super.viewDidLoad()
 
-        SetupContainerView()
-        SetupDescriptionScrollView()
-        SetupComicImageView()
-        SetupComicDescriptionLabel()
-        SetupFaveButton()
-        SetupComicNameLabel()
-        SetupComicPriceLabel()
-        SetupDetailsButton()
-        SetupPurchaseButton()
-        SetupComicCreatorsLabel()
-        SetupDetailsTableView()
-        SetupCharacterCollection()
+        viewModel.getCharactersForComic(for: viewModel.comic.id)
+        setupNavigation()
+        setupObservers()
+        setupContainerView()
+        setupDescriptionScrollView()
+        setupComicImageView()
+        setupComicDescriptionLabel()
+        setupFaveButton()
+        setupComicNameLabel()
+        setupComicPriceLabel()
+        setupDetailsButton()
+        setupPurchaseButton()
+        setupComicCreatorsLabel()
+        //setupDetailsTableView()
+        setupCharacterCollection()
         
         comicDetailsButton.addTarget(self, action: #selector(detailsButtonTapped(_:)), for: .touchUpInside)
         comicPurchaseButton.addTarget(self, action: #selector(purchaseButtonTapped(_:)), for: .touchUpInside)
         faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
     }
     
-    func SetupContainerView(){
+    func setupObservers(){
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCharacterCollection), name: Notification.Name.CharactersForNotification, object: nil)
+    }
+    
+    func setupNavigation(){
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        let buttonIcon = UIImage(named: "favorites")
+        
+        let rightBarButton = UIBarButtonItem(title: "Favorite", style: UIBarButtonItem.Style.done, target: self, action: #selector(faveButtonTapped))
+        rightBarButton.image = buttonIcon
+        
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    func setupContainerView(){
         
         view.addSubview(containerView)
         
@@ -187,7 +208,7 @@ class ComicDetailsViewController: UIViewController {
         
     }
     
-    func SetupComicImageView(){
+    func setupComicImageView(){
         
         containerView.addSubview(comicImageView)
         NSLayoutConstraint.activate([
@@ -214,7 +235,7 @@ class ComicDetailsViewController: UIViewController {
         
     }
     
-    func SetupFaveButton(){
+    func setupFaveButton(){
         
         comicImageView.addSubview(faveButton)
         faveButton.addTarget(self, action: #selector(faveButtonTapped(_:)), for: .touchUpInside)
@@ -224,7 +245,7 @@ class ComicDetailsViewController: UIViewController {
         faveButton.heightAnchor.constraint(equalTo: comicImageView.heightAnchor, multiplier: 0.3).isActive = true
     }
     
-    func SetupComicNameLabel(){
+    func setupComicNameLabel(){
         containerView.addSubview(comicNameLabel)
         comicNameLabel.text = viewModel.comic.title
         
@@ -235,7 +256,7 @@ class ComicDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupDescriptionScrollView(){
+    func setupDescriptionScrollView(){
         
         containerView.addSubview(descScrollView)
         NSLayoutConstraint.activate([
@@ -245,7 +266,7 @@ class ComicDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupComicDescriptionLabel(){
+    func setupComicDescriptionLabel(){
         
         comicDescriptionLabel.text = viewModel.comic.description.stripHTML()
         descScrollView.addSubview(comicDescriptionLabel)
@@ -259,7 +280,7 @@ class ComicDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupComicPriceLabel(){
+    func setupComicPriceLabel(){
         containerView.addSubview(comicPriceLabel)
         comicPriceLabel.text = "Price: " + String(viewModel.comic.price)
         
@@ -270,7 +291,7 @@ class ComicDetailsViewController: UIViewController {
         
     }
     
-    func SetupDetailsButton(){
+    func setupDetailsButton(){
         containerView.addSubview(comicDetailsButton)
 
         NSLayoutConstraint.activate([
@@ -280,7 +301,7 @@ class ComicDetailsViewController: UIViewController {
         
     }
     
-    func SetupPurchaseButton(){
+    func setupPurchaseButton(){
         
         containerView.addSubview(comicPurchaseButton)
         
@@ -290,7 +311,7 @@ class ComicDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupComicCreatorsLabel(){
+    func setupComicCreatorsLabel(){
         containerView.addSubview(comicCreatorsLabel)
         comicCreatorsLabel.text = "Creators: " + viewModel.comic.creators
         NSLayoutConstraint.activate([
@@ -301,21 +322,15 @@ class ComicDetailsViewController: UIViewController {
             ])
     }
     
-    func SetupDetailsTableView(){
-        
-        view.addSubview(detailsTableView)
-        NSLayoutConstraint.activate([
-            detailsTableView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
-            detailsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailsTableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            detailsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            detailsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-    }
-    
-    func SetupCharacterCollection(){
+    func setupCharacterCollection(){
 
-        detailsTableView.register(CharacterCollectionTableViewCell.self, forCellReuseIdentifier: "CharacterCollectionTableViewCell")
+        view.addSubview(characterCollectionView)
+        NSLayoutConstraint.activate([
+            characterCollectionView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+            characterCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            characterCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            characterCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
 
     }
 
@@ -338,44 +353,38 @@ class ComicDetailsViewController: UIViewController {
             }
         }
     }
+    
+    @objc func updateCharacterCollection(){
+        DispatchQueue.main.async{
+            self.characterCollectionView.reloadData()
+        }
+    }
 }
 
-//MARK: Table view
-
-extension ComicDetailsViewController: UITableViewDelegate{
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        let size = tableView.bounds.height
+extension ComicDetailsViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = CGSize.init(width: view.frame.width * 0.5, height: view.frame.height)
         print(size)
         return size
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {return "\(viewModel.comic.title) Characters"}
-        
-        return "Section"
-    }
+        let detailsVC = CharacterDetailsViewController(thisCharacter: aCharacter(with: viewModel.comicCharacters[indexPath.row]))
+        self.navigationController?.pushViewController(detailsVC, animated: true)    }
 }
 
-extension ComicDetailsViewController: UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+extension ComicDetailsViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.comicCharacters.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = characterCollectionView.dequeueReusableCell(withReuseIdentifier: "CharacterCollectionViewCell", for: indexPath as IndexPath) as! CharacterCollectionViewCell
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCollectionTableViewCell", for: indexPath) as! CharacterCollectionTableViewCell
-        cell.viewModel = self.viewModel
-        cell.vcIdentifier = identifier
-        cell.delegate = self
-        cell.setupCharacterCollection()
-        
+        let thisCharacter = viewModel.comicCharacters[indexPath.row]
+        cell.configure(with: aCharacter(with: thisCharacter))
         return cell
     }
     
@@ -385,9 +394,7 @@ extension ComicDetailsViewController: UITableViewDataSource{
 extension ComicDetailsViewController: CharacterCollectionTableViewCellDelegate{
     func pushToNavigationController(for character: aCharacter) {
         
-        let detailsVC = CharacterDetailsViewController()
-        viewModel.character = character
-        //detailsVC.viewModel = viewModel
+        let detailsVC = CharacterDetailsViewController(thisCharacter: character)
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

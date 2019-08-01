@@ -90,15 +90,13 @@ extension SearchViewController: UITableViewDelegate{
         
         switch searchController.searchBar.selectedScopeButtonIndex{
         case 0:
-            let detailsVC = CharacterDetailsViewController()
-//            detailsVC.viewModel = viewModel
-            detailsVC.viewModel.character = aCharacter(with: viewModel.characters[indexPath.row])
+            let detailsVC = CharacterDetailsViewController(thisCharacter: aCharacter(with: viewModel.characters[indexPath.row]))
             self.navigationController?.pushViewController(detailsVC, animated: true)
+            
         case 1:
-            let detailsVC = ComicDetailsViewController()
-            //detailsVC.viewModel = viewModel
-            detailsVC.viewModel.comic = Comic(with: viewModel.cvComics[indexPath.row])
+            let detailsVC = ComicDetailsViewController(thisComic: Comic(with: viewModel.cvComics[indexPath.row]))
             self.navigationController?.pushViewController(detailsVC, animated: true)
+            
         default:
             let detailsVC = UIViewController()
             self.navigationController?.pushViewController(detailsVC, animated: true)
