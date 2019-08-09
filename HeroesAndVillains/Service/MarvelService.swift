@@ -17,11 +17,11 @@ final class MarvelService{
     static let shared = MarvelService()
     //private init() {}
     
-    lazy var session: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 30
-        return URLSession(configuration: config)
-    }()
+//    lazy var session: URLSession = {
+//        let config = URLSessionConfiguration.default
+//        config.timeoutIntervalForRequest = 30
+//        return URLSession(configuration: config)
+//    }()
     
     
     
@@ -30,62 +30,22 @@ final class MarvelService{
         
         let urlString = MarvelAPI.getCharactersURL()
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getMarvelCharacterData(urlString: urlString, completion: {[] characters in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(CharacterResults.self, from: data)
-                    
-                    let marvelCharacters = response.data.results
-                    
-                    completion(marvelCharacters)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }
-            
-            }.resume()
+            completion(characters)
+        })
     }
     
     func getCharacterByFullName(fullName: String, completion: @escaping CharacterHandler){
         
         let urlString = MarvelAPI.getCharacterByFullNameURL(fullName)
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getMarvelCharacterData(urlString: urlString, completion: {[] characters in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(CharacterResults.self, from: data)
-                    
-                    let marvelCharacter = response.data.results
-                    
-                    completion(marvelCharacter)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }/*else{
-                ViewModel.addDummyCharacter()
-            }*/
-            
-            }.resume()
+            completion(characters)
+        })
     }
     
     func getCharacterByNameStartsWith(fullName: String, completion: @escaping CharacterHandler){
@@ -98,60 +58,22 @@ final class MarvelService{
         }
         let urlString = MarvelAPI.getCharacterByNameStartsWithURL(name)
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getMarvelCharacterData(urlString: urlString, completion: {[] characters in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(CharacterResults.self, from: data)
-                    
-                    let marvelCharacter = response.data.results
-                    
-                    completion(marvelCharacter)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }
-            
-            }.resume()
+            completion(characters)
+        })
     }
     
     func getCharactersForComic(for comicID: Int, completion: @escaping CharacterHandler){
         
         let urlString = MarvelAPI.getCharactersForComicURL(for: comicID)
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getMarvelCharacterData(urlString: urlString, completion: {[] characters in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(CharacterResults.self, from: data)
-                    
-                    let marvelCharacter = response.data.results
-                    
-                    completion(marvelCharacter)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }
-            
-            }.resume()
+            completion(characters)
+        })
     }
     
     //MARK: Comics
@@ -160,89 +82,32 @@ final class MarvelService{
         
         let urlString = MarvelAPI.getComicsURL()
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-    
-    session.dataTask(with: finalURL) { (dat, _, _) in
-    
-        if let data = dat {
+        let apiCaller = WebAPICaller()
+        apiCaller.getMarvelComicData(urlString: urlString, completion: {[] comics in
             
-            do {
-                let response = try JSONDecoder().decode(ComicResults.self, from: data)
-                
-                let marvelComics = response.data.results
-                
-                completion(marvelComics)
-                
-            } catch let err {
-                completion([])
-                print("Decoding Error: \(err.localizedDescription)")
-            }
-            
-        }
-        
-        }.resume()
+            completion(comics)
+        })
     }
     
     func getComicsForCharacter(for charID: Int, dateDescriptor period: String?, forDate1 date1: String?, forDate2 date2: String?, completion: @escaping ComicHandler){
         
         let urlString = MarvelAPI.getComicsForCharacterURL(for: charID, dateDescriptor: period, fordate1: date1, fordate2: date2)
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getMarvelComicData(urlString: urlString, completion: {[] comics in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(ComicResults.self, from: data)
-                    
-                    let marvelComics = response.data.results
-                    
-                    completion(marvelComics)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }
-            
-            }.resume()
+            completion(comics)
+        })
     }
     
     func getComicsLatest(dateDescriptor period: String, forDate1 date1: String?, forDate2 date2: String?, completion: @escaping ComicHandler){
         
         let urlString = MarvelAPI.getComicsLatestURL(dateDescriptor: period, fordate1: date1, fordate2: date2)
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getMarvelComicData(urlString: urlString, completion: {[] comics in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(ComicResults.self, from: data)
-                    
-                    let marvelComics = response.data.results
-                    
-                    completion(marvelComics)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }
-            
-            }.resume()
+            completion(comics)
+        })
     }
 }

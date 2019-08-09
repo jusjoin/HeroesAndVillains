@@ -28,30 +28,11 @@ final class ComicVineService{
         
         let urlString = ComicVineAPI.getComicsWithNameURL(name: name)
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getCVComicData(urlString: urlString, completion: {[] comics in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(ComicVineComicResults.self, from: data)
-                    
-                    let comics = response.results
-                    
-                    completion(comics)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }
-            
-            }.resume()
+            completion(comics)
+        })
     }
     
     //MARK: Videos
@@ -59,29 +40,10 @@ final class ComicVineService{
         
         let urlString = ComicVineAPI.getVideosURL()
         
-        guard let finalURL = URL(string: urlString) else {
-            completion([])
-            return
-        }
-        
-        session.dataTask(with: finalURL) { (dat, _, _) in
+        let apiCaller = WebAPICaller()
+        apiCaller.getCVVideoData(urlString: urlString, completion: {[] videos in
             
-            if let data = dat {
-                
-                do {
-                    let response = try JSONDecoder().decode(ComicVineVideoResults.self, from: data)
-                    
-                    let videos = response.results
-                    
-                    completion(videos)
-                    
-                } catch let err {
-                    completion([])
-                    print("Decoding Error: \(err.localizedDescription)")
-                }
-                
-            }
-            
-            }.resume()
+            completion(videos)
+        })
     }
 }

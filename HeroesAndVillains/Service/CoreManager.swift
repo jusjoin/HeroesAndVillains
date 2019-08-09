@@ -257,5 +257,17 @@ final class CoreManager
         return true
         
     }
+    
+    func flushFavoriteCharactersData() {
+        
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "CoreFavoriteCharacter")
+        let objs = try! CoreManager.sharedInstance.persistentContainer.viewContext.fetch(fetchRequest)
+        for case let obj as NSManagedObject in objs {
+            CoreManager.sharedInstance.persistentContainer.viewContext.delete(obj)
+        }
+        
+        try! CoreManager.sharedInstance.persistentContainer.viewContext.save()
+    }
+
 }
 

@@ -391,11 +391,11 @@ extension ComicDetailsViewController: UICollectionViewDataSource{
     
 }
 
-extension ComicDetailsViewController: CharacterCollectionTableViewCellDelegate{
-    func pushToNavigationController(for character: aCharacter) {
-        
-        let detailsVC = CharacterDetailsViewController(thisCharacter: character)
-        self.navigationController?.pushViewController(detailsVC, animated: true)
-    }
-    
-}
+//extension ComicDetailsViewController: CharacterCollectionTableViewCellDelegate{
+//    func pushToNavigationController(for character: aCharacter) {
+//        
+//        let detailsVC = CharacterDetailsViewController(thisCharacter: character)
+//        self.navigationController?.pushViewController(detailsVC, animated: true)
+//    }
+//    
+//}

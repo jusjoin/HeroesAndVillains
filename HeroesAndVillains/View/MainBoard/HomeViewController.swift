@@ -336,35 +336,33 @@ extension HomeViewController: UICollectionViewDataSource{
         }
     }
     
-    
-    
 }
 
-extension HomeViewController: ComicCollectionTableViewCellDelegate{
-    func pushToNavigationController(for comic: Comic) {
-        
-        let detailsVC = ComicDetailsViewController()
-//        viewModel.comic = comic
-//        detailsVC.viewModel = viewModel
-        self.navigationController?.pushViewController(detailsVC, animated: true)
-    }
-    
-    
-}
+//extension HomeViewController: ComicCollectionTableViewCellDelegate{
+//    func pushToNavigationController(for comic: Comic) {
+//
+//        let detailsVC = ComicDetailsViewController()
+////        viewModel.comic = comic
+////        detailsVC.viewModel = viewModel
+//        self.navigationController?.pushViewController(detailsVC, animated: true)
+//    }
+//
+//
+//}
 
-extension HomeViewController: VideoCollectionTableViewCellDelegate{
-    func presentPlayer(for player: AVPlayer) {
-        
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        
-        present(playerViewController, animated: true) {
-            player.play()
-        }
-        
-    }
-    
-}
+//extension HomeViewController: VideoCollectionTableViewCellDelegate{
+//    func presentPlayer(for player: AVPlayer) {
+//        
+//        let playerViewController = AVPlayerViewController()
+//        playerViewController.player = player
+//        
+//        present(playerViewController, animated: true) {
+//            player.play()
+//        }
+//        
+//    }
+//    
+//}
 
 extension HomeViewController: ViewModelCharacterFavoritesDelegate{
     func deleteCharacterFromFaves(char: aCharacter) -> Bool {

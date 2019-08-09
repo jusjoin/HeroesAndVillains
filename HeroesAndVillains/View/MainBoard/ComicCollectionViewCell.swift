@@ -73,13 +73,13 @@ class ComicCollectionViewCell: UICollectionViewCell {
         let url = comic.image
 
         
-        dlManager.download(url) { [unowned self] dat in
+        dlManager.download(url) { [weak self] dat in
             
             if let data = dat {
                 
                 let image = UIImage(data: data)
-                self.comicImageView.image = image
-                //BUG random crashes happen here if scrolling too quickly due to images being deallocated while scrolling
+                self!.comicImageView.image = image
+                //BUG random crashes happen here if scrolling too quickly due to images being deallocated while scrolling; also occurs when navigation controller goes x levels away from home and back. Seems to be fixed with weak reference; Nope.
             }
         }
         }

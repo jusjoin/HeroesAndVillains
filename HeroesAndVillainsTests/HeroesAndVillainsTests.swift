@@ -6,7 +6,7 @@
 //  Copyright © 2019 Z. All rights reserved.
 //
 
-import XCTest
+/*import XCTest
 @testable import HeroesAndVillains
 
 class HeroesAndVillainsTests: XCTestCase {
@@ -31,4 +31,4 @@ class HeroesAndVillainsTests: XCTestCase {
         }
     }
 
-}
+}*/

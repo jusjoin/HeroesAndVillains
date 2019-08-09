@@ -468,7 +468,7 @@ extension CharacterDetailsViewController: UICollectionViewDelegateFlowLayout{
         switch collectionView{
             
         case self.comicCollectionView:
-            let detailsVC = CharacterDetailsViewController(thisCharacter: viewModel.character)
+            let detailsVC = ComicDetailsViewController(thisComic: Comic(with: viewModel.characterComics[indexPath.row]))
             self.navigationController?.pushViewController(detailsVC, animated: true)
             
         default:
